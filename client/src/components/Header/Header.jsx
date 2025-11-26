@@ -54,8 +54,9 @@ export default function Header() {
       <nav className={styles["header-nav"]}>
         <form className="header-nav-form">
           <input
-            className={styles["header-nav-form-input"]}
-            style={{ display: showSearch ? "inline-block" : "none" }}
+            className={`${styles["header-nav-form-input"]} ${
+              showSearch && styles.show
+            }`}
             type="text"
           />
           <button
