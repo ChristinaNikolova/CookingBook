@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
+const { important, messages, errors } = require("../utils/constants/global");
 
 module.exports = async (app) => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/cookingbook");
-    console.log("Database connected");
+    await mongoose.connect(important.CONNECTION_STRING);
+    console.log(messages.DATABASE_CONNECTED);
 
     mongoose.connection.on("error", (err) => {
-      console.log("Error");
+      console.log(errors.DATABASE);
       console.log(err);
     });
   } catch (err) {
-    // todo add constants
-    console.error("Error connecting to database");
+    console.error(errors.DATABASE_CONNECTION);
     process.exit(1);
   }
 };
