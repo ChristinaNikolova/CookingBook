@@ -34,6 +34,11 @@ const recipeSchema = new Schema(
       ref: "Image",
       required: true,
     },
+    category: {
+      type: ObjectId,
+      ref: "Category",
+      required: true,
+    },
     instructions: {
       type: [ObjectId],
       ref: "Instruction",
