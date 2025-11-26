@@ -1,0 +1,14 @@
+@import "./reset.css";
+@import "./constants.css";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap");
+
+html {
+  max-width: 1920px;
+  margin: 0 auto !important;
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  color: var(--clr-dark-grey);
+  line-height: 1.5;
+  text-transform: capitalize;
+  background-color: var(--clr-cream-bg);
+}

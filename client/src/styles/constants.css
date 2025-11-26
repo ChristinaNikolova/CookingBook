@@ -1,0 +1,17 @@
+/* Constants */
+
+:root {
+  --clr-white: #fff;
+  --clr-cream-bg: #fbf6f3;
+  --clr-cream-bl: #f2edea;
+  --clr-baby-girl: #f4c1c4;
+  --clr-baby-boy: #84b3d3;
+  --clr-light-brown: #946149;
+  --clr-brown: #9b502e;
+  --clr-grey: #ecedea;
+  --clr-dark-grey: #3d3c3c;
+  --clr-black: #000;
+
+  --font-family-base: "Roboto", sans-serif;
+  --font-family-fancy: "Satisfy", cursive;
+}
