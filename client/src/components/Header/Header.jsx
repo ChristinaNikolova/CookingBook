@@ -63,7 +63,7 @@ export default function Header() {
             className={styles["header-nav-form-btn"]}
             type="button"
           >
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </button>
         </form>
       </nav>

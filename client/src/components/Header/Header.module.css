@@ -17,12 +17,14 @@
   gap: 30px;
   font-weight: 500;
   font-size: 14px;
+  letter-spacing: 0.5px;
 }
 
 .header-selected-link {
   color: var(--clr-yellow);
   font-weight: 900;
   text-decoration: underline;
+  transition: all 200ms ease-in-out;
 }
 
 .header-li-logo {
