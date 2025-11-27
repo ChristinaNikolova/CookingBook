@@ -1,0 +1,15 @@
+.btn {
+  padding: 14px 30px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: var(--clr-black);
+  background-color: var(--clr-white);
+  border: 1px solid var(--clr-yellow);
+  transition: all 600ms ease-in-out;
+}
+
+.btn:hover {
+  cursor: pointer;
+  color: var(--clr-white);
+  background-color: var(--clr-yellow);
+}

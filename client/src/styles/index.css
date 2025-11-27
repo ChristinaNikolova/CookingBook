@@ -1,5 +1,6 @@
 @import "./reset.css";
 @import "./constants.css";
+@import "./buttons.css";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap");
 
 html {
@@ -25,20 +26,4 @@ h6 {
 .section {
   position: relative;
   z-index: 200;
-}
-
-.btn {
-  padding: 14px 30px;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  color: var(--clr-black);
-  background-color: var(--clr-white);
-  border: 1px solid var(--clr-yellow);
-  transition: all 600ms ease-in-out;
-}
-
-.btn:hover {
-  cursor: pointer;
-  color: var(--clr-white);
-  background-color: var(--clr-yellow);
 }
