@@ -12,26 +12,6 @@ function mapErrors(err) {
   }
 }
 
-// todo do I need this?
-// function formatCreatedAt(createdAt) {
-//   return (
-//     monthNames[createdAt.getMonth() + 1] +
-//     " " +
-//     createdAt.getDate() +
-//     ", " +
-//     createdAt.getFullYear()
-//   );
-// }
-
-// todo do I need this?
-// function parseDate(date) {
-//   const parts = date.split(".").map((p) => p.trim());
-//   const year = parts[2];
-//   const month = Number(parts[1]) - 1;
-//   const day = Number(parts[0]) + 1;
-//   return new Date(year, month, day);
-// }
-
 module.exports = {
   mapErrors,
 };
