@@ -5,6 +5,8 @@ require("../models/Image");
 require("../models/Ingredient");
 require("../models/Instruction");
 require("../models/Recipe");
+require("../models/TokenBlacklist");
+require("../models/User");
 
 module.exports = async (app) => {
   try {
