@@ -1,0 +1,19 @@
+#not-found {
+  height: 76vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-title {
+  font-family: var(--font-family-fancy);
+  font-size: 150px;
+  color: var(--clr-yellow);
+}
+
+.not-found-content {
+  margin-bottom: 50px;
+  font-size: 30px;
+  text-transform: uppercase;
+}
