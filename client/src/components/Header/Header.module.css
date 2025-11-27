@@ -38,7 +38,7 @@
   letter-spacing: 0.5px;
 }
 
-.header-ul a {
+.header-ul.white a {
   color: var(--clr-white);
 }
 
@@ -58,7 +58,7 @@
   text-shadow: 1px 1px 2px var(--clr-grey);
 }
 
-.header-li-logo a {
+.header-li-logo.white a {
   color: var(--clr-white);
 }
 
@@ -92,6 +92,10 @@
   border: none;
   background-color: transparent;
   margin-right: 15px;
+}
+
+.header-nav-form-btn.white i {
+  color: var(--clr-white);
 }
 
 .header-nav-form-btn:hover {

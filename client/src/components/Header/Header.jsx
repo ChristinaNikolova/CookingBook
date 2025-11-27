@@ -5,22 +5,30 @@ import styles from "./Header.module.css";
 export default function Header({ isHome }) {
   const [showSearch, setShowSearch] = useState(false);
 
-  const isActiveLink = ({ isActive }) => {
-    return isActive ? styles["header-selected-link"] : "";
-  };
-
   const toogleSearch = () => {
     setShowSearch((prev) => !prev);
+  };
+
+  const isActiveLink = ({ isActive }) => {
+    return isActive ? styles["header-selected-link"] : "";
   };
 
   const getImageStyle = () => {
     return `${styles["header-img"]} ${isHome ? styles["header-home-img"] : ""}`;
   };
 
+  const getLinkColor = () => {
+    return `${styles["header-ul"]} ${!isHome ? styles.white : ""}`;
+  };
+
+  const getButtonColor = () => {
+    return `${styles["header-nav-form-btn"]} ${!isHome ? styles.white : ""}`;
+  };
+
   return (
     <header id={styles.header} className="section">
       <div className={getImageStyle()} />
-      <nav className={styles["header-nav"]}>
+      <nav className={getLinkColor()}>
         <ul className={styles["header-ul"]}>
           <li className={`header-ul-li ${styles["header-li-logo"]}`}>
             <Link to="/">CookingBook</Link>
@@ -28,7 +36,7 @@ export default function Header({ isHome }) {
         </ul>
       </nav>
       <nav className={styles["header-nav"]}>
-        <ul className={styles["header-ul"]}>
+        <ul className={getLinkColor()}>
           <li className="header-ul-li">
             <NavLink to="/" className={isActiveLink}>
               Начало
@@ -66,7 +74,7 @@ export default function Header({ isHome }) {
           />
           <button
             onClick={toogleSearch}
-            className={styles["header-nav-form-btn"]}
+            className={getButtonColor()}
             type="button"
           >
             <i className="fa-solid fa-magnifying-glass"></i>
