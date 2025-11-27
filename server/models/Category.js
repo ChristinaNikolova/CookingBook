@@ -1,16 +1,24 @@
 const { Schema, model } = require("mongoose");
+const { category } = require("../utils/constants/model");
+const { errors } = require("../utils/constants/global");
 
 const categorySchema = new Schema({
   name: {
     type: String,
-    required: [true, "Name is requred"],
-    minLength: [3, "Name should be at least 3 characters long"],
-    maxLength: [30, "Name should be maximal 30 characters long"],
+    required: [true, errors.REQUIRED_INPUT],
+    minLength: [
+      category.NAME_MIN_LEN,
+      `Името трябва да е поне ${category.NAME_MIN_LEN} символа`,
+    ],
+    maxLength: [
+      category.NAME_MAX_LEN,
+      `Името трябва да е до ${category.NAME_MAX_LEN} символа`,
+    ],
     unique: true,
   },
   image: {
     type: String,
-    required: [true, "Image is required"],
+    required: [true, errors.REQUIRED_INPUT],
   },
 });
 
