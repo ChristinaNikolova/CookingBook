@@ -1,16 +1,28 @@
 import Header from "./components/Header/Header";
 import styles from "./App.module.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home/Home";
+import Footer from "./components/Footer/Footer";
+import NotFound from "./NotFound/NotFound";
 
 function App() {
+  const { pathname } = useLocation();
+
+  const getStyles = () => {
+    return pathname === "/" ? styles["home-wrapper"] : "";
+  };
+
   return (
-    <div className={styles.wrapper}>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </div>
+    <>
+      <div className={getStyles()}>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <Footer />
+    </>
   );
 }
 
