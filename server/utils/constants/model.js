@@ -15,7 +15,10 @@ const instruction = {
 
 const recipe = {
   TITLE_MIN_LEN: 3,
-  TITLE_MAX_LEN: 30,
+  TITLE_MAX_LEN: 50,
+  SUMMARY_MAX_LEN: 300,
+  NEEDED_TIME_MAX_LEN: 20,
+  PORTIONS_MIN: 1,
 };
 
 const user = {
