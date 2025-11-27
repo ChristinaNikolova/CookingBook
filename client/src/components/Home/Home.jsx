@@ -1,11 +1,11 @@
-import Button from "../shared/Button/Button";
+import ButtonLink from "../shared/ButtonLink/ButtonLink";
 import styles from "./Home.module.css";
 
 export default function Home() {
   return (
-    <section id={styles.home}>
+    <section id={styles.home} className="section">
       <h1 className={styles["home-title"]}>My CookingBook</h1>
-      <Button path="/recipe/create" content="Добави рецепта" />
+      <ButtonLink path="/recipe/create" text="Добави рецепта" />
     </section>
   );
 }

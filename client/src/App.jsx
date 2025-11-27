@@ -3,24 +3,23 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import NotFound from "./NotFound/NotFound";
-import styles from "./App.module.css";
+import Create from "./components/Recipe/Create/Create";
 
 function App() {
   const { pathname } = useLocation();
 
-  const getStyles = () => {
-    return pathname === "/" ? styles["home-wrapper"] : "";
+  const isHome = () => {
+    return pathname === "/";
   };
 
   return (
     <>
-      <div className={getStyles()}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
+      <Header isHome={isHome()} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/recipe/create" element={<Create />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <Footer />
     </>
   );

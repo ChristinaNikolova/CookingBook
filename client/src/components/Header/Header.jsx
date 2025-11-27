@@ -2,19 +2,24 @@ import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
-export default function Header() {
+export default function Header({ isHome }) {
   const [showSearch, setShowSearch] = useState(false);
 
   const isActiveLink = ({ isActive }) => {
-    return isActive && styles["header-selected-link"];
+    return isActive ? styles["header-selected-link"] : "";
   };
 
   const toogleSearch = () => {
     setShowSearch((prev) => !prev);
   };
 
+  const getImageStyle = () => {
+    return `${styles["header-img"]} ${isHome ? styles["header-home-img"] : ""}`;
+  };
+
   return (
-    <header id={styles.header}>
+    <header id={styles.header} className="section">
+      <div className={getImageStyle()} />
       <nav className={styles["header-nav"]}>
         <ul className={styles["header-ul"]}>
           <li className={`header-ul-li ${styles["header-li-logo"]}`}>

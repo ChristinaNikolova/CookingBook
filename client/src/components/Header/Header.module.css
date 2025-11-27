@@ -5,6 +5,24 @@
   padding: 30px 10px;
 }
 
+.header-img {
+  position: absolute;
+  z-index: -10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40vh;
+  background-image: url(../../../public/bradcam.png);
+  background-position: bottom center;
+  background-repeat: no-repeat;
+}
+
+.header-home-img {
+  height: 100vh;
+  background-image: url(../../../public/banner.png);
+}
+
 .header-nav,
 .header-ul {
   display: flex;
@@ -20,17 +38,28 @@
   letter-spacing: 0.5px;
 }
 
+.header-ul a {
+  color: var(--clr-white);
+}
+
 .header-selected-link {
-  color: var(--clr-yellow);
   font-weight: 900;
   text-decoration: underline;
   transition: all 200ms ease-in-out;
+}
+
+.header-ul .header-selected-link {
+  color: var(--clr-yellow);
 }
 
 .header-li-logo {
   font-family: var(--font-family-fancy);
   font-size: 40px;
   text-shadow: 1px 1px 2px var(--clr-grey);
+}
+
+.header-li-logo a {
+  color: var(--clr-white);
 }
 
 .header-li-logo a:hover {
