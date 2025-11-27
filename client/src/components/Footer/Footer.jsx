@@ -4,7 +4,14 @@ export default function Footer() {
   return (
     <footer id={styles.footer}>
       <p className={styles["footer-content"]}>
-        CookingBook &copy; - {new Date().getFullYear()}
+        CookingBook -{" "}
+        <a
+          href="https://github.com/ChristinaNikolova/CookingBook"
+          target="_blank"
+        >
+          Christina Nikolova
+        </a>{" "}
+        &copy; {new Date().getFullYear()}
       </p>
     </footer>
   );

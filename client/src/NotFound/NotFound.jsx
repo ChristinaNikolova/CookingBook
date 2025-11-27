@@ -6,7 +6,7 @@ export default function NotFound() {
     <section id={styles["not-found"]}>
       <h2 className={styles["not-found-title"]}>404</h2>
       <p className={styles["not-found-content"]}>
-        The page you are looking for doesn't exist!
+        Страницата, която търсите, не съществува!
       </p>
       <Button path="/" content="Начало" />
     </section>

@@ -1,5 +1,5 @@
 #not-found {
-  height: 76vh;
+  height: 78vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,7 +13,7 @@
 }
 
 .not-found-content {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 30px;
   text-transform: uppercase;
 }

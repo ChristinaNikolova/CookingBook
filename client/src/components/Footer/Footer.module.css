@@ -1,8 +1,24 @@
 #footer {
   width: 100%;
-  padding: 30px;
+  padding: 20px;
   text-align: center;
   font-size: 18px;
+  text-transform: uppercase;
   color: var(--clr-white);
   background-color: var(--clr-black);
+}
+
+.footer-content a {
+  margin-right: 5px;
+  padding-left: 5px;
+  font-family: var(--font-family-fancy);
+  font-weight: 700;
+  text-transform: capitalize;
+  color: var(--clr-white);
+  transition: all 600ms ease-in-out;
+}
+
+.footer-content a:hover {
+  cursor: pointer;
+  color: var(--clr-yellow);
 }
