@@ -48,6 +48,7 @@
   transition: all 200ms ease-in-out;
 }
 
+.header-ul.white .header-selected-link,
 .header-ul .header-selected-link {
   color: var(--clr-yellow);
 }
