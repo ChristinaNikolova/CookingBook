@@ -1,4 +1,5 @@
 import Button from "../../shared/Button/Button";
+import CustomInput from "../../shared/CustomInput/CustomInput";
 import styles from "./Create.module.css";
 
 export default function Create() {
@@ -6,26 +7,14 @@ export default function Create() {
     <section id={styles["create-recipe"]} className="section">
       <h2 className={styles["create-recipe-title"]}>Добави нова рецепта</h2>
       <form className={styles["create-recipe-form"]}>
-        <div className={styles["create-recipe-input-wrapper"]}>
-          <label htmlFor="">Заглавие</label>
-          <input type="text" />
-        </div>
+        <CustomInput label="Заглавие" />
         <div className={styles["create-recipe-input-wrapper"]}>
           <label htmlFor="">Резюме</label>
           <textarea name="" id="" rows={12}></textarea>
         </div>
-        <div className={styles["create-recipe-input-wrapper"]}>
-          <label htmlFor="">Инструкции</label>
-          <input type="text" />
-        </div>
-        <div className={styles["create-recipe-input-wrapper"]}>
-          <label htmlFor="">Необходими продукти</label>
-          <input type="text" />
-        </div>
-        <div className={styles["create-recipe-input-wrapper"]}>
-          <label htmlFor="">Качи снимка</label>
-          <input type="file" />
-        </div>
+        <CustomInput label="Инструкции" />
+        <CustomInput label="Необходими продукти" />
+        <CustomInput label="Качи снимка" type="file" />
         <Button text="Създай рецепта" />
       </form>
     </section>
