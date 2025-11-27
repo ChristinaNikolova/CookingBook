@@ -1,4 +1,4 @@
-import ButtonLink from "../components/shared/ButtonLink/ButtonLink";
+import ButtonLink from "../shared/ButtonLink/ButtonLink";
 import styles from "./NotFound.module.css";
 
 export default function NotFound() {
