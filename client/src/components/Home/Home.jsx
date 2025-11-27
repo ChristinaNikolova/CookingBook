@@ -1,5 +1,5 @@
-import styles from "./Home.module.css";
 import Button from "../shared/Button/Button";
+import styles from "./Home.module.css";
 
 export default function Home() {
   return (
