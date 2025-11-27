@@ -7,7 +7,6 @@
 }
 
 .not-found-title {
-  font-family: var(--font-family-fancy);
   font-size: 150px;
   color: var(--clr-yellow);
 }

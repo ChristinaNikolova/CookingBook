@@ -1,10 +1,7 @@
-import { Link } from "react-router-dom";
-import styles from "./Button.module.css";
-
-export default function Button({ path, content }) {
+export default function Button({ text }) {
   return (
-    <Link to={path} className={styles.btn}>
-      {content}
-    </Link>
+    <button className="btn" type="button">
+      {text}
+    </button>
   );
 }

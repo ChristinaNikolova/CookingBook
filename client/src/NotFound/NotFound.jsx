@@ -1,4 +1,4 @@
-import Button from "../components/shared/Button/Button";
+import ButtonLink from "../components/shared/ButtonLink/ButtonLink";
 import styles from "./NotFound.module.css";
 
 export default function NotFound() {
@@ -8,7 +8,7 @@ export default function NotFound() {
       <p className={styles["not-found-content"]}>
         Страницата, която търсите, не съществува!
       </p>
-      <Button path="/" content="Начало" />
+      <ButtonLink path="/" text="Начало" />
     </section>
   );
 }
