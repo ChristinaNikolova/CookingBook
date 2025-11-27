@@ -15,7 +15,8 @@
   padding: 8px;
 }
 
-.input-wrapper input {
+.input-wrapper input,
+.input-wrapper textarea {
   width: 60%;
   border: 1px solid var(--clr-grey);
 }
