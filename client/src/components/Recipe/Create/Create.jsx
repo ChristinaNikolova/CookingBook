@@ -32,6 +32,7 @@ export default function Create() {
     isBabySafe,
   }) {
     // todo add validations
+    // todo disabled button during fetch
     console.log(title);
     console.log(summary);
     console.log(neededTime);

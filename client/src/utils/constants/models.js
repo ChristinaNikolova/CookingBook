@@ -1,0 +1,12 @@
+export const auth = {
+  PASSWORD_MIN_LEN: 6,
+  PASSWORD_MAX_LEN: 50,
+};
+
+export const recipe = {
+  TITLE_MIN_LEN: 3,
+  TITLE_MAX_LEN: 50,
+  SUMMARY_MAX_LEN: 300,
+  NEEDED_TIME_MAX_LEN: 20,
+  PORTIONS_MIN: 1,
+};

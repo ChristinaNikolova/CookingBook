@@ -1,4 +1,5 @@
 import { global, auth, recipe } from "./constants/errors";
+import { auth as authModel, recipe as recipeModel } from "./constants/models";
 
 export const validator = {
   register: (values, touched) => {
@@ -8,7 +9,6 @@ export const validator = {
       errors["email"] = global.REQUIRED_INPUT;
     }
 
-    // todo add constants
     const emailRegex = new RegExp(
       "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
     );
@@ -21,14 +21,18 @@ export const validator = {
       errors["password"] = global.REQUIRED_INPUT;
     }
 
-    // todo add constants
-    // тодо адд реяуиред в дб моделите
+    // todo адд реяуиред в дб моделите
     if (
-      (touched.password && values.password && values.password.length < 6) ||
-      values.password.length > 50
+      (touched.password &&
+        values.password &&
+        values.password.length < authModel.PASSWORD_MIN_LEN) ||
+      values.password.length > authModel.PASSWORD_MAX_LEN
     ) {
-      // todo add constants
-      errors["password"] = global.REQUIRED_MIN_MAX_LEN("Паролата", "6", "50");
+      errors["password"] = global.REQUIRED_MIN_MAX_LEN(
+        "Паролата",
+        authModel.PASSWORD_MIN_LEN,
+        authModel.PASSWORD_MAX_LEN
+      );
     }
 
     if (
@@ -67,17 +71,29 @@ export const validator = {
     if (
       touched.title &&
       values.title &&
-      (values.title.length < 3 || values.title.length > 50)
+      (values.title.length < recipeModel.TITLE_MIN_LEN ||
+        values.title.length > recipeModel.TITLE_MAX_LEN)
     ) {
-      errors["title"] = global.REQUIRED_MIN_MAX_LEN("Заглавието", 3, 50);
+      errors["title"] = global.REQUIRED_MIN_MAX_LEN(
+        "Заглавието",
+        recipeModel.TITLE_MIN_LEN,
+        recipeModel.TITLE_MAX_LEN
+      );
     }
 
     if (touched.summary && !values.summary) {
       errors["summary"] = global.REQUIRED_INPUT;
     }
 
-    if (touched.summary && values.summary && values.summary.length > 300) {
-      errors["title"] = global.REQUIRED_MAX_LEN("Описанието", 300);
+    if (
+      touched.summary &&
+      values.summary &&
+      values.summary.length > recipeModel.SUMMARY_MAX_LEN
+    ) {
+      errors["title"] = global.REQUIRED_MAX_LEN(
+        "Описанието",
+        recipeModel.SUMMARY_MAX_LEN
+      );
     }
 
     if (touched.neededTime && !values.neededTime) {
@@ -88,7 +104,11 @@ export const validator = {
       errors["portions"] = global.REQUIRED_INPUT;
     }
 
-    if (touched.portions && values.portions && Number(values.portions) <= 0) {
+    if (
+      touched.portions &&
+      values.portions &&
+      Number(values.portions) < recipeModel.PORTIONS_MIN
+    ) {
       errors["portions"] = recipe.REQUIRED_PORTIONS_POSITIVE_NUMBER;
     }
 
@@ -97,12 +117,12 @@ export const validator = {
       errors["instruction"] = global.REQUIRED_INPUT;
     }
 
-    // todo extend this
+    // todo extend this + db
     if (touched.ingredient && !values.ingredient) {
       errors["ingredient"] = global.REQUIRED_INPUT;
     }
 
-    // todo extend this
+    // todo extend this + db
     if (touched.image && !values.image) {
       errors["image"] = global.REQUIRED_INPUT;
     }

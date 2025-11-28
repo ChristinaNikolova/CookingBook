@@ -2,7 +2,6 @@ import useForm from "../../../hooks/useForm";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 
-// todo disabled button during fetch
 const initialValues = {
   email: "",
   password: "",
@@ -18,6 +17,7 @@ export default function Register() {
 
   async function registerHandler({ email, password, rePass }) {
     // todo add validations
+    // todo disabled button during fetch
     console.log(email);
     console.log(password);
     console.log(rePass);
