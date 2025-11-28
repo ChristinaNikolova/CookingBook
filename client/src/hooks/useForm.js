@@ -1,9 +1,19 @@
 import { useState } from "react";
 
+// todo add constant for the error messages
 export default function useForm(callback, initialValues) {
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
+
+  const fieldHandler = (fieldName) => {
+    return {
+      name: fieldName,
+      value: values[fieldName],
+      onChange: changeHandler,
+      onBlur: validateHandler,
+    };
+  };
 
   const changeHandler = (e) => {
     setValues((prev) => ({
@@ -17,30 +27,21 @@ export default function useForm(callback, initialValues) {
     callback(values);
   };
 
-  const fieldHandler = (fieldName) => {
-    return {
-      name: fieldName,
-      value: values[fieldName],
-      onChange: changeHandler,
-      onBlur: validateHandler,
-    };
-  };
-
   const validateHandler = (e) => {
-    setTouched((prev) => ({
-      ...prev,
+    const newTouched = {
+      ...touched,
       [e.target.name]: true,
-    }));
+    };
+    setTouched(newTouched);
 
-    const errors = validate();
+    const errors = validate(newTouched);
     setErrors(errors);
-    console.log(errors);
   };
 
-  const validate = () => {
+  const validate = (touched) => {
     const errors = {};
 
-    if (!values.email && touched.email) {
+    if (touched.email && !values.email) {
       errors["email"] = "Полето е задължително";
     }
 
@@ -48,25 +49,25 @@ export default function useForm(callback, initialValues) {
       "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
     );
 
-    if (values.email && !emailRegex.test(values.email) && touched.email) {
+    if (touched.email && values.email && !emailRegex.test(values.email)) {
       errors["email"] = "Невалиден имейл адрес";
     }
 
-    if (!values.password && touched.password) {
+    if (touched.password && !values.password) {
       errors["password"] = "Полето е задължително";
     }
 
     if (
-      (values.password && values.password.length < 6) ||
-      (values.password.length > 50 && touched.password)
+      (touched.password && values.password && values.password.length < 6) ||
+      values.password.length > 50
     ) {
       errors["password"] = "Паролата трябва да е между 6 и 50 символа";
     }
 
     if (
-      values.password !== values.rePass &&
       touched.password &&
-      touched.rePass
+      touched.rePass &&
+      values.password !== values.rePass
     ) {
       errors["password"] = "Двете пароли не са еднакви";
       errors["rePass"] = "Двете пароли не са еднакви";

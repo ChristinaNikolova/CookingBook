@@ -3,7 +3,7 @@ import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 
 export default function Register() {
-  const { fieldHandler, submitHandler } = useForm(registerHandler, {
+  const { fieldHandler, submitHandler, errors } = useForm(registerHandler, {
     email: "",
     password: "",
     rePass: "",
@@ -21,18 +21,23 @@ export default function Register() {
       <form className="register-form" action={submitHandler}>
         <CustomInput
           label="Имейл"
+          type="email"
           {...fieldHandler("email")}
-          // onBlur={blurHandler}
+          error={errors.email}
         />
+
         <CustomInput
           label="Парола"
+          type="password"
           {...fieldHandler("password")}
-          // onBlur={blurHandler}
+          error={errors.password}
         />
+
         <CustomInput
           label="Повтори парола"
+          type="password"
           {...fieldHandler("rePass")}
-          // onBlur={blurHandler}
+          error={errors.rePass}
         />
         <Button text="Регистрация" />
       </form>

@@ -1,3 +1,4 @@
+import ErrorInput from "../ErrorInput/ErrorInput";
 import styles from "./CustomInput.module.css";
 
 export default function CustomInput({
@@ -6,6 +7,7 @@ export default function CustomInput({
   type = "text",
   name,
   value,
+  error,
   onChange,
   onBlur,
 }) {
@@ -30,6 +32,7 @@ export default function CustomInput({
           onBlur={onBlur}
         ></textarea>
       )}
+      {error && <ErrorInput error={error} />}
     </div>
   );
 }
