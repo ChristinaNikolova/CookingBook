@@ -2,7 +2,7 @@ import useForm from "../../../hooks/useForm";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 
-// todo disabled button + disabled button during fetch
+// todo disabled button during fetch
 const initialValue = {
   email: "",
   password: "",
@@ -10,8 +10,9 @@ const initialValue = {
 };
 
 export default function Register() {
-  const { fieldHandler, submitHandler, errors } = useForm(
+  const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     registerHandler,
+    "register",
     initialValue
   );
 
@@ -44,7 +45,7 @@ export default function Register() {
           error={errors.rePass}
           {...fieldHandler("rePass")}
         />
-        <Button text="Регистрация" />
+        <Button text="Регистрация" disabled={disabledForm()} />
       </form>
     </section>
   );

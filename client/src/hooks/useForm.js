@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { validator } from "../utils/validator";
 
-// todo add constant for the error messages
 export default function useForm(callback, validatorName, initialValues) {
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
@@ -39,9 +38,14 @@ export default function useForm(callback, validatorName, initialValues) {
     setErrors(errors);
   };
 
+  const disabledForm = () => {
+    return Object.values(values).some((x) => !x) || Object.keys(errors).length;
+  };
+
   return {
     submitHandler,
     fieldHandler,
     errors,
+    disabledForm,
   };
 }

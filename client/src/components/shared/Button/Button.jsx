@@ -1,6 +1,6 @@
-export default function Button({ text }) {
+export default function Button({ text, disabled = true }) {
   return (
-    <button className="btn" type="sumbit">
+    <button className="btn" type="sumbit" disabled={disabled}>
       {text}
     </button>
   );

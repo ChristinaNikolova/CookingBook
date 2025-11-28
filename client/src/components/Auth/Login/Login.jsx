@@ -8,7 +8,7 @@ const initialValue = {
 };
 
 export default function Login() {
-  const { fieldHandler, submitHandler, errors } = useForm(
+  const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     loginHandler,
     "login",
     initialValue
@@ -36,7 +36,7 @@ export default function Login() {
           error={errors.password}
           {...fieldHandler("password")}
         />
-        <Button text="Вписване" />
+        <Button text="Вписване" disabled={disabledForm()} />
       </form>
     </section>
   );
