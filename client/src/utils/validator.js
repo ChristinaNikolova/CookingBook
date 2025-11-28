@@ -38,4 +38,18 @@ export const validator = {
 
     return errors;
   },
+
+  login: (values, touched) => {
+    const errors = {};
+
+    if (touched.email && !values.email) {
+      errors["email"] = global.REQUIRED_INPUT;
+    }
+
+    if (touched.password && !values.password) {
+      errors["password"] = global.REQUIRED_INPUT;
+    }
+
+    return errors;
+  },
 };

@@ -2,18 +2,21 @@ import useForm from "../../../hooks/useForm";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 
+// todo disabled button + disabled button during fetch
+const initialValue = {
+  email: "",
+  password: "",
+  rePass: "",
+};
+
 export default function Register() {
   const { fieldHandler, submitHandler, errors } = useForm(
     registerHandler,
-    "register",
-    {
-      email: "",
-      password: "",
-      rePass: "",
-    }
+    initialValue
   );
 
   async function registerHandler({ email, password, rePass }) {
+    // todo add validations
     console.log(email);
     console.log(password);
     console.log(rePass);
@@ -21,7 +24,7 @@ export default function Register() {
 
   return (
     <section id="register" className="section">
-      <h2 className="register-title">Регистация</h2>
+      <h2 className="register-title">Регистирай се</h2>
       <form className="register-form" action={submitHandler}>
         <CustomInput
           label="Имейл"
@@ -29,14 +32,12 @@ export default function Register() {
           error={errors.email}
           {...fieldHandler("email")}
         />
-
         <CustomInput
           label="Парола"
           type="password"
           error={errors.password}
           {...fieldHandler("password")}
         />
-
         <CustomInput
           label="Повтори парола"
           type="password"
