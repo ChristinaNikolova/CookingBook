@@ -39,7 +39,10 @@ export default function useForm(callback, validatorName, initialValues) {
   };
 
   const disabledForm = () => {
-    return Object.values(values).some((x) => !x) || Object.keys(errors).length;
+    return (
+      Object.values(values).some((x) => typeof x === "string" && !x) ||
+      Object.keys(errors).length
+    );
   };
 
   return {
