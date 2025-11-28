@@ -22,7 +22,7 @@ export default function Login() {
   }
 
   return (
-    <section id="login" className="section">
+    <section id="login">
       <h2 className="login-title">Влез в профила</h2>
       <form className="login-form" action={submitHandler}>
         <CustomInput

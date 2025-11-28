@@ -14,7 +14,7 @@ export default function Header({ isHome }) {
   };
 
   const getImageStyle = () => {
-    return `${styles["header-img"]} ${isHome ? styles["header-home-img"] : ""}`;
+    return `${isHome ? styles["header-home"] : styles["header-main"]}`;
   };
 
   const getLinkColor = () => {
@@ -26,8 +26,7 @@ export default function Header({ isHome }) {
   };
 
   return (
-    <header id={styles.header} className="section">
-      <div className={getImageStyle()} />
+    <header id={styles.header} className={getImageStyle()}>
       <nav className={getLinkColor()}>
         <ul className={styles["header-ul"]}>
           <li className={`header-ul-li ${styles["header-li-logo"]}`}>

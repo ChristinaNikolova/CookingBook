@@ -44,7 +44,7 @@ export default function Create() {
   }
 
   return (
-    <section id="create-recipe" className="section">
+    <section id="create-recipe">
       <h2 className="create-recipe-title">Добави нова рецепта</h2>
       <form className="create-recipe-form" action={submitHandler}>
         <CustomInput

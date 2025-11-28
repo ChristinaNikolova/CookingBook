@@ -22,8 +22,3 @@ h5,
 h6 {
   font-family: var(--font-family-fancy);
 }
-
-.section {
-  position: relative;
-  z-index: 200;
-}

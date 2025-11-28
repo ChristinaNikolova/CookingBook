@@ -24,7 +24,7 @@ export default function Register() {
   }
 
   return (
-    <section id="register" className="section">
+    <section id="register">
       <h2 className="register-title">Регистирай се</h2>
       <form className="register-form" action={submitHandler}>
         <CustomInput

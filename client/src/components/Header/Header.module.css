@@ -1,23 +1,23 @@
 #header {
   display: flex;
   justify-content: space-evenly;
-  align-content: center;
-  padding: 30px 10px;
+  align-items: center;
+  height: 20vh;
 }
 
-.header-img {
-  position: absolute;
-  z-index: -10;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 50vh;
+.header-main {
   background-image: url(/bradcam.png);
   background-position: bottom center;
   background-repeat: no-repeat;
 }
 
+.header-home {
+  background-image: unset;
+  background-position: unset;
+  background-repeat: unset;
+}
+
+/* todo jumbo */
 .header-home-img {
   height: 100vh;
   background-image: url(/banner.png);
