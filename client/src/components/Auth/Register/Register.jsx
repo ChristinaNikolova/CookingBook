@@ -26,22 +26,22 @@ export default function Register() {
         <CustomInput
           label="Имейл"
           type="email"
-          {...fieldHandler("email")}
           error={errors.email}
+          {...fieldHandler("email")}
         />
 
         <CustomInput
           label="Парола"
           type="password"
-          {...fieldHandler("password")}
           error={errors.password}
+          {...fieldHandler("password")}
         />
 
         <CustomInput
           label="Повтори парола"
           type="password"
-          {...fieldHandler("rePass")}
           error={errors.rePass}
+          {...fieldHandler("rePass")}
         />
         <Button text="Регистрация" />
       </form>

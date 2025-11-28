@@ -1,9 +1,11 @@
+import { global, auth } from "./constants/errors";
+
 export const validator = {
   register: (values, touched) => {
     const errors = {};
 
     if (touched.email && !values.email) {
-      errors["email"] = "Полето е задължително";
+      errors["email"] = global.REQUIRED_INPUT;
     }
 
     const emailRegex = new RegExp(
@@ -11,18 +13,18 @@ export const validator = {
     );
 
     if (touched.email && values.email && !emailRegex.test(values.email)) {
-      errors["email"] = "Невалиден имейл адрес";
+      errors["email"] = auth.INVALID_EMAIL;
     }
 
     if (touched.password && !values.password) {
-      errors["password"] = "Полето е задължително";
+      errors["password"] = global.REQUIRED_INPUT;
     }
 
     if (
       (touched.password && values.password && values.password.length < 6) ||
       values.password.length > 50
     ) {
-      errors["password"] = "Паролата трябва да е между 6 и 50 символа";
+      errors["password"] = auth.PASSWORD_LEN;
     }
 
     if (
@@ -30,8 +32,8 @@ export const validator = {
       touched.rePass &&
       values.password !== values.rePass
     ) {
-      errors["password"] = "Двете пароли не са еднакви";
-      errors["rePass"] = "Двете пароли не са еднакви";
+      errors["password"] = auth.PASSWORDS_NOT_SAME;
+      errors["rePass"] = auth.PASSWORDS_NOT_SAME;
     }
 
     return errors;
