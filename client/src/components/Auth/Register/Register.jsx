@@ -3,11 +3,15 @@ import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 
 export default function Register() {
-  const { fieldHandler, submitHandler, errors } = useForm(registerHandler, {
-    email: "",
-    password: "",
-    rePass: "",
-  });
+  const { fieldHandler, submitHandler, errors } = useForm(
+    registerHandler,
+    "register",
+    {
+      email: "",
+      password: "",
+      rePass: "",
+    }
+  );
 
   async function registerHandler({ email, password, rePass }) {
     console.log(email);
