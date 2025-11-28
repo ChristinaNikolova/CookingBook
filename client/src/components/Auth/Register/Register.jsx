@@ -3,7 +3,7 @@ import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 
 // todo disabled button during fetch
-const initialValue = {
+const initialValues = {
   email: "",
   password: "",
   rePass: "",
@@ -13,7 +13,7 @@ export default function Register() {
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     registerHandler,
     "register",
-    initialValue
+    initialValues
   );
 
   async function registerHandler({ email, password, rePass }) {

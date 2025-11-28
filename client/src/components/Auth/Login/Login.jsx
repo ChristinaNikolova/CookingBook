@@ -2,7 +2,7 @@ import useForm from "../../../hooks/useForm";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 
-const initialValue = {
+const initialValues = {
   email: "",
   password: "",
 };
@@ -11,7 +11,7 @@ export default function Login() {
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     loginHandler,
     "login",
-    initialValue
+    initialValues
   );
 
   async function loginHandler({ email, password }) {
