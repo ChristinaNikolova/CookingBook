@@ -1,9 +1,9 @@
 #not-found {
-  height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .not-found-title {

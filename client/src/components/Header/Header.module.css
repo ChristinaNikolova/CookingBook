@@ -59,8 +59,10 @@
   color: var(--clr-white);
 }
 
-.header-li-logo a:hover {
+#header a:hover,
+#header i:hover {
   color: var(--clr-yellow);
+  transition: all 200ms ease-in-out;
 }
 
 .header-nav-form-input {
