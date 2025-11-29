@@ -1,0 +1,21 @@
+.create-recipe-input-wrapper {
+  position: relative;
+  width: 60%;
+  margin: 40px auto;
+  padding: 50px;
+  border: 1px solid var(--clr-grey);
+}
+
+.create-recipe-label {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  width: 120px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--clr-grey);
+  background-color: var(--clr-white);
+}

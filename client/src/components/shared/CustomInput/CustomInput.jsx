@@ -13,7 +13,7 @@ export default function CustomInput({
 }) {
   return (
     <div className={styles["input-wrapper"]}>
-      <label htmlFor="">{label}</label>
+      <label htmlFor={name}>{label}</label>
       {tag === "input" ? (
         <input
           name={name}
@@ -24,8 +24,8 @@ export default function CustomInput({
         />
       ) : (
         <textarea
+          id={name}
           name={name}
-          id=""
           rows={12}
           value={value}
           onChange={onChange}

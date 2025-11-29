@@ -6,6 +6,7 @@ import useForm from "../../../hooks/useForm";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import { validator } from "../../../utils/validator";
+import styles from "./Create.module.css";
 
 const initialValues = {
   title: "",
@@ -132,8 +133,8 @@ export default function Create() {
           {...fieldHandler("portions")}
         />
 
-        <div>
-          <label>Инструкции</label>
+        <div className={styles["create-recipe-input-wrapper"]}>
+          <label className={styles["create-recipe-label"]}>Инструкции</label>
           {instructions.map((instruction, index) => (
             <CustomInput
               key={index}
@@ -145,14 +146,14 @@ export default function Create() {
             />
           ))}
           <Button
-            text=" Добави инструкция"
+            text=" + инструкция"
             disabled={false}
             onClick={() => addInputHandler("instruction")}
           />
         </div>
 
-        <div>
-          <label>Продукти</label>
+        <div className={styles["create-recipe-input-wrapper"]}>
+          <label className={styles["create-recipe-label"]}>Продукти</label>
           {ingredients.map((ingredient, index) => (
             <CustomInput
               key={index}
@@ -164,7 +165,7 @@ export default function Create() {
             />
           ))}
           <Button
-            text="Добави продукт"
+            text="+ продукт"
             disabled={false}
             onClick={() => addInputHandler("ingredient")}
           />
