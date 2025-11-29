@@ -1,20 +1,29 @@
 // todo адд categorydrop down
+// todo rename to steps
 
+import { useState } from "react";
 import useForm from "../../../hooks/useForm";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
+import { validator } from "../../../utils/validator";
 
 const initialValues = {
   title: "",
   summary: "",
   neededTime: "",
   portions: "",
-  instruction: "",
-  ingredient: "",
   image: "",
   isBabySafe: false,
 };
+
 export default function Create() {
+  const [instructions, setInstructions] = useState([""]);
+  const [ingredients, setIngredients] = useState([""]);
+  const [instructionErrors, setInstructionErrors] = useState([]);
+  const [ingredientErrors, setIngredientErrors] = useState([]);
+  const [instructionsTouched, setInstructionsTouched] = useState([]);
+  const [ingredientsTouched, setIngredientsTouched] = useState([]);
+
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     createHandler,
     "recipe",
@@ -26,22 +35,75 @@ export default function Create() {
     summary,
     neededTime,
     portions,
-    instruction,
-    ingredient,
     image,
     isBabySafe,
   }) {
     // todo add validations
     // todo disabled button during fetch
-    console.log(title);
-    console.log(summary);
-    console.log(neededTime);
-    console.log(portions);
-    console.log(instruction);
-    console.log(ingredient);
-    console.log(image);
-    console.log(isBabySafe);
+    // todo trim data
+
+    const fullData = {
+      title,
+      summary,
+      neededTime,
+      portions,
+      image,
+      isBabySafe,
+      instructions: instructions.filter((i) => i.trim()),
+      ingredients: ingredients.filter((i) => i.trim()),
+    };
+
+    console.log(fullData);
   }
+
+  const addInputHandler = (name) => {
+    name === "ingredient"
+      ? setIngredients([...ingredients, ""])
+      : setInstructions([...instructions, ""]);
+  };
+
+  const updateInstruction = (index, value) => {
+    const newInstructions = [...instructions];
+    newInstructions[index] = value;
+    setInstructions(newInstructions);
+  };
+
+  const handleInstructionBlur = (index) => {
+    const newTouched = [...instructionsTouched];
+    newTouched[index] = true;
+    setInstructionsTouched(newTouched);
+
+    const newErrors = [...instructionErrors];
+    newErrors[index] = validator.validateInstruction(instructions[index]);
+    setInstructionErrors(newErrors);
+  };
+
+  const updateIngredient = (index, value) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index] = value;
+    setIngredients(newIngredients);
+  };
+
+  const handleIngredientBlur = (index) => {
+    const newTouched = [...ingredientsTouched];
+    newTouched[index] = true;
+    setIngredientsTouched(newTouched);
+
+    const newErrors = [...ingredientErrors];
+    newErrors[index] = validator.validateIngredient(ingredients[index]);
+    setIngredientErrors(newErrors);
+  };
+
+  const isFormValid = () => {
+    const hasInstructionErrors = areErrors(instructions, "validateInstruction");
+    const hasIngredientErrors = areErrors(ingredients, "validateIngredient");
+
+    return !disabledForm() && !hasInstructionErrors && !hasIngredientErrors;
+  };
+
+  const areErrors = (input, validatorFunc) => {
+    return input.some((x) => validator[validatorFunc](x));
+  };
 
   return (
     <section id="create-recipe" className="section-form">
@@ -69,16 +131,45 @@ export default function Create() {
           error={errors.portions}
           {...fieldHandler("portions")}
         />
-        <CustomInput
-          label="Инструкции"
-          error={errors.instruction}
-          {...fieldHandler("instruction")}
-        />
-        <CustomInput
-          label="Необходими продукти"
-          error={errors.ingredient}
-          {...fieldHandler("ingredient")}
-        />
+
+        <div>
+          <label>Инструкции</label>
+          {instructions.map((instruction, index) => (
+            <CustomInput
+              key={index}
+              label={`Стъпка ${index + 1}`}
+              value={instruction}
+              onChange={(e) => updateInstruction(index, e.target.value)}
+              onBlur={() => handleInstructionBlur(index)}
+              error={instructionErrors[index]}
+            />
+          ))}
+          <Button
+            text=" Добави инструкция"
+            disabled={false}
+            onClick={() => addInputHandler("instruction")}
+          />
+        </div>
+
+        <div>
+          <label>Продукти</label>
+          {ingredients.map((ingredient, index) => (
+            <CustomInput
+              key={index}
+              label={`Продукт ${index + 1}`}
+              value={ingredient}
+              onChange={(e) => updateIngredient(index, e.target.value)}
+              onBlur={() => handleIngredientBlur(index)}
+              error={ingredientErrors[index]}
+            />
+          ))}
+          <Button
+            text="Добави продукт"
+            disabled={false}
+            onClick={() => addInputHandler("ingredient")}
+          />
+        </div>
+
         <CustomInput
           label="Качи снимка"
           type="file"
@@ -91,7 +182,7 @@ export default function Create() {
           error={errors.isBabySafe}
           {...fieldHandler("isBabySafe")}
         />
-        <Button text="Създай рецепта" disabled={disabledForm()} />
+        <Button text="Създай рецепта" type="submit" disabled={!isFormValid()} />
       </form>
     </section>
   );

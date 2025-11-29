@@ -1,6 +1,20 @@
-export default function Button({ text, disabled = true }) {
+export default function Button({
+  text,
+  type = "button",
+  disabled = true,
+  onClick,
+}) {
+  const clickHanlder = () => {
+    onClick();
+  };
+
   return (
-    <button className="btn from-btn" type="sumbit" disabled={disabled}>
+    <button
+      onClick={clickHanlder}
+      className="btn from-btn"
+      type={type}
+      disabled={disabled}
+    >
       {text}
     </button>
   );
