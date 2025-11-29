@@ -53,12 +53,22 @@ export default function Header({ isHome }) {
           </li>
           <li className="header-ul-li">
             <NavLink to="/menu" className={isActiveLink}>
-              Меню
+              Списъци
             </NavLink>
           </li>
           <li className="header-ul-li">
-            <NavLink to="/shopping-list" className={isActiveLink}>
-              Списъци
+            <NavLink to="/auth/login" className={isActiveLink}>
+              Вход
+            </NavLink>
+          </li>
+          <li className="header-ul-li">
+            <NavLink to="/auth/register" className={isActiveLink}>
+              Регистрация
+            </NavLink>
+          </li>
+          <li className="header-ul-li">
+            <NavLink to="/auth/logout" className={isActiveLink}>
+              Изход
             </NavLink>
           </li>
         </ul>

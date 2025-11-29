@@ -8,6 +8,10 @@
   transition: all 600ms ease-in-out;
 }
 
+.from-btn {
+  margin-top: 10px;
+}
+
 .btn:hover {
   cursor: pointer;
   color: var(--clr-white);

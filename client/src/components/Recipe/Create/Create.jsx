@@ -44,9 +44,9 @@ export default function Create() {
   }
 
   return (
-    <section id="create-recipe">
-      <h2 className="create-recipe-title">Добави нова рецепта</h2>
-      <form className="create-recipe-form" action={submitHandler}>
+    <section id="create-recipe" className="section-form">
+      <h2 className="form-title">Добави нова рецепта</h2>
+      <form className="form" action={submitHandler}>
         <CustomInput
           label="Заглавие"
           error={errors.title}

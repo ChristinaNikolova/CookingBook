@@ -22,9 +22,9 @@ export default function Login() {
   }
 
   return (
-    <section id="login">
-      <h2 className="login-title">Влез в профила</h2>
-      <form className="login-form" action={submitHandler}>
+    <section id="login" className="section-form">
+      <h2 className="form-title">Вход</h2>
+      <form className="form" action={submitHandler}>
         <CustomInput
           label="Имейл"
           type="email"
@@ -37,7 +37,7 @@ export default function Login() {
           error={errors.password}
           {...fieldHandler("password")}
         />
-        <Button text="Вписване" disabled={disabledForm()} />
+        <Button text="Вход" disabled={disabledForm()} />
       </form>
     </section>
   );
