@@ -1,4 +1,6 @@
 #header {
+  position: relative;
+  z-index: 1000;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -15,12 +17,6 @@
   background-image: unset;
   background-position: unset;
   background-repeat: unset;
-}
-
-/* todo jumbo */
-.header-home-img {
-  height: 100vh;
-  background-image: url(/banner.png);
 }
 
 .header-nav,
@@ -55,7 +51,7 @@
 
 .header-li-logo {
   font-family: var(--font-family-fancy);
-  font-size: 40px;
+  font-size: 50px;
   text-shadow: 1px 1px 2px var(--clr-grey);
 }
 
@@ -93,6 +89,10 @@
   border: none;
   background-color: transparent;
   margin-right: 15px;
+}
+
+.header-nav-form-btn i {
+  font-size: 18px;
 }
 
 .header-nav-form-btn.white i {
