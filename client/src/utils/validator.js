@@ -112,21 +112,51 @@ export const validator = {
       errors["portions"] = recipe.REQUIRED_PORTIONS_POSITIVE_NUMBER;
     }
 
-    // todo extend this
-    if (touched.instruction && !values.instruction) {
-      errors["instruction"] = global.REQUIRED_INPUT;
-    }
-
-    // todo extend this + db
-    if (touched.ingredient && !values.ingredient) {
-      errors["ingredient"] = global.REQUIRED_INPUT;
-    }
-
     // todo extend this + db
     if (touched.image && !values.image) {
       errors["image"] = global.REQUIRED_INPUT;
     }
 
     return errors;
+  },
+
+  // todo add trim everywhere
+  // todo check server + db
+  validateInstruction: (value) => {
+    if (!value.trim()) {
+      return global.REQUIRED_INPUT;
+    }
+
+    if (
+      value.length < recipeModel.INSTRUCTION_MIN_LEN ||
+      value.length > recipeModel.INSTRUCTION_MAX_LEN
+    ) {
+      return global.REQUIRED_MIN_MAX_LEN(
+        "Инструкцията",
+        recipeModel.INSTRUCTION_MIN_LEN,
+        recipeModel.INSTRUCTION_MAX_LEN
+      );
+    }
+
+    return "";
+  },
+
+  validateIngredient: (value) => {
+    if (!value.trim()) {
+      return global.REQUIRED_INPUT;
+    }
+
+    if (
+      value.length < recipeModel.INGREDIENT_MIN_LEN ||
+      value.length > recipeModel.INGREDIENT_MAX_LEN
+    ) {
+      return global.REQUIRED_MIN_MAX_LEN(
+        "Продуктът",
+        recipeModel.INGREDIENT_MIN_LEN,
+        recipeModel.INGREDIENT_MAX_LEN
+      );
+    }
+
+    return "";
   },
 };
