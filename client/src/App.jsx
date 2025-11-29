@@ -1,11 +1,12 @@
-import Header from "./components/Header/Header";
 import { Route, Routes, useLocation } from "react-router-dom";
+import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
+import Categories from "./components/Recipe/Categories/Categories";
 import Create from "./components/Recipe/Create/Create";
-import NotFound from "./components/NotFound/NotFound";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   const { pathname } = useLocation();
@@ -19,7 +20,10 @@ function App() {
       <Header isHome={isHome()} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/recipe/create" element={<Create />} />
+        <Route path="/recipe">
+          <Route path="categories" element={<Categories />} />
+          <Route path="create" element={<Create />} />
+        </Route>
         <Route path="/auth">
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

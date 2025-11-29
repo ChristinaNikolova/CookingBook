@@ -42,7 +42,7 @@ export default function Header({ isHome }) {
             </NavLink>
           </li>
           <li className="header-ul-li">
-            <NavLink to="/categories" className={isActiveLink}>
+            <NavLink to="/recipe/categories" className={isActiveLink}>
               Рецепти
             </NavLink>
           </li>
