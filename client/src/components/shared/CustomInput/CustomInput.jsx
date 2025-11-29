@@ -16,6 +16,7 @@ export default function CustomInput({
       <label htmlFor={name}>{label}</label>
       {tag === "input" ? (
         <input
+          id={name}
           name={name}
           type={type}
           value={value}

@@ -134,7 +134,7 @@ export default function Create() {
         />
 
         <div className={styles["create-recipe-input-wrapper"]}>
-          <label className={styles["create-recipe-label"]}>Инструкции</label>
+          <h4 className={styles["create-recipe-title"]}>Инструкции</h4>
           {instructions.map((instruction, index) => (
             <CustomInput
               key={index}
@@ -153,7 +153,7 @@ export default function Create() {
         </div>
 
         <div className={styles["create-recipe-input-wrapper"]}>
-          <label className={styles["create-recipe-label"]}>Продукти</label>
+          <h4 className={styles["create-recipe-title"]}>Продукти</h4>
           {ingredients.map((ingredient, index) => (
             <CustomInput
               key={index}

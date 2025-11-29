@@ -6,7 +6,7 @@
   border: 1px solid var(--clr-grey);
 }
 
-.create-recipe-label {
+.create-recipe-title {
   position: absolute;
   top: -15px;
   left: 50%;
