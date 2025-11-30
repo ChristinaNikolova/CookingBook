@@ -3,13 +3,12 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Categories from "./components/Recipe/Categories/Categories";
-import Create from "./components/Recipe/Create/Create";
+import CreateRecipe from "./components/Recipe/Create/Create";
 import CreateCategory from "./components/Administration/Category/Create/Create";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import NotFound from "./components/NotFound/NotFound";
 
-// todo fix names
 function App() {
   const { pathname } = useLocation();
 
@@ -24,7 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/recipe">
           <Route path="categories" element={<Categories />} />
-          <Route path="create" element={<Create />} />
+          <Route path="create" element={<CreateRecipe />} />
         </Route>
         <Route path="/auth">
           <Route path="login" element={<Login />} />

@@ -19,7 +19,7 @@ const initialValues = {
   isBabySafe: false,
 };
 
-export default function Create() {
+export default function CreateRecipe() {
   const [instructions, setInstructions] = useState([""]);
   const [ingredients, setIngredients] = useState([""]);
   const [instructionErrors, setInstructionErrors] = useState([]);
