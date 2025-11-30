@@ -19,3 +19,29 @@
   color: var(--clr-grey);
   background-color: var(--clr-white);
 }
+
+.create-recipe-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.create-recipe-input-wrapper > div {
+  flex: 1;
+}
+
+.create-recipe-input-wrapper > div > input {
+  width: 100%;
+}
+
+.create-recipe-input-wrapper i {
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--clr-grey);
+  transition: color 400ms ease-in-out;
+}
+
+.create-recipe-input-wrapper i:hover {
+  cursor: pointer;
+  color: var(--clr-yellow);
+}

@@ -1,5 +1,6 @@
 // todo адд categorydrop down
 // todo rename to steps
+// todo check transition color !!!!!!!1
 
 import { useState } from "react";
 import useForm from "../../../hooks/useForm";
@@ -107,11 +108,17 @@ export default function Create() {
     setIngredientErrors(newErrors);
   };
 
-  // const deleteIngredientHandler = (index) => {
-  //   const newIngredients = [...ingredients];
-  //   newIngredients.splice(index, 1);
-  //   setIngredients(newIngredients);
-  // };
+  const deleteIngredientHandler = (index) => {
+    const newIngredients = [...ingredients];
+    newIngredients.splice(index, 1);
+    setIngredients(newIngredients);
+
+    ingredientErrors.splice(index, 1);
+    setIngredientErrors(ingredientErrors);
+
+    ingredientsTouched.splice(index, 1);
+    setIngredientErrors(ingredientsTouched);
+  };
 
   const isFormValid = () => {
     const hasInstructionErrors = areErrors(instructions, "validateInstruction");
@@ -164,12 +171,10 @@ export default function Create() {
                 onBlur={() => validateInstructionHandler(index)}
                 error={instructionErrors[index]}
               />
-              <button
-                type="button"
+              <i
+                className="fas fa-times"
                 onClick={() => deleteInstructionHandler(index)}
-              >
-                X
-              </button>
+              />
             </div>
           ))}
           <Button
@@ -179,17 +184,23 @@ export default function Create() {
           />
         </div>
 
-        <div className={styles["create-recipe-input-wrapper"]}>
+        <div className={styles["create-recipe-wrapper"]}>
           <h4 className={styles["create-recipe-title"]}>Продукти</h4>
           {ingredients.map((ingredient, index) => (
-            <CustomInput
-              key={index}
-              label={`Продукт ${index + 1}`}
-              value={ingredient}
-              onChange={(e) => updateIngredientHandler(index, e.target.value)}
-              onBlur={() => validateIngredientHandler(index)}
-              error={ingredientErrors[index]}
-            />
+            <div key={index} className={styles["create-recipe-input-wrapper"]}>
+              <CustomInput
+                key={index}
+                label={`Продукт ${index + 1}`}
+                value={ingredient}
+                onChange={(e) => updateIngredientHandler(index, e.target.value)}
+                onBlur={() => validateIngredientHandler(index)}
+                error={ingredientErrors[index]}
+              />
+              <i
+                className="fas fa-times"
+                onClick={() => deleteIngredientHandler(index)}
+              />
+            </div>
           ))}
           <Button
             text="+ продукт"
