@@ -4,13 +4,9 @@ export default function Button({
   disabled = true,
   onClick,
 }) {
-  const clickHanlder = () => {
-    onClick();
-  };
-
   return (
     <button
-      onClick={clickHanlder}
+      onClick={onClick}
       className="btn from-btn"
       type={type}
       disabled={disabled}

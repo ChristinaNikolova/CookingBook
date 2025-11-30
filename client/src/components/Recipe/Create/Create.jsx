@@ -65,59 +65,54 @@ export default function Create() {
   };
 
   const updateInstructionHandler = (index, value) => {
-    const newInstructions = [...instructions];
-    newInstructions[index] = value;
-    setInstructions(newInstructions);
+    updateStateHandler(index, value, instructions, setInstructions);
   };
 
   const validateInstructionHandler = (index) => {
-    const newTouched = [...instructionsTouched];
-    newTouched[index] = true;
-    setInstructionsTouched(newTouched);
+    updateStateHandler(
+      index,
+      true,
+      instructionsTouched,
+      setInstructionsTouched
+    );
 
-    const newErrors = [...instructionErrors];
-    newErrors[index] = validator.validateInstruction(instructions[index]);
-    setInstructionErrors(newErrors);
+    const error = validator.validateInstruction(instructions[index]);
+    updateStateHandler(index, error, instructionErrors, setInstructionErrors);
   };
 
   const deleteInstructionHandler = (index) => {
-    const newInstructions = [...instructions];
-    newInstructions.splice(index, 1);
-    setInstructions(newInstructions);
-
-    instructionErrors.splice(index, 1);
-    setInstructionErrors(instructionErrors);
-
-    instructionsTouched.splice(index, 1);
-    setInstructionsTouched(instructionsTouched);
+    deleteHandler(index, instructions, setInstructions);
+    deleteHandler(index, instructionErrors, setInstructionErrors);
+    deleteHandler(index, instructionsTouched, setInstructionsTouched);
   };
 
   const updateIngredientHandler = (index, value) => {
-    const newIngredients = [...ingredients];
-    newIngredients[index] = value;
-    setIngredients(newIngredients);
+    updateStateHandler(index, value, ingredients, setIngredients);
   };
 
   const validateIngredientHandler = (index) => {
-    const newTouched = [...ingredientsTouched];
-    newTouched[index] = true;
-    setIngredientsTouched(newTouched);
+    updateStateHandler(index, true, ingredientsTouched, setIngredientsTouched);
 
-    const newErrors = [...ingredientErrors];
-    newErrors[index] = validator.validateIngredient(ingredients[index]);
-    setIngredientErrors(newErrors);
+    const error = validator.validateIngredient(ingredients[index]);
+    updateStateHandler(index, error, ingredientErrors, setIngredientErrors);
   };
 
   const deleteIngredientHandler = (index) => {
-    const newIngredients = [...ingredients];
-    newIngredients.splice(index, 1);
-    setIngredients(newIngredients);
+    deleteHandler(index, ingredients, setIngredients);
+    deleteHandler(index, ingredientErrors, setIngredientErrors);
+    deleteHandler(index, ingredientsTouched, setIngredientsTouched);
+  };
 
-    ingredientErrors.splice(index, 1);
-    setIngredientErrors(ingredientErrors);
+  const updateStateHandler = (index, newValue, values, setFunc) => {
+    const newValues = [...values];
+    newValues[index] = newValue;
+    setFunc(newValues);
+  };
 
-    ingredientsTouched.splice(index, 1);
-    setIngredientErrors(ingredientsTouched);
+  const deleteHandler = (index, values, setValues) => {
+    const newValues = [...values];
+    newValues.splice(index, 1);
+    setValues(newValues);
   };
 
   const isFormValid = () => {
