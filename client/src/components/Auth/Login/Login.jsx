@@ -17,6 +17,7 @@ export default function Login() {
   async function loginHandler({ email, password }) {
     // todo add validations
     // todo disabled button during fetch
+    // todo trim data
     console.log(email);
     console.log(password);
   }

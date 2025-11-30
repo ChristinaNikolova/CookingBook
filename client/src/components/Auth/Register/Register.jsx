@@ -18,6 +18,7 @@ export default function Register() {
   async function registerHandler({ email, password, rePass }) {
     // todo add validations
     // todo disabled button during fetch
+    // todo trim data
     console.log(email);
     console.log(password);
     console.log(rePass);

@@ -1,5 +1,5 @@
 // todo rename to steps
-// todo check transition color !!!!!!!1
+// todo check transition color !!!!!!!
 
 import { useState } from "react";
 import useForm from "../../../hooks/useForm";
