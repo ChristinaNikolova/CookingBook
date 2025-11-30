@@ -4,10 +4,12 @@ import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Categories from "./components/Recipe/Categories/Categories";
 import CreateRecipe from "./components/Recipe/Create/Create";
-import CreateCategory from "./components/Administration/Category/Create/Create";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import NotFound from "./components/NotFound/NotFound";
+import Jumbo from "./components/Administration/Jumbo/Jumbo";
+import AllCategories from "./components/Administration/Category/All/All";
+import CreateCategory from "./components/Administration/Category/Create/Create";
 
 function App() {
   const { pathname } = useLocation();
@@ -29,8 +31,9 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
-        <Route path="/admin">
+        <Route path="/admin" element={<Jumbo />}>
           <Route path="category">
+            <Route path="all" element={<AllCategories />} />
             <Route path="create" element={<CreateCategory />} />
           </Route>
         </Route>

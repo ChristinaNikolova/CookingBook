@@ -18,12 +18,15 @@
   background-color: var(--clr-yellow);
 }
 
-.btn:disabled {
+.btn:disabled,
+a.btn.disabled {
   color: var(--clr-grey);
   border-color: var(--clr-grey);
+  opacity: 0.5;
 }
 
-.btn:disabled:hover {
+.btn:disabled:hover,
+a.btn.disabled:hover {
   cursor: not-allowed;
   background-color: var(--clr-white);
 }
