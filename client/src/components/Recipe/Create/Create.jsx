@@ -1,5 +1,6 @@
 // todo адд categorydrop down
 // todo rename to steps
+// todo check transition color !!!!!!!1
 
 import { useState } from "react";
 import useForm from "../../../hooks/useForm";
@@ -164,12 +165,10 @@ export default function Create() {
                 onBlur={() => validateInstructionHandler(index)}
                 error={instructionErrors[index]}
               />
-              <button
-                type="button"
+              <i
+                className="fas fa-times"
                 onClick={() => deleteInstructionHandler(index)}
-              >
-                X
-              </button>
+              />
             </div>
           ))}
           <Button
