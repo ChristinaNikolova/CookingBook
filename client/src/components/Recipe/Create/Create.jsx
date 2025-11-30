@@ -63,13 +63,13 @@ export default function Create() {
       : setInstructions([...instructions, ""]);
   };
 
-  const updateInstruction = (index, value) => {
+  const updateInstructionHandler = (index, value) => {
     const newInstructions = [...instructions];
     newInstructions[index] = value;
     setInstructions(newInstructions);
   };
 
-  const handleInstructionBlur = (index) => {
+  const validateInstructionHandler = (index) => {
     const newTouched = [...instructionsTouched];
     newTouched[index] = true;
     setInstructionsTouched(newTouched);
@@ -79,13 +79,25 @@ export default function Create() {
     setInstructionErrors(newErrors);
   };
 
-  const updateIngredient = (index, value) => {
+  const deleteInstructionHandler = (index) => {
+    const newInstructions = [...instructions];
+    newInstructions.splice(index, 1);
+    setInstructions(newInstructions);
+
+    instructionErrors.splice(index, 1);
+    setInstructionErrors(instructionErrors);
+
+    instructionsTouched.splice(index, 1);
+    setInstructionsTouched(instructionsTouched);
+  };
+
+  const updateIngredientHandler = (index, value) => {
     const newIngredients = [...ingredients];
     newIngredients[index] = value;
     setIngredients(newIngredients);
   };
 
-  const handleIngredientBlur = (index) => {
+  const validateIngredientHandler = (index) => {
     const newTouched = [...ingredientsTouched];
     newTouched[index] = true;
     setIngredientsTouched(newTouched);
@@ -94,6 +106,12 @@ export default function Create() {
     newErrors[index] = validator.validateIngredient(ingredients[index]);
     setIngredientErrors(newErrors);
   };
+
+  // const deleteIngredientHandler = (index) => {
+  //   const newIngredients = [...ingredients];
+  //   newIngredients.splice(index, 1);
+  //   setIngredients(newIngredients);
+  // };
 
   const isFormValid = () => {
     const hasInstructionErrors = areErrors(instructions, "validateInstruction");
@@ -133,17 +151,26 @@ export default function Create() {
           {...fieldHandler("portions")}
         />
 
-        <div className={styles["create-recipe-input-wrapper"]}>
+        <div className={styles["create-recipe-wrapper"]}>
           <h4 className={styles["create-recipe-title"]}>Инструкции</h4>
           {instructions.map((instruction, index) => (
-            <CustomInput
-              key={index}
-              label={`Стъпка ${index + 1}`}
-              value={instruction}
-              onChange={(e) => updateInstruction(index, e.target.value)}
-              onBlur={() => handleInstructionBlur(index)}
-              error={instructionErrors[index]}
-            />
+            <div key={index} className={styles["create-recipe-input-wrapper"]}>
+              <CustomInput
+                label={`Стъпка ${index + 1}`}
+                value={instruction}
+                onChange={(e) =>
+                  updateInstructionHandler(index, e.target.value)
+                }
+                onBlur={() => validateInstructionHandler(index)}
+                error={instructionErrors[index]}
+              />
+              <button
+                type="button"
+                onClick={() => deleteInstructionHandler(index)}
+              >
+                X
+              </button>
+            </div>
           ))}
           <Button
             text=" + инструкция"
@@ -159,8 +186,8 @@ export default function Create() {
               key={index}
               label={`Продукт ${index + 1}`}
               value={ingredient}
-              onChange={(e) => updateIngredient(index, e.target.value)}
-              onBlur={() => handleIngredientBlur(index)}
+              onChange={(e) => updateIngredientHandler(index, e.target.value)}
+              onBlur={() => validateIngredientHandler(index)}
               error={ingredientErrors[index]}
             />
           ))}
