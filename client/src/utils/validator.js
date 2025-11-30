@@ -1,5 +1,9 @@
 import { global, auth, recipe } from "./constants/errors";
-import { auth as authModel, recipe as recipeModel } from "./constants/models";
+import {
+  auth as authModel,
+  recipe as recipeModel,
+  category as categoryModel,
+} from "./constants/models";
 
 export const validator = {
   register: (values, touched) => {
@@ -56,6 +60,34 @@ export const validator = {
 
     if (touched.password && !values.password) {
       errors["password"] = global.REQUIRED_INPUT;
+    }
+
+    return errors;
+  },
+
+  category: (values, touched) => {
+    const errors = {};
+
+    if (touched.name && !values.name) {
+      errors["name"] = global.REQUIRED_INPUT;
+    }
+
+    if (
+      touched.name &&
+      values.name &&
+      (values.name.length < categoryModel.NAME_MIN_LEN ||
+        values.name.length > categoryModel.NAME_MAX_LEN)
+    ) {
+      errors["name"] = global.REQUIRED_MIN_MAX_LEN(
+        "Името",
+        categoryModel.NAME_MIN_LEN,
+        categoryModel.NAME_MAX_LEN
+      );
+    }
+
+    // todo extend this + db
+    if (touched.image && !values.image) {
+      errors["image"] = global.REQUIRED_INPUT;
     }
 
     return errors;

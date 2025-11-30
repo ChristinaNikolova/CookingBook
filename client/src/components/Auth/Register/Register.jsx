@@ -46,7 +46,7 @@ export default function Register() {
           error={errors.rePass}
           {...fieldHandler("rePass")}
         />
-        <Button text="Регистрация" disabled={disabledForm()} />
+        <Button text="Регистрация" type="submit" disabled={disabledForm()} />
       </form>
     </section>
   );

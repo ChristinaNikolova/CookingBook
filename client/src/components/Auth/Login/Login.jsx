@@ -38,7 +38,7 @@ export default function Login() {
           error={errors.password}
           {...fieldHandler("password")}
         />
-        <Button text="Вход" disabled={disabledForm()} />
+        <Button text="Вход" type="submit" disabled={disabledForm()} />
       </form>
     </section>
   );

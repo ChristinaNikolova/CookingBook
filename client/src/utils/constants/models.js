@@ -3,6 +3,11 @@ export const auth = {
   PASSWORD_MAX_LEN: 50,
 };
 
+export const category = {
+  NAME_MIN_LEN: 3,
+  NAME_MAX_LEN: 30,
+};
+
 export const recipe = {
   TITLE_MIN_LEN: 3,
   TITLE_MAX_LEN: 50,
