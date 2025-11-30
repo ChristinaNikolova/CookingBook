@@ -22,7 +22,7 @@ export default function CreateCategory() {
   }
 
   return (
-    <section id="create-category" className="section-form">
+    <section id="admin-create-category" className="section-form">
       <h2 className="form-title">Създай нова категория</h2>
       <form className="form" action={submitHandler}>
         <CustomInput

@@ -71,6 +71,11 @@ export default function Header({ isHome }) {
               Изход
             </NavLink>
           </li>
+          <li className="header-ul-li">
+            <NavLink to="/admin" className={isActiveLink}>
+              Администрация
+            </NavLink>
+          </li>
         </ul>
       </nav>
       <nav className={styles["header-nav"]}>

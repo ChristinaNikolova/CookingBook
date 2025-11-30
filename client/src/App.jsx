@@ -8,6 +8,7 @@ import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import NotFound from "./components/NotFound/NotFound";
 import Jumbo from "./components/Administration/Jumbo/Jumbo";
+import Dashboard from "./components/Administration/Dashboard/Dashboard";
 import AllCategories from "./components/Administration/Category/All/All";
 import CreateCategory from "./components/Administration/Category/Create/Create";
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
         <Route path="/admin" element={<Jumbo />}>
+          <Route index element={<Dashboard />} />
           <Route path="category">
             <Route path="all" element={<AllCategories />} />
             <Route path="create" element={<CreateCategory />} />

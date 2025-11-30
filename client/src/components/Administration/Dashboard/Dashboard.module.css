@@ -1,0 +1,12 @@
+#admin-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36vh;
+  margin: 60px auto;
+}
+
+.admin-dashboard-content {
+  font-size: 30px;
+  font-weight: 900;
+}
