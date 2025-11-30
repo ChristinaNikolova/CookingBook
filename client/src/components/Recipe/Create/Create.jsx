@@ -1,4 +1,3 @@
-// todo адд categorydrop down
 // todo rename to steps
 // todo check transition color !!!!!!!1
 
@@ -6,6 +5,7 @@ import { useState } from "react";
 import useForm from "../../../hooks/useForm";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
+import CustomSelect from "../../shared/CustomSelect/CustomSelect";
 import { validator } from "../../../utils/validator";
 import styles from "./Create.module.css";
 
@@ -14,6 +14,7 @@ const initialValues = {
   summary: "",
   neededTime: "",
   portions: "",
+  category: "preMeal",
   image: "",
   isBabySafe: false,
 };
@@ -37,6 +38,7 @@ export default function Create() {
     summary,
     neededTime,
     portions,
+    category,
     image,
     isBabySafe,
   }) {
@@ -50,6 +52,7 @@ export default function Create() {
       neededTime,
       portions,
       image,
+      category,
       isBabySafe,
       instructions: instructions.filter((i) => i.trim()),
       ingredients: ingredients.filter((i) => i.trim()),
@@ -135,23 +138,28 @@ export default function Create() {
           error={errors.title}
           {...fieldHandler("title")}
         />
+
         <CustomInput
           tag="textarea"
           label="Резюме"
           error={errors.summary}
           {...fieldHandler("summary")}
         />
+
         <CustomInput
           label="Необходимо време"
           error={errors.neededTime}
           {...fieldHandler("neededTime")}
         />
+
         <CustomInput
           label="Брой порции"
           type="number"
           error={errors.portions}
           {...fieldHandler("portions")}
         />
+
+        <CustomSelect label="Категория" {...fieldHandler("category")} />
 
         <div className={styles["create-recipe-wrapper"]}>
           <h4 className={styles["create-recipe-title"]}>Инструкции</h4>
@@ -210,12 +218,14 @@ export default function Create() {
           error={errors.image}
           {...fieldHandler("image")}
         />
+
         <CustomInput
           label="Подходящо за бебе"
           type="checkbox"
           error={errors.isBabySafe}
           {...fieldHandler("isBabySafe")}
         />
+
         <Button text="Създай рецепта" type="submit" disabled={!isFormValid()} />
       </form>
     </section>
