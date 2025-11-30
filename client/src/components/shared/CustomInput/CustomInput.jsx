@@ -1,5 +1,4 @@
 import ErrorInput from "../ErrorInput/ErrorInput";
-import styles from "./CustomInput.module.css";
 
 export default function CustomInput({
   tag = "input",
@@ -12,7 +11,7 @@ export default function CustomInput({
   onBlur,
 }) {
   return (
-    <div className={styles["input-wrapper"]}>
+    <div className="input-wrapper">
       <label htmlFor={name}>{label}</label>
       {tag === "input" ? (
         <input

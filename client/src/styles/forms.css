@@ -11,3 +11,28 @@
   width: 80%;
   margin: 0 auto;
 }
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.input-wrapper label {
+  font-weight: 700;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+  padding: 8px;
+}
+
+.input-wrapper input,
+.input-wrapper select,
+.input-wrapper textarea {
+  width: 60%;
+  border: 1px solid var(--clr-grey);
+}
