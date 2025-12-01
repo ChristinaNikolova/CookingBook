@@ -91,7 +91,10 @@ export default function Header({ isHome }) {
             className={getButtonColor()}
             type="button"
           >
-            <i className="fa-solid fa-magnifying-glass"></i>
+            <i
+              className="fa-solid fa-magnifying-glass"
+              title="Търси рецепта"
+            ></i>
           </button>
         </form>
       </nav>
