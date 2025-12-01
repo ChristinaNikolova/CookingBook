@@ -8,6 +8,7 @@ import CreateRecipe from "./components/Recipe/Create/Create";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import NotFound from "./components/NotFound/NotFound";
+import Loader from "./components/Loader/Loader";
 
 const Jumbo = lazy(() => import("./components/Administration/Jumbo/Jumbo"));
 const Dashboard = lazy(() =>
@@ -44,7 +45,7 @@ function App() {
         <Route
           path="/admin"
           element={
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<Loader />}>
               <Jumbo />
             </Suspense>
           }
@@ -52,7 +53,7 @@ function App() {
           <Route
             index
             element={
-              <Suspense fallback={<p>Loading...</p>}>
+              <Suspense fallback={<Loader />}>
                 <Dashboard />
               </Suspense>
             }
@@ -61,7 +62,7 @@ function App() {
             <Route
               path="all"
               element={
-                <Suspense fallback={<p>Loading...</p>}>
+                <Suspense fallback={<Loader />}>
                   <AllCategories />
                 </Suspense>
               }
@@ -70,7 +71,7 @@ function App() {
             <Route
               path="create"
               element={
-                <Suspense fallback={<p>Loading...</p>}>
+                <Suspense fallback={<Loader />}>
                   <CreateCategory />
                 </Suspense>
               }

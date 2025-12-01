@@ -1,0 +1,40 @@
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 72vh;
+}
+
+.loader-content {
+  font-weight: 700;
+  font-size: 70px;
+  color: var(--clr-grey);
+}
+
+.loader-content-dot {
+  color: var(--clr-grey);
+  animation: colorChange 1.4s infinite;
+}
+
+.loader-content-dot:first-of-type {
+  animation-delay: 0s;
+}
+
+.loader-content-dot:nth-of-type(2) {
+  animation-delay: 0.2s;
+}
+
+.loader-content-dot:last-of-type {
+  animation-delay: 0.4s;
+}
+
+@keyframes colorChange {
+  0%,
+  60%,
+  100% {
+    color: var(--clr-grey);
+  }
+  30% {
+    color: var(--clr-yellow);
+  }
+}
