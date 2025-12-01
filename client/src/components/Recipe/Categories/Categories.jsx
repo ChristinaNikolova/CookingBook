@@ -14,7 +14,7 @@ export default function Categories() {
             alt=""
           />
           <h4 className={styles["categories-ul-item-title"]}>Торти</h4>
-          <p className={styles["categories-ul-item-content"]}>
+          <p className={styles["categories-ul-item-desc"]}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
@@ -27,7 +27,7 @@ export default function Categories() {
             alt=""
           />
           <h4 className={styles["categories-ul-item-title"]}>Торти</h4>
-          <p className={styles["categories-ul-item-content"]}>
+          <p className={styles["categories-ul-item-desc"]}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
@@ -40,7 +40,7 @@ export default function Categories() {
             alt=""
           />
           <h4 className={styles["categories-ul-item-title"]}>Торти</h4>
-          <p className={styles["categories-ul-item-content"]}>
+          <p className={styles["categories-ul-item-desc"]}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
@@ -53,7 +53,7 @@ export default function Categories() {
             alt=""
           />
           <h4 className={styles["categories-ul-item-title"]}>Торти</h4>
-          <p className={styles["categories-ul-item-content"]}>
+          <p className={styles["categories-ul-item-desc"]}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
@@ -66,7 +66,7 @@ export default function Categories() {
             alt=""
           />
           <h4 className={styles["categories-ul-item-title"]}>Торти</h4>
-          <p className={styles["categories-ul-item-content"]}>
+          <p className={styles["categories-ul-item-desc"]}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
@@ -79,7 +79,7 @@ export default function Categories() {
             alt=""
           />
           <h4 className={styles["categories-ul-item-title"]}>Торти</h4>
-          <p className={styles["categories-ul-item-content"]}>
+          <p className={styles["categories-ul-item-desc"]}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>

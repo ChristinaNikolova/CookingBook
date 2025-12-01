@@ -85,6 +85,21 @@ export const validator = {
       );
     }
 
+    if (touched.description && !values.description) {
+      errors["description"] = global.REQUIRED_INPUT;
+    }
+
+    if (
+      touched.description &&
+      values.description &&
+      values.description.length > categoryModel.DESC_MAX_LEN
+    ) {
+      errors["description"] = global.REQUIRED_MAX_LEN(
+        "Описанието",
+        categoryModel.DESC_MAX_LEN
+      );
+    }
+
     // todo extend this + db
     if (touched.image && !values.image) {
       errors["image"] = global.REQUIRED_INPUT;
@@ -122,7 +137,7 @@ export const validator = {
       values.summary &&
       values.summary.length > recipeModel.SUMMARY_MAX_LEN
     ) {
-      errors["title"] = global.REQUIRED_MAX_LEN(
+      errors["summary"] = global.REQUIRED_MAX_LEN(
         "Описанието",
         recipeModel.SUMMARY_MAX_LEN
       );

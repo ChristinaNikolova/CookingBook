@@ -41,7 +41,7 @@
   color: var(--clr-grey);
 }
 
-.categories-ul-item-content {
+.categories-ul-item-desc {
   margin-bottom: 40px;
   font-size: 14px;
 }

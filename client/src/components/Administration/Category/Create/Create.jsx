@@ -4,6 +4,7 @@ import CustomInput from "../../../shared/CustomInput/CustomInput";
 
 const initialValues = {
   name: "",
+  description: "",
   image: "",
 };
 export default function CreateCategory() {
@@ -13,12 +14,13 @@ export default function CreateCategory() {
     initialValues
   );
 
-  async function createHandler({ name, image }) {
-    // todo add category summary
+  async function createHandler({ name, description, image }) {
+    // todo add category description for DB
     // todo add validations
     // todo disabled button during fetch
     // todo trim data
     console.log(name);
+    console.log(description);
     console.log(image);
   }
 
@@ -31,6 +33,12 @@ export default function CreateCategory() {
           type="text"
           error={errors.name}
           {...fieldHandler("name")}
+        />
+        <CustomInput
+          tag="textarea"
+          label="Описание"
+          error={errors.description}
+          {...fieldHandler("description")}
         />
         <CustomInput
           label="Изображение"
