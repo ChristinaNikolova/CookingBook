@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Categories from "./components/Recipe/Categories/Categories";
+import All from "./components/Recipe/All/All";
 import CreateRecipe from "./components/Recipe/Create/Create";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/recipe">
           <Route path="categories" element={<Categories />} />
+          <Route path=":categoryId" element={<All />} />
           <Route path="create" element={<CreateRecipe />} />
         </Route>
         <Route path="/auth">
