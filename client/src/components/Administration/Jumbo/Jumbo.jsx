@@ -28,7 +28,11 @@ export default function Jumbo() {
           />
         </li>
         <li className={styles["admin-jumbo-li"]}>
-          <ButtonLink path="/" text="Рецепти" disabled={disabledButton()} />
+          <ButtonLink
+            path="/admin/recipe/all"
+            text="Рецепти"
+            disabled={disabledButton("/admin/recipe/all")}
+          />
         </li>
       </ul>
       <Outlet />

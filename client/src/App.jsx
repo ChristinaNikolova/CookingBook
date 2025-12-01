@@ -22,6 +22,9 @@ const AllCategories = lazy(() =>
 const CreateCategory = lazy(() =>
   import("./components/Administration/Category/Create/Create")
 );
+const AllRecipes = lazy(() =>
+  import("./components/Administration/Recipe/All/All")
+);
 
 // todo add RouteGuard
 
@@ -79,6 +82,17 @@ function App() {
               element={
                 <Suspense fallback={<Loader />}>
                   <CreateCategory />
+                </Suspense>
+              }
+            />
+          </Route>
+
+          <Route path="recipe">
+            <Route
+              path="all"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <AllRecipes />
                 </Suspense>
               }
             />
