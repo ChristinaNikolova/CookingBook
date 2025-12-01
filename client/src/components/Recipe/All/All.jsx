@@ -2,6 +2,7 @@ import ButtonLink from "../../shared/ButtonLink/ButtonLink";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import styles from "./All.module.css";
 
+// todo add last three on home page
 export default function All() {
   return (
     <section id="recipes">
