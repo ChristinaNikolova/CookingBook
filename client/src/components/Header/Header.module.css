@@ -41,7 +41,7 @@
 .header-selected-link {
   font-weight: 900;
   text-decoration: underline;
-  transition: all 200ms ease-in-out;
+  transition: var(--transition-clr);
 }
 
 .header-ul.white .header-selected-link,
@@ -63,7 +63,7 @@
 #header a:hover,
 #header i:hover {
   color: var(--clr-yellow);
-  transition: all 200ms ease-in-out;
+  transition: var(--transition-clr);
 }
 
 .header-nav-form-input {

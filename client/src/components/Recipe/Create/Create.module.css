@@ -38,7 +38,7 @@
   flex-shrink: 0;
   font-size: 18px;
   color: var(--clr-grey);
-  transition: color 400ms ease-in-out;
+  transition: var(--transition-clr);
 }
 
 .create-recipe-input-wrapper i:hover {

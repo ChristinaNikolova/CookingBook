@@ -9,4 +9,6 @@
 
   --font-family-base: "Roboto", sans-serif;
   --font-family-fancy: "Pacifico", cursive;
+
+  --transition-clr: color 600ms ease-in-out;
 }

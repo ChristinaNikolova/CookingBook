@@ -17,7 +17,7 @@
   font-weight: 100;
   text-transform: capitalize;
   color: var(--clr-white);
-  transition: all 600ms ease-in-out;
+  transition: var(--transition-clr);
 }
 
 .footer-content a:hover {
