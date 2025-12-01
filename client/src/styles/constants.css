@@ -3,10 +3,10 @@
 :root {
   --clr-white: #fff;
   --clr-yellow: #ffc000;
-  --clr-light-grey: #E8E8E8;
+  --clr-light-grey: #e8e8e8;
   --clr-grey: #777777;
   --clr-black: #000;
 
   --font-family-base: "Roboto", sans-serif;
-  --font-family-fancy: "Satisfy", cursive;
+  --font-family-fancy: "Pacifico", cursive;
 }

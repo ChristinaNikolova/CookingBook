@@ -14,7 +14,7 @@
   margin-right: 5px;
   padding-left: 5px;
   font-family: var(--font-family-fancy);
-  font-weight: 700;
+  font-weight: 100;
   text-transform: capitalize;
   color: var(--clr-white);
   transition: all 600ms ease-in-out;

@@ -2,7 +2,7 @@
 @import "./constants.css";
 @import "./forms.css";
 @import "./buttons.css";
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Satisfy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Pacifico");
 
 html {
   max-width: 1920px;
@@ -22,4 +22,5 @@ h4,
 h5,
 h6 {
   font-family: var(--font-family-fancy);
+  font-weight: 100;
 }
