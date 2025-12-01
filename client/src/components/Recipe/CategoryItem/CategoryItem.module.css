@@ -1,0 +1,31 @@
+.categories-item {
+  position: relative;
+  width: 25%;
+  margin-bottom: 80px;
+  padding: 100px 20px 40px 20px;
+  border: 1px solid var(--clr-light-grey);
+}
+
+.categories-item-img {
+  position: absolute;
+  left: 50%;
+  top: -72px;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 150px;
+  padding: 7px;
+  border: 1px solid var(--clr-light-grey);
+  border-radius: 100%;
+  background-color: var(--clr-white);
+}
+
+.categories-item-title {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: var(--clr-grey);
+}
+
+.categories-item-desc {
+  margin-bottom: 40px;
+  font-size: 14px;
+}
