@@ -21,6 +21,8 @@ const CreateCategory = lazy(() =>
   import("./components/Administration/Category/Create/Create")
 );
 
+// todo add RouteGuard
+
 function App() {
   const { pathname } = useLocation();
 

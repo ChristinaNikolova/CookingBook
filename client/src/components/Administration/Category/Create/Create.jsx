@@ -14,6 +14,7 @@ export default function CreateCategory() {
   );
 
   async function createHandler({ name, image }) {
+    // todo add category summary
     // todo add validations
     // todo disabled button during fetch
     // todo trim data
