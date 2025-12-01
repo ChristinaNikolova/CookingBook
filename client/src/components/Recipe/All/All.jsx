@@ -1,8 +1,12 @@
+import useTop from "../../../hooks/useTop";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 
 // todo add last three on home page
+
 export default function All() {
+  useTop();
+
   return (
     <section id="recipes">
       <ListWrapper title="Име на категорията">
