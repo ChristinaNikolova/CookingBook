@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./Details.module.css";
 
+// todo line through ingredient / step
 export default function Details({ categoryId }) {
   return (
     <section id={styles.details}>
