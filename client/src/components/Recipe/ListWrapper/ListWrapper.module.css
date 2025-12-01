@@ -1,10 +1,10 @@
-.categories-title {
+.list-wrapper-title {
   margin-top: 80px;
   margin-bottom: 120px;
   font-size: 46px;
 }
 
-.categories-list {
+.list-wrapper-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

@@ -1,12 +1,10 @@
 import CategoryItem from "../CategoryItem/CategoryItem";
-import styles from "./Categories.module.css";
+import ListWrapper from "../ListWrapper/ListWrapper";
 
-// todo extract css for the title
 export default function Categories() {
   return (
     <section id="categories">
-      <h2 className={styles["categories-title"]}>Категории</h2>
-      <ul className={styles["categories-list"]}>
+      <ListWrapper title="Категории">
         <CategoryItem
           id="1"
           title="Торти"
@@ -35,7 +33,7 @@ export default function Categories() {
           desc=" Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
-      </ul>
+      </ListWrapper>
     </section>
   );
 }
