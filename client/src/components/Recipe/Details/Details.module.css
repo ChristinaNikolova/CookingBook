@@ -1,0 +1,124 @@
+#details {
+  width: 70%;
+  margin: 80px auto;
+}
+
+.details-top-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 100px;
+  margin-bottom: 60px;
+}
+
+.details-top-img-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.details-top-img-wrapper > img {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  box-shadow: 2px 2px 2px var(--clr-light-grey);
+}
+
+.details-top-img-wrapper > i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  color: var(--clr-grey);
+}
+
+.details-top-img-wrapper > i:hover {
+  cursor: pointer;
+  color: var(--clr-yellow);
+  transition: var(--transition-clr);
+}
+
+.details-top-icon-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details-top-icon-item {
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.details-top-icon-item > i {
+  margin-right: 4px;
+  font-size: 18px;
+  color: var(--clr-grey);
+}
+
+.details-top-icon-item a {
+  font-weight: 600;
+}
+
+.details-top-icon-item a:hover {
+  cursor: pointer;
+  color: var(--clr-yellow);
+  transition: var(--transition-clr);
+}
+
+.details-top-title {
+  margin-bottom: 20px;
+  font-size: 38px;
+}
+
+.details-top-summary {
+  margin-bottom: 40px;
+  font-size: 14px;
+  text-align: left;
+  color: var(--clr-grey);
+}
+
+.details-top-ingredients-wrapper {
+  text-align: left;
+}
+
+.details-top-ingredients-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.details-top-ingredients-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 35vh;
+  list-style-type: disc;
+}
+
+.details-top-ingredients-item {
+  margin-right: 40px;
+  margin-bottom: 8px;
+  color: var(--clr-grey);
+}
+
+.details-bottom-wrapper {
+  text-align: left;
+}
+
+.details-bottom-title {
+  margin-bottom: 26px;
+  font-size: 26px;
+}
+
+.details-bottom-content {
+  margin-bottom: 20px;
+  color: var(--clr-grey);
+}
+
+.details-bottom-content > span {
+  display: block;
+  margin-bottom: 3px;
+  font-weight: 700;
+  color: var(--clr-black);
+}
