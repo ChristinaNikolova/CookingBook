@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import useAuthContext from "../../../hooks/useAuthContext";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import Button from "../../shared/Button/Button";
+import ServerError from "../../shared/ServerError/ServerError";
 
 const initialValues = {
   email: "",
@@ -12,6 +14,8 @@ const initialValues = {
 export default function Login() {
   const { userAuth } = useAuthContext();
   const navigate = useNavigate();
+  const [serverError, setServerError] = useState("");
+
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     loginHandler,
     "login",
@@ -34,7 +38,7 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         if (!data.accessToken) {
-          // todo add component for server errors
+          setServerError(data.message[0].msg);
           return;
         }
 
@@ -46,6 +50,7 @@ export default function Login() {
 
   return (
     <section id="login" className="section-form">
+      {serverError && <ServerError error={serverError} />}
       <h2 className="form-title">Вход</h2>
       <form className="form" action={submitHandler}>
         <CustomInput
