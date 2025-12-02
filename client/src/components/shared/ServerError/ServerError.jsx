@@ -18,7 +18,7 @@ export default function ServerError({ error, duration = 3000 }) {
       clearTimeout(visibleTimer);
       clearTimeout(fadeTimer);
     };
-  }, [duration, error]);
+  }, [duration]);
 
   if (!isVisible) {
     return null;
