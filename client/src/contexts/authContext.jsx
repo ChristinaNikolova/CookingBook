@@ -18,8 +18,8 @@ export const AuthProvider = ({ children }) => {
 
   const userAuth = (authData) => {
     setAuthToken(authData ? authData.accessToken : "");
-    setEmail(authData ? authData.user.email : "");
-    setId(authData ? authData.user._id : "");
+    setEmail(authData ? authData.email : "");
+    setId(authData ? authData._id : "");
   };
 
   return (

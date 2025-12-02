@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
-import Button from "../../shared/Button/Button";
+import useAuthContext from "../../../hooks/useAuthContext";
 import CustomInput from "../../shared/CustomInput/CustomInput";
+import Button from "../../shared/Button/Button";
 
 const initialValues = {
   email: "",
@@ -9,6 +11,8 @@ const initialValues = {
 };
 
 export default function Register() {
+  const { userAuth } = useAuthContext();
+  const navigate = useNavigate();
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     registerHandler,
     "register",
@@ -28,7 +32,16 @@ export default function Register() {
       },
       body: JSON.stringify(data),
     })
-      .then((res) => console.log(res))
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.accessToken) {
+          // todo add component for server errors
+          return;
+        }
+
+        userAuth(data);
+        navigate("/");
+      })
       .catch((err) => console.error(err));
   }
 
