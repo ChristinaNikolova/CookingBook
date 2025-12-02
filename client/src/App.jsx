@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { AuthProvider } from "./contexts/authContext";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
@@ -36,7 +37,7 @@ function App() {
   };
 
   return (
-    <>
+    <AuthProvider>
       <Header isHome={isHome()} />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -101,7 +102,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </>
+    </AuthProvider>
   );
 }
 

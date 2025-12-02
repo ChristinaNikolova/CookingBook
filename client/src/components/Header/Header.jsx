@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import useAuthContext from "../../hooks/useAuthContext";
 
 export default function Header({ isHome }) {
+  const { isAuthenticated, isAdmin } = useAuthContext();
   const [showSearch, setShowSearch] = useState(false);
 
   const toogleSearch = () => {
@@ -41,41 +43,51 @@ export default function Header({ isHome }) {
               Начало
             </NavLink>
           </li>
-          <li className="header-ul-li">
-            <NavLink to="/recipe/categories" className={isActiveLink}>
-              Рецепти
-            </NavLink>
-          </li>
-          <li className="header-ul-li">
-            <NavLink to="/favourites" className={isActiveLink}>
-              Любими
-            </NavLink>
-          </li>
-          <li className="header-ul-li">
-            <NavLink to="/menu" className={isActiveLink}>
-              Списъци
-            </NavLink>
-          </li>
-          <li className="header-ul-li">
-            <NavLink to="/auth/login" className={isActiveLink}>
-              Вход
-            </NavLink>
-          </li>
-          <li className="header-ul-li">
-            <NavLink to="/auth/register" className={isActiveLink}>
-              Регистрация
-            </NavLink>
-          </li>
-          <li className="header-ul-li">
-            <NavLink to="/auth/logout" className={isActiveLink}>
-              Изход
-            </NavLink>
-          </li>
-          <li className="header-ul-li">
-            <NavLink to="/admin" className={isActiveLink}>
-              Администрация
-            </NavLink>
-          </li>
+
+          {isAuthenticated ? (
+            <>
+              <li className="header-ul-li">
+                <NavLink to="/recipe/categories" className={isActiveLink}>
+                  Рецепти
+                </NavLink>
+              </li>
+              <li className="header-ul-li">
+                <NavLink to="/favourites" className={isActiveLink}>
+                  Любими
+                </NavLink>
+              </li>
+              <li className="header-ul-li">
+                <NavLink to="/menu" className={isActiveLink}>
+                  Списъци
+                </NavLink>
+              </li>
+              <li className="header-ul-li">
+                <NavLink to="/auth/logout" className={isActiveLink}>
+                  Изход
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="header-ul-li">
+                <NavLink to="/auth/login" className={isActiveLink}>
+                  Вход
+                </NavLink>
+              </li>
+              <li className="header-ul-li">
+                <NavLink to="/auth/register" className={isActiveLink}>
+                  Регистрация
+                </NavLink>
+              </li>
+            </>
+          )}
+          {isAdmin && (
+            <li className="header-ul-li">
+              <NavLink to="/admin" className={isActiveLink}>
+                Администрация
+              </NavLink>
+            </li>
+          )}
         </ul>
       </nav>
       <nav className={styles["header-nav"]}>

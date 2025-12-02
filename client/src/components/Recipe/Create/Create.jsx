@@ -176,6 +176,7 @@ export default function CreateRecipe() {
               <i
                 className="fas fa-times"
                 onClick={() => deleteInstructionHandler(index)}
+                title="Изтрий"
               />
             </div>
           ))}
@@ -201,6 +202,7 @@ export default function CreateRecipe() {
               <i
                 className="fas fa-times"
                 onClick={() => deleteIngredientHandler(index)}
+                title="Изтрий"
               />
             </div>
           ))}
