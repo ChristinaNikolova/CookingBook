@@ -1,7 +1,6 @@
 import ButtonLink from "../shared/ButtonLink/ButtonLink";
 import styles from "./NotFound.module.css";
 
-// todo scroll to the top
 export default function NotFound() {
   return (
     <section id={styles["not-found"]}>

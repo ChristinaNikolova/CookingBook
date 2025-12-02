@@ -2,7 +2,6 @@ import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
 import styles from "./All.module.css";
 
-// todo add component for the server errors!!!
 // todo add title attributes!!!
 export default function AllCategories() {
   return (

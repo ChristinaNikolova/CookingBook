@@ -42,7 +42,6 @@ export default function CreateRecipe() {
     isBabySafe,
   }) {
     // todo add validations
-    // todo disabled button during fetch
     // todo trim data
 
     const fullData = {

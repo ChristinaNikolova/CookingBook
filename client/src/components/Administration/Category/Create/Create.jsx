@@ -17,7 +17,6 @@ export default function CreateCategory() {
   async function createHandler({ name, description, image }) {
     // todo add category description for DB
     // todo add validations
-    // todo disabled button during fetch
     // todo trim data
     console.log(name);
     console.log(description);
