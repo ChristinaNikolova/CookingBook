@@ -19,7 +19,7 @@ export default function Register() {
     initialValues
   );
 
-  async function registerHandler({ email, password }) {
+  function registerHandler({ email, password }) {
     const data = {
       email: email.trim(),
       password: password.trim(),

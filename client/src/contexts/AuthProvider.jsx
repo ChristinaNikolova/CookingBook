@@ -1,17 +1,8 @@
-import { createContext } from "react";
 import usePersistedState from "../hooks/usePersistedState";
 import { emails } from "../utils/constants/global";
+import { AuthContext } from "./authContext";
 
-// todo check Ivo implementation
-
-export const AuthContext = createContext({
-  userAuth() {},
-  isAuthenticated: false,
-  isAdmin: false,
-  userId: "",
-});
-
-export const AuthProvider = ({ children }) => {
+export default function AuthProvider({ children }) {
   const [authToken, setAuthToken] = usePersistedState("authToken", "");
   const [email, setEmail] = usePersistedState("email", "");
   const [id, setId] = usePersistedState("userId", "");
@@ -34,4 +25,4 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}

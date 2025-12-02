@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
-import Button from "../../shared/Button/Button";
+import useAuthContext from "../../../hooks/useAuthContext";
 import CustomInput from "../../shared/CustomInput/CustomInput";
+import Button from "../../shared/Button/Button";
 
 const initialValues = {
   email: "",
@@ -8,6 +10,8 @@ const initialValues = {
 };
 
 export default function Login() {
+  const { userAuth } = useAuthContext();
+  const navigate = useNavigate();
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     loginHandler,
     "login",
@@ -15,11 +19,29 @@ export default function Login() {
   );
 
   async function loginHandler({ email, password }) {
-    // todo add validations
-    // todo disabled button during fetch
-    // todo trim data
-    console.log(email);
-    console.log(password);
+    const data = {
+      email: email.trim(),
+      password: password.trim(),
+    };
+
+    fetch("http://localhost:3030/auth/login", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.accessToken) {
+          // todo add component for server errors
+          return;
+        }
+
+        userAuth(data);
+        navigate("/");
+      })
+      .catch((err) => console.error(err));
   }
 
   return (
