@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import useAuthContext from "../../../hooks/useAuthContext";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import Button from "../../shared/Button/Button";
+import ServerError from "../../shared/ServerError/ServerError";
 
 const initialValues = {
   email: "",
@@ -13,6 +15,8 @@ const initialValues = {
 export default function Register() {
   const { userAuth } = useAuthContext();
   const navigate = useNavigate();
+  const [serverError, setServerError] = useState("");
+
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     registerHandler,
     "register",
@@ -25,6 +29,8 @@ export default function Register() {
       password: password.trim(),
     };
 
+    setServerError(false);
+    // todo check why : data.message[0].msg
     fetch("http://localhost:3030/auth/register", {
       method: "post",
       headers: {
@@ -35,7 +41,7 @@ export default function Register() {
       .then((res) => res.json())
       .then((data) => {
         if (!data.accessToken) {
-          // todo add component for server errors
+          setServerError(data.message[0].msg);
           return;
         }
 
@@ -47,6 +53,7 @@ export default function Register() {
 
   return (
     <section id="register" className="section-form">
+      {serverError && <ServerError error={serverError} />}
       <h2 className="form-title">Регистрация</h2>
       <form className="form" action={submitHandler}>
         <CustomInput
