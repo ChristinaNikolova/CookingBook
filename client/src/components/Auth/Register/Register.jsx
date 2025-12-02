@@ -15,13 +15,21 @@ export default function Register() {
     initialValues
   );
 
-  async function registerHandler({ email, password, rePass }) {
-    // todo add validations
-    // todo disabled button during fetch
-    // todo trim data
-    console.log(email);
-    console.log(password);
-    console.log(rePass);
+  async function registerHandler({ email, password }) {
+    const data = {
+      email: email.trim(),
+      password: password.trim(),
+    };
+
+    fetch("http://localhost:3030/auth/register", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
   }
 
   return (
