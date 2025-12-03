@@ -35,8 +35,6 @@ const AllRecipes = lazy(() =>
   import("./components/Administration/Recipe/All/All")
 );
 
-// todo add email to the Header
-
 function App() {
   const { pathname } = useLocation();
 

@@ -49,6 +49,11 @@
   color: var(--clr-yellow);
 }
 
+.header-email {
+  font-size: 12px;
+  text-transform: lowercase;
+}
+
 .header-li-logo {
   font-family: var(--font-family-fancy);
   font-weight: 100;

@@ -4,7 +4,7 @@ import styles from "./Header.module.css";
 import useAuthContext from "../../hooks/useAuthContext";
 
 export default function Header({ isHome }) {
-  const { isAuthenticated, isAdmin } = useAuthContext();
+  const { isAuthenticated, isAdmin, user } = useAuthContext();
   const [showSearch, setShowSearch] = useState(false);
 
   const toogleSearch = () => {
@@ -71,7 +71,8 @@ export default function Header({ isHome }) {
               </li>
               <li className="header-ul-li">
                 <NavLink to="/auth/logout" className={isActiveLink}>
-                  Изход
+                  Изход,{" "}
+                  <span className={styles["header-email"]}>{user.email}</span>
                 </NavLink>
               </li>
             </>
