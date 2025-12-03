@@ -1,6 +1,6 @@
 // todo rename to steps
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useForm from "../../../hooks/useForm";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
@@ -25,11 +25,13 @@ export default function CreateRecipe() {
   const [ingredientErrors, setIngredientErrors] = useState([]);
   const [instructionsTouched, setInstructionsTouched] = useState([]);
   const [ingredientsTouched, setIngredientsTouched] = useState([]);
+  const formRef = useRef();
 
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     createHandler,
     "recipe",
-    initialValues
+    initialValues,
+    formRef
   );
 
   async function createHandler({
@@ -129,7 +131,9 @@ export default function CreateRecipe() {
 
   return (
     <section id="create-recipe" className="section-form">
-      <h2 className="form-title">Добави нова рецепта</h2>
+      <h2 ref={formRef} className="form-title">
+        Добави нова рецепта
+      </h2>
       <form className="form" action={submitHandler}>
         <CustomInput
           label="Заглавие"

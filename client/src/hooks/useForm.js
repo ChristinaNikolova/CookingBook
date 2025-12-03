@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { validator } from "../utils/validator";
 
-export default function useForm(callback, validatorName, initialValues) {
+export default function useForm(
+  callback,
+  validatorName,
+  initialValues,
+  formRef
+) {
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    formRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [formRef]);
 
   const fieldHandler = (fieldName) => {
     return {
@@ -23,7 +35,17 @@ export default function useForm(callback, validatorName, initialValues) {
     }));
   };
 
-  const submitHandler = () => {
+  // todo remove this
+  const wait = (time) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Wait is over!");
+      }, time);
+    });
+  };
+
+  const submitHandler = async () => {
+    await wait(2000);
     callback(values);
   };
 
