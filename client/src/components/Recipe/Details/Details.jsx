@@ -30,7 +30,7 @@ export default function Details({ categoryId }) {
             <li className={styles["details-top-icon-item"]}>
               <i className="fa-solid fa-clock" title="Необходимо време"></i> 50
               min
-            </li>{" "}
+            </li>
             <li className={styles["details-top-icon-item"]}>
               <i
                 className="fa-solid fa-temperature-high"

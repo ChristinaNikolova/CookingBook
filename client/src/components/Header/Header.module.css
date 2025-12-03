@@ -50,6 +50,7 @@
 }
 
 .header-email {
+  margin-left: 5px;
   font-size: 12px;
   text-transform: lowercase;
 }

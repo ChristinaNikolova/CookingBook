@@ -5,13 +5,13 @@ export default function Footer() {
   return (
     <footer id={styles.footer}>
       <p className={styles["footer-content"]}>
-        <Link to="/">CookingBook</Link> -{" "}
+        <Link to="/">CookingBook</Link> -
         <a
           href="https://github.com/ChristinaNikolova/CookingBook"
           target="_blank"
         >
           Christina Nikolova
-        </a>{" "}
+        </a>
         &copy; {new Date().getFullYear()}
       </p>
     </footer>
