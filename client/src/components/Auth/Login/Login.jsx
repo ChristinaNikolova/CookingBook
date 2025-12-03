@@ -13,9 +13,9 @@ const initialValues = {
 };
 
 export default function Login() {
+  const [serverError, setServerError] = useState("");
   const { userAuth } = useAuthContext();
   const navigate = useNavigate();
-  const [serverError, setServerError] = useState("");
 
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     loginHandler,
@@ -31,7 +31,6 @@ export default function Login() {
 
     try {
       const result = await requester("/auth/login", "post", data);
-      console.log(result);
       userAuth(result);
       navigate("/");
     } catch (err) {

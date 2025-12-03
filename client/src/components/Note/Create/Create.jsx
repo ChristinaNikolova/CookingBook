@@ -21,8 +21,8 @@ export default function CreateNote() {
   }
 
   return (
-    <section id="create-note">
-      <h2 className="create-note-title">Добави бележка</h2>
+    <section className="section-form">
+      <h2 className="form-title">Добави бележка</h2>
       <form className="form" action={submitHandler}>
         <CustomInput
           tag="textarea"
