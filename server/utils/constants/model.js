@@ -35,6 +35,7 @@ module.exports = {
   category,
   ingredient,
   instruction,
+  note,
   recipe,
   user,
 };

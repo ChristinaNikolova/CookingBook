@@ -4,6 +4,7 @@ require("../models/Category");
 require("../models/Image");
 require("../models/Ingredient");
 require("../models/Instruction");
+require("../models/Note");
 require("../models/Recipe");
 require("../models/TokenBlacklist");
 require("../models/User");

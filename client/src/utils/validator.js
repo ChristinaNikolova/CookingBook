@@ -195,7 +195,6 @@ export const validator = {
     return errors;
   },
 
-  // todo check server + db
   validateInstruction: (value) => {
     if (!value.trim()) {
       return global.REQUIRED_INPUT;
