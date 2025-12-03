@@ -44,6 +44,14 @@ export default function Header({ isHome }) {
             </NavLink>
           </li>
 
+          {isAdmin && (
+            <li className="header-ul-li">
+              <NavLink to="/admin" className={isActiveLink}>
+                Администрация
+              </NavLink>
+            </li>
+          )}
+
           {isAuthenticated ? (
             <>
               <li className="header-ul-li">
@@ -80,13 +88,6 @@ export default function Header({ isHome }) {
                 </NavLink>
               </li>
             </>
-          )}
-          {isAdmin && (
-            <li className="header-ul-li">
-              <NavLink to="/admin" className={isActiveLink}>
-                Администрация
-              </NavLink>
-            </li>
           )}
         </ul>
       </nav>
