@@ -5,6 +5,7 @@ import useAuthContext from "../../../hooks/useAuthContext";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import Button from "../../shared/Button/Button";
 import ServerError from "../../shared/ServerError/ServerError";
+import requester from "../../../utils/requester";
 
 const initialValues = {
   email: "",
@@ -28,24 +29,15 @@ export default function Login() {
       password: password.trim(),
     };
 
-    fetch("http://localhost:3030/auth/login", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (!data.accessToken) {
-          setServerError(data.message[0].msg);
-          return;
-        }
-
-        userAuth(data);
-        navigate("/");
-      })
-      .catch((err) => console.error(err));
+    try {
+      const result = await requester("/auth/login", "post", data);
+      console.log(result);
+      userAuth(result);
+      navigate("/");
+    } catch (err) {
+      setServerError(err.message);
+      return;
+    }
   }
 
   return (
