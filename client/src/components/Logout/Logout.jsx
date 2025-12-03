@@ -6,6 +6,7 @@ export default function Logout() {
   const { userAuth, authToken } = useAuthContext();
   const navigate = useNavigate();
 
+  // todo add AbortController and check the requests again
   useEffect(() => {
     fetch("http://localhost:3030/auth/logout", {
       method: "get",

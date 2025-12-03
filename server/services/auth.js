@@ -60,7 +60,7 @@ async function parseToken(token) {
     throw new Error(errors.TOKEN_EXIST);
   }
 
-  return jwt.verify(JSON.parse(token), important.SECRET);
+  return jwt.verify(token, important.SECRET);
 }
 
 async function getUserByEmail(email) {
