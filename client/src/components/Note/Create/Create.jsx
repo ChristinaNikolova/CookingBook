@@ -14,10 +14,10 @@ export default function CreateNote() {
   );
 
   async function createHandler({ description }) {
-    // todo add note for DB
-    // todo add validations
-    // todo trim data
-    console.log(description);
+    const data = {
+      description: description.trim(),
+    };
+    console.log(data);
   }
 
   return (

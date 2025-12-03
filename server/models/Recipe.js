@@ -23,6 +23,7 @@ const recipeSchema = new Schema(
     },
     summary: {
       type: String,
+      required: [true, errors.REQUIRED_INPUT],
       maxLength: [
         recipe.SUMMARY_MAX_LEN,
         errors.REQUIRED_MAX_LEN("Описанието", recipe.SUMMARY_MAX_LEN),

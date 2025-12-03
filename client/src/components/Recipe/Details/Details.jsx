@@ -5,7 +5,6 @@ import ButtonLink from "../../shared/ButtonLink/ButtonLink";
 import styles from "./Details.module.css";
 
 // todo line through ingredient / step
-// todo add temperature w gradusi
 // todo add no content case
 
 export default function Details({ categoryId }) {
@@ -30,13 +29,6 @@ export default function Details({ categoryId }) {
             <li className={styles["details-top-icon-item"]}>
               <i className="fa-solid fa-clock" title="Необходимо време"></i> 50
               min
-            </li>
-            <li className={styles["details-top-icon-item"]}>
-              <i
-                className="fa-solid fa-temperature-high"
-                title="Температура на печене"
-              ></i>
-              150
             </li>
             <li className={styles["details-top-icon-item"]}>
               <i className="fa-solid fa-baby" title="Подходящо за бебе"></i> Да

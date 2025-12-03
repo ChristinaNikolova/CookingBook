@@ -1,4 +1,3 @@
-// todo rename to steps
 // todo fix all form to use ref
 
 import { useRef, useState } from "react";
@@ -44,22 +43,18 @@ export default function CreateRecipe() {
     image,
     isBabySafe,
   }) {
-    // todo add validations
-    // todo trim data
-
-    const fullData = {
-      title,
-      summary,
-      neededTime,
-      portions,
-      image,
-      category,
-      isBabySafe,
+    const data = {
+      title: title.trim(),
+      summary: summary.trim(),
+      neededTime: neededTime.trim(),
+      portions: portions.trim(),
+      image: image.trim(),
+      category: category.trim(),
+      isBabySafe: isBabySafe.trim(),
       instructions: instructions.filter((i) => i.trim()),
       ingredients: ingredients.filter((i) => i.trim()),
     };
-
-    console.log(fullData);
+    console.log(data);
   }
 
   const addInputHandler = (name) => {

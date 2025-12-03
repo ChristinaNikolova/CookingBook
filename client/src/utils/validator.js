@@ -26,7 +26,6 @@ export const validator = {
       errors["password"] = global.REQUIRED_INPUT;
     }
 
-    // todo адд реяуиред в дб моделите
     if (
       (touched.password &&
         values.password &&
@@ -109,7 +108,6 @@ export const validator = {
     return errors;
   },
 
-  // todo extend db
   note: (values, touched) => {
     const errors = {};
 
@@ -126,11 +124,6 @@ export const validator = {
         "Описанието",
         noteModel.DESC_MAX_LEN
       );
-    }
-
-    // todo extend this + db
-    if (touched.image && !values.image) {
-      errors["image"] = global.REQUIRED_INPUT;
     }
 
     return errors;

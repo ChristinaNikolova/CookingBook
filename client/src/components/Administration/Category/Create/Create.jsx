@@ -15,12 +15,12 @@ export default function CreateCategory() {
   );
 
   async function createHandler({ name, description, image }) {
-    // todo add category description for DB
-    // todo add validations
-    // todo trim data
-    console.log(name);
-    console.log(description);
-    console.log(image);
+    const data = {
+      name: name.trim(),
+      description: description.trim(),
+      image: image.trim(),
+    };
+    console.log(data);
   }
 
   return (

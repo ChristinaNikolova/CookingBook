@@ -3,7 +3,6 @@ import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 
 // todo add last three on home page
-// todo initialValues
 
 export default function All() {
   useTop();
