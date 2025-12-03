@@ -167,7 +167,6 @@ export const validator = {
     return errors;
   },
 
-  // todo add trim everywhere
   // todo check server + db
   validateInstruction: (value) => {
     if (!value.trim()) {

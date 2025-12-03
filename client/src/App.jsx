@@ -12,6 +12,7 @@ import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import NotFound from "./components/NotFound/NotFound";
 import Loader from "./components/Loader/Loader";
+import Logout from "./components/Logout/Logout";
 
 const Jumbo = lazy(() => import("./components/Administration/Jumbo/Jumbo"));
 const Dashboard = lazy(() =>
@@ -48,8 +49,9 @@ function App() {
           <Route path="create" element={<CreateRecipe />} />
         </Route>
         <Route path="/auth">
-          <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="logout" element={<Logout />} />
         </Route>
 
         <Route

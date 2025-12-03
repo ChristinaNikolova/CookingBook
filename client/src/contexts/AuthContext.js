@@ -5,4 +5,5 @@ export const AuthContext = createContext({
   isAuthenticated: false,
   isAdmin: false,
   userId: "",
+  authToken: "",
 });
