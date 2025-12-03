@@ -1,6 +1,7 @@
 const category = {
   NAME_MIN_LEN: 3,
   NAME_MAX_LEN: 30,
+  DESC_MAX_LEN: 300,
 };
 
 const ingredient = {
@@ -10,7 +11,11 @@ const ingredient = {
 
 const instruction = {
   DESC_MIN_LEN: 3,
-  DESC_MAX_LEN: 30,
+  DESC_MAX_LEN: 3000,
+};
+
+const note = {
+  DESC_MAX_LEN: 500,
 };
 
 const recipe = {

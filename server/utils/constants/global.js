@@ -4,7 +4,7 @@ const important = {
 };
 
 const emails = {
-  ADMIN: "admin@cooking-book.com",
+  ADMIN: "admin@cookingbook.com",
 };
 
 const messages = {
