@@ -8,13 +8,21 @@ const categorySchema = new Schema({
     required: [true, errors.REQUIRED_INPUT],
     minLength: [
       category.NAME_MIN_LEN,
-      `Името трябва да е поне ${category.NAME_MIN_LEN} символа`,
+      errors.REQUIRED_MIN_LEN("Името", category.NAME_MIN_LEN),
     ],
     maxLength: [
       category.NAME_MAX_LEN,
-      `Името трябва да е до ${category.NAME_MAX_LEN} символа`,
+      errors.REQUIRED_MAX_LEN("Името", category.NAME_MAX_LEN),
     ],
     unique: true,
+  },
+  description: {
+    type: String,
+    required: [true, errors.REQUIRED_INPUT],
+    maxLength: [
+      category.DESC_MAX_LEN,
+      errors.REQUIRED_MAX_LEN("Описанието", category.DESC_MAX_LEN),
+    ],
   },
   image: {
     type: String,

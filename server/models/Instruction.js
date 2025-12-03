@@ -8,11 +8,11 @@ const instructionSchema = new Schema({
     required: [true, errors.REQUIRED_INPUT],
     minLength: [
       instruction.DESC_MIN_LEN,
-      `Описанието трябва да е поне ${instruction.DESC_MIN_LEN} символа`,
+      errors.REQUIRED_MIN_LEN("Описанието", instruction.DESC_MIN_LEN),
     ],
     maxLength: [
-      instruction.DESC_MIN_LEN,
-      `Описанието трябва да е до ${instruction.DESC_MAX_LEN} символа`,
+      instruction.DESC_MAX_LEN,
+      errors.REQUIRED_MAX_LEN("Описанието", instruction.DESC_MAX_LEN),
     ],
   },
 });

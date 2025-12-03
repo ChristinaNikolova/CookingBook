@@ -8,11 +8,11 @@ const ingredientSchema = new Schema({
     required: [true, errors.REQUIRED_INPUT],
     minLength: [
       ingredient.DESC_MIN_LEN,
-      `Описанието трябва да е поне ${ingredient.DESC_MIN_LEN} символа`,
+      errors.REQUIRED_MIN_LEN("Описанието", ingredient.DESC_MIN_LEN),
     ],
     maxLength: [
       ingredient.DESC_MAX_LEN,
-      `Описанието трябва да е до ${ingredient.DESC_MAX_LEN} символа`,
+      errors.REQUIRED_MAX_LEN("Описанието", ingredient.DESC_MAX_LEN),
     ],
   },
 });

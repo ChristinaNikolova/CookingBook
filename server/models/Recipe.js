@@ -13,11 +13,11 @@ const recipeSchema = new Schema(
       required: [true, errors.REQUIRED_INPUT],
       minLength: [
         recipe.TITLE_MIN_LEN,
-        `Заглавието трябва да е поне ${recipe.TITLE_MIN_LEN} символа`,
+        errors.REQUIRED_MIN_LEN("Заглавието", recipe.TITLE_MIN_LEN),
       ],
       maxLength: [
         recipe.TITLE_MAX_LEN,
-        `Заглавието трябва да е до ${recipe.TITLE_MAX_LEN} символа`,
+        errors.REQUIRED_MAX_LEN("Заглавието", recipe.TITLE_MAX_LEN),
       ],
       unique: true,
     },
@@ -25,7 +25,7 @@ const recipeSchema = new Schema(
       type: String,
       maxLength: [
         recipe.SUMMARY_MAX_LEN,
-        `Описанието трябва да е до ${recipe.SUMMARY_MAX_LEN} символа`,
+        errors.REQUIRED_MAX_LEN("Описанието", recipe.SUMMARY_MAX_LEN),
       ],
     },
     neededTime: {
@@ -33,13 +33,16 @@ const recipeSchema = new Schema(
       required: [true, errors.REQUIRED_INPUT],
       maxLength: [
         recipe.NEEDED_TIME_MAX_LEN,
-        `Необходимото време трябва да е до ${recipe.NEEDED_TIME_MAX_LEN} символа`,
+        errors.REQUIRED_MAX_LEN(
+          "Необходимото време",
+          recipe.NEEDED_TIME_MAX_LEN
+        ),
       ],
     },
     portions: {
       type: Number,
       required: [true, errors.REQUIRED_INPUT],
-      min: [recipe.PORTIONS_MIN, `Порциите трябва да са положително число`],
+      min: [recipe.PORTIONS_MIN, "Порциите трябва да са положително число"],
     },
     isBabySafe: {
       type: Boolean,

@@ -18,6 +18,12 @@ const errors = {
   INVALID_URL: "Invalid url",
   INVALID_EMAIL: "Невалиден адрес",
   REQUIRED_INPUT: "Задължително поле",
+  REQUIRED_MIN_LEN(name, value) {
+    return `${name} трябва да е поне ${value} символа`;
+  },
+  REQUIRED_MAX_LEN(name, value) {
+    return `${name} трябва да е до ${value} символа1`;
+  },
   PASSWORD(min, max) {
     return `Паролата трябва да е между ${min} и ${max} символа`;
   },
