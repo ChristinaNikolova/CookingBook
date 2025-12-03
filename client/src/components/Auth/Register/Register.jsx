@@ -30,7 +30,7 @@ export default function Register() {
     };
 
     setServerError(false);
-    // todo check why : data.message[0].msg
+
     fetch("http://localhost:3030/auth/register", {
       method: "post",
       headers: {
