@@ -45,7 +45,11 @@ export default function CreateCategory() {
           error={errors.image}
           {...fieldHandler("image")}
         />
-        <Button text="Създай" type="submit" disabled={disabledForm()} />
+        <Button
+          text="Създай категория"
+          type="submit"
+          disabled={disabledForm()}
+        />
       </form>
     </section>
   );

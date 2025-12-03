@@ -122,3 +122,13 @@
   font-weight: 700;
   color: var(--clr-black);
 }
+
+.details-buttons-wrapper > button {
+  margin-left: 20px;
+  color: var(--clr-red);
+  border-color: var(--clr-red);
+}
+
+.details-buttons-wrapper > button:hover {
+  background-color: var(--clr-red);
+}

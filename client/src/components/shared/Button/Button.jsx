@@ -11,7 +11,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className="btn from-btn"
+      className={`btn ${type === "submit" ? "from-btn" : ""}`}
       type={type}
       disabled={disabled || pending}
     >

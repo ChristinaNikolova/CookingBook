@@ -1,4 +1,5 @@
 // todo rename to steps
+// todo fix all form to use ref
 
 import { useRef, useState } from "react";
 import useForm from "../../../hooks/useForm";
