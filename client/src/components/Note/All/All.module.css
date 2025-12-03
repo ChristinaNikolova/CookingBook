@@ -9,26 +9,3 @@
   text-align: left;
   font-size: 18px;
 }
-
-.notes-item {
-  position: relative;
-  margin-bottom: 15px;
-  padding: 20px;
-  background-color: var(--clr-light-grey);
-}
-
-.notes-item i:first-of-type {
-  margin-right: 30px;
-}
-
-.notes-item i:last-of-type {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.notes-item i:last-of-type:hover {
-  color: var(--clr-red);
-  transition: var(--transition-clr);
-}
