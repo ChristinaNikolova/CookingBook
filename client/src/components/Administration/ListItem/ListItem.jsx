@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styles from "./ListItem.module.css";
 
+// add buttons form edit and delete
+
 export default function ListItem({ name }) {
   return (
     <li className={styles["list-item"]}>

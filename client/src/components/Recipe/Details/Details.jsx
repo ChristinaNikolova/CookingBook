@@ -1,8 +1,16 @@
+import useTop from "../../../hooks/useTop";
 import { Link } from "react-router-dom";
+import Button from "../../shared/Button/Button";
+import ButtonLink from "../../shared/ButtonLink/ButtonLink";
 import styles from "./Details.module.css";
 
 // todo line through ingredient / step
+// todo add temperature w gradusi
+// todo add no content case
+
 export default function Details({ categoryId }) {
+  useTop();
+
   return (
     <section id={styles.details}>
       <div className={styles["details-top-wrapper"]}>
@@ -12,25 +20,30 @@ export default function Details({ categoryId }) {
               src="https://www.ciachef.edu/wp-content/uploads/2024/06/Macarons.jpg"
               alt=""
             />
-            {/* <i class="fa-solid fa-heart"></i> */}
-            <i class="fa-regular fa-heart"></i>
+            {/* <i className="fa-solid fa-heart" title="Премахни от любими"></i> */}
+            <i className="fa-regular fa-heart" title="Добави в любими"></i>
           </div>
           <ul className={styles["details-top-icon-list"]}>
             <li className={styles["details-top-icon-item"]}>
-              <i className="fa-solid fa-users"></i> 5
+              <i className="fa-solid fa-users" title="Брой порции"></i> 5
             </li>
             <li className={styles["details-top-icon-item"]}>
-              <i className="fa-solid fa-clock"></i> 50 min
+              <i className="fa-solid fa-clock" title="Необходимо време"></i> 50
+              min
+            </li>{" "}
+            <li className={styles["details-top-icon-item"]}>
+              <i
+                className="fa-solid fa-temperature-high"
+                title="Температура на печене"
+              ></i>
+              150
             </li>
             <li className={styles["details-top-icon-item"]}>
-              <i className="fa-solid fa-baby"></i> Yes
+              <i className="fa-solid fa-baby" title="Подходящо за бебе"></i> Да
             </li>
             <li className={styles["details-top-icon-item"]}>
-              <i className="fa-solid fa-list"></i>{" "}
+              <i className="fa-solid fa-list" title="Категория"></i>
               <Link to={`/recipe/${categoryId}`}>Торти</Link>
-            </li>
-            <li className={styles["details-top-icon-item"]}>
-              <i className="fa-solid fa-user"></i> Аз
             </li>
           </ul>
         </div>
@@ -109,6 +122,11 @@ export default function Details({ categoryId }) {
           nesciunt doloribus a unde, in pariatur alias vero, odit ea facilis.
           Quos odit mollitia vitae sed quaerat ducimus explicabo facilis.
         </p>
+      </div>
+
+      <div className={styles["details-buttons-wrapper"]}>
+        <ButtonLink path="/edit" text="Редактирай" />
+        <Button text="Изтрий" disabled={false} />
       </div>
     </section>
   );
