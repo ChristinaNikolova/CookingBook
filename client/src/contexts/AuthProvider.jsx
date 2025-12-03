@@ -19,8 +19,11 @@ export default function AuthProvider({ children }) {
         userAuth,
         isAuthenticated: !!authToken,
         isAdmin: email === emails.ADMIN,
-        userId: id,
-        authToken,
+        user: {
+          id: id,
+          authToken: authToken,
+          email: email,
+        },
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuthContext from "../../hooks/useAuthContext";
 
 export default function Logout() {
-  const { userAuth, authToken } = useAuthContext();
+  const { userAuth, user } = useAuthContext();
   const navigate = useNavigate();
 
   // todo add AbortController and check the requests again
@@ -12,7 +12,7 @@ export default function Logout() {
       method: "get",
       headers: {
         "Content-Type": "application/json",
-        "X-Authorization": `Bearer ${authToken}`,
+        "X-Authorization": `Bearer ${user.authToken}`,
       },
     })
       .then(() => {
