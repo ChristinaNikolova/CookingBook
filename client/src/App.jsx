@@ -11,6 +11,7 @@ import Categories from "./components/Recipe/Categories/Categories";
 import All from "./components/Recipe/All/All";
 import Details from "./components/Recipe/Details/Details";
 import CreateRecipe from "./components/Recipe/Create/Create";
+import AllNotes from "./components/Note/All/All";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
 import Logout from "./components/Logout/Logout";
@@ -56,6 +57,7 @@ function App() {
             <Route path=":categoryId/:recipeId" element={<Details />} />
             <Route path="create" element={<CreateRecipe />} />
           </Route>
+          <Route path="/notes" element={<AllNotes />} />
           <Route path="/auth/logout" element={<Logout />} />
         </Route>
 

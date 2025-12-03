@@ -7,6 +7,7 @@ export default function CustomInput({
   name,
   value,
   error,
+  rows = 12,
   onChange,
   onBlur,
 }) {
@@ -26,7 +27,7 @@ export default function CustomInput({
         <textarea
           id={name}
           name={name}
-          rows={12}
+          rows={rows}
           value={value}
           onChange={onChange}
           onBlur={onBlur}

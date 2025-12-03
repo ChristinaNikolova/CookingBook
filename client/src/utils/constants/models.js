@@ -9,6 +9,10 @@ export const category = {
   DESC_MAX_LEN: 300,
 };
 
+export const note = {
+  DESC_MAX_LEN: 500,
+};
+
 export const recipe = {
   TITLE_MIN_LEN: 3,
   TITLE_MAX_LEN: 50,

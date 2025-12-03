@@ -3,6 +3,7 @@ import {
   auth as authModel,
   recipe as recipeModel,
   category as categoryModel,
+  note as noteModel,
 } from "./constants/models";
 
 export const validator = {
@@ -97,6 +98,33 @@ export const validator = {
       errors["description"] = global.REQUIRED_MAX_LEN(
         "Описанието",
         categoryModel.DESC_MAX_LEN
+      );
+    }
+
+    // todo extend this + db
+    if (touched.image && !values.image) {
+      errors["image"] = global.REQUIRED_INPUT;
+    }
+
+    return errors;
+  },
+
+  // todo extend db
+  note: (values, touched) => {
+    const errors = {};
+
+    if (touched.description && !values.description) {
+      errors["description"] = global.REQUIRED_INPUT;
+    }
+
+    if (
+      touched.description &&
+      values.description &&
+      values.description.length > noteModel.DESC_MAX_LEN
+    ) {
+      errors["description"] = global.REQUIRED_MAX_LEN(
+        "Описанието",
+        noteModel.DESC_MAX_LEN
       );
     }
 

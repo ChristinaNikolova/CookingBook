@@ -5,7 +5,7 @@ export default function useForm(
   callback,
   validatorName,
   initialValues,
-  formRef
+  formRef = false
 ) {
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});

@@ -65,13 +65,13 @@ export default function Header({ isHome }) {
                 </NavLink>
               </li>
               <li className="header-ul-li">
-                <NavLink to="/menu" className={isActiveLink}>
-                  Списъци
+                <NavLink to="/notes" className={isActiveLink}>
+                  Бележки
                 </NavLink>
               </li>
               <li className="header-ul-li">
                 <NavLink to="/auth/logout" className={isActiveLink}>
-                  Изход,{" "}
+                  Изход,
                   <span className={styles["header-email"]}>{user.email}</span>
                 </NavLink>
               </li>
