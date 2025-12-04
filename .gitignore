@@ -363,3 +363,7 @@ appsettings.Production.json
 *.zip
 *.txt
 *appsettings*
+
+
+# DB images
+*/uploads
