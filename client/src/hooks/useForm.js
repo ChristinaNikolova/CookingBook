@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { validator } from "../utils/validator";
-import { prepareData } from "../utils/formHelpers";
+import { formHelpers } from "../utils/formHelpers";
 
 export default function useForm(
   callback,
@@ -58,7 +58,7 @@ export default function useForm(
 
   const submitHandler = async () => {
     await wait(2000);
-    const data = prepareData(values);
+    const data = formHelpers.prepareData(values);
     callback(data);
   };
 

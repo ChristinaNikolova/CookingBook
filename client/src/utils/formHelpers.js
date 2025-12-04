@@ -1,7 +1,7 @@
 export const formHelpers = {
   prepareData: (values, files) => {
     const trimmedValues = formHelpers.trimValues(values);
-    const hasFiles = Object.keys(files).some((key) => files[key]);
+    const hasFiles = files && Object.keys(files).some((key) => files[key]);
 
     if (hasFiles) {
       const formData = new FormData();

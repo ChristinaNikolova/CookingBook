@@ -23,13 +23,8 @@ export default function Login() {
     initialValues
   );
 
-  async function loginHandler({ email, password }) {
+  async function loginHandler(data) {
     setServerError("");
-    const data = {
-      email: email.trim(),
-      password: password.trim(),
-    };
-
     try {
       const result = await requester("/auth/login", "post", data);
       userAuth(result);
