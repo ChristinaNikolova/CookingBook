@@ -1,11 +1,16 @@
 // todo fix all form to use ref
 
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
+import useConfigToken from "../../../hooks/useConfigToken";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import CustomSelect from "../../shared/CustomSelect/CustomSelect";
+import ServerError from "../../shared/ServerError/ServerError";
 import { validator } from "../../../utils/validator";
+import requester from "../../../utils/requester";
+import { httpMethods } from "../../../utils/constants/global";
 import styles from "./Create.module.css";
 
 const initialValues = {
@@ -25,36 +30,38 @@ export default function CreateRecipe() {
   const [ingredientErrors, setIngredientErrors] = useState([]);
   const [instructionsTouched, setInstructionsTouched] = useState([]);
   const [ingredientsTouched, setIngredientsTouched] = useState([]);
+
+  const [serverError, setServerError] = useState("");
+  const navigate = useNavigate();
+  const config = useConfigToken();
   const formRef = useRef();
 
-  const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
+  const { fieldHandler, submitHandler, errors, disabledForm, files } = useForm(
     createHandler,
     "recipe",
     initialValues,
     formRef
   );
 
-  async function createHandler({
-    title,
-    summary,
-    neededTime,
-    portions,
-    category,
-    image,
-    isBabySafe,
-  }) {
-    const data = {
-      title: title.trim(),
-      summary: summary.trim(),
-      neededTime: neededTime.trim(),
-      portions: portions.trim(),
-      image: image.trim(),
-      category: category.trim(),
-      isBabySafe: isBabySafe.trim(),
-      instructions: instructions.filter((i) => i.trim()),
-      ingredients: ingredients.filter((i) => i.trim()),
-    };
-    console.log(data);
+  async function createHandler(data) {
+    setServerError("");
+
+    data.append(
+      "instructions",
+      JSON.stringify(instructions.filter((i) => i.trim()))
+    );
+    data.append(
+      "ingredients",
+      JSON.stringify(ingredients.filter((i) => i.trim()))
+    );
+
+    try {
+      await requester("/recipes", httpMethods.POST, data, config);
+      // todo navigate to recipes details
+      navigate("/");
+    } catch (err) {
+      setServerError(err.message);
+    }
   }
 
   const addInputHandler = (name) => {
@@ -118,7 +125,12 @@ export default function CreateRecipe() {
     const hasInstructionErrors = areErrors(instructions, "validateInstruction");
     const hasIngredientErrors = areErrors(ingredients, "validateIngredient");
 
-    return !disabledForm() && !hasInstructionErrors && !hasIngredientErrors;
+    return (
+      !disabledForm() &&
+      !hasInstructionErrors &&
+      !hasIngredientErrors &&
+      files.image
+    );
   };
 
   const areErrors = (input, validatorFunc) => {
@@ -127,6 +139,7 @@ export default function CreateRecipe() {
 
   return (
     <section id="create-recipe" className="section-form">
+      {serverError && <ServerError error={serverError} />}
       <h2 ref={formRef} className="form-title">
         Добави нова рецепта
       </h2>
