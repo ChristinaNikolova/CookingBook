@@ -14,8 +14,8 @@ const initialValues = {
 
 export default function Login() {
   const [serverError, setServerError] = useState("");
-  const { userAuth } = useAuthContext();
   const navigate = useNavigate();
+  const { userAuth } = useAuthContext();
 
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     loginHandler,
@@ -24,6 +24,7 @@ export default function Login() {
   );
 
   async function loginHandler({ email, password }) {
+    setServerError("");
     const data = {
       email: email.trim(),
       password: password.trim(),

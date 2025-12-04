@@ -24,12 +24,11 @@ export default function Register() {
   );
 
   function registerHandler({ email, password }) {
+    setServerError("");
     const data = {
       email: email.trim(),
       password: password.trim(),
     };
-
-    setServerError(false);
 
     fetch("http://localhost:3030/auth/register", {
       method: "post",

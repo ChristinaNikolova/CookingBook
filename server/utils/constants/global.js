@@ -15,7 +15,7 @@ const messages = {
 
 const errors = {
   REQUEST: "Request error",
-  INVALID_URL: "Invalid url",
+  INVALID_URL: "Невалиден URL",
   INVALID_EMAIL: "Невалиден адрес",
   REQUIRED_INPUT: "Задължително поле",
   REQUIRED_MIN_LEN(name, value) {
