@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthContext from "../../hooks/useAuthContext";
+import { httpMethods } from "../../utils/constants/global";
 
 export default function Logout() {
   const { userAuth, user } = useAuthContext();
@@ -8,9 +9,9 @@ export default function Logout() {
 
   useEffect(() => {
     const abortController = new AbortController();
-
+    // todo use requestre
     fetch("http://localhost:3030/auth/logout", {
-      method: "get",
+      method: httpMethods.GET,
       headers: {
         "Content-Type": "application/json",
         "X-Authorization": `Bearer ${user.authToken}`,

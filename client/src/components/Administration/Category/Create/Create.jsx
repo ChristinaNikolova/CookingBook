@@ -6,6 +6,7 @@ import Button from "../../../shared/Button/Button";
 import CustomInput from "../../../shared/CustomInput/CustomInput";
 import ServerError from "../../../shared/ServerError/ServerError";
 import requester from "../../../../utils/requester";
+import { httpMethods } from "../../../../utils/constants/global";
 
 const initialValues = {
   name: "",
@@ -28,7 +29,7 @@ export default function CreateCategory() {
   async function createHandler(data) {
     setServerError("");
     try {
-      await requester("/admin/categories", "post", data, config);
+      await requester("/admin/categories", httpMethods.POST, data, config);
       navigate("/admin/category/all");
     } catch (err) {
       setServerError(err.message);

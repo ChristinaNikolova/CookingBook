@@ -6,6 +6,7 @@ import CustomInput from "../../shared/CustomInput/CustomInput";
 import Button from "../../shared/Button/Button";
 import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/requester";
+import { httpMethods } from "../../../utils/constants/global";
 
 const initialValues = {
   email: "",
@@ -26,7 +27,7 @@ export default function Login() {
   async function loginHandler(data) {
     setServerError("");
     try {
-      const result = await requester("/auth/login", "post", data);
+      const result = await requester("/auth/login", httpMethods.POST, data);
       userAuth(result);
       navigate("/");
     } catch (err) {
