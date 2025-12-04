@@ -28,8 +28,11 @@ export default async function requester(
 
   try {
     const response = await fetch(url, options);
-    const result = await response.json();
+    if (response.status === 204) {
+      return {};
+    }
 
+    const result = await response.json();
     if (!response.ok) {
       throw new Error(result.message[0].msg);
     }
