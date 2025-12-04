@@ -19,7 +19,7 @@ export default function CustomInput({
           id={name}
           name={name}
           type={type}
-          value={value}
+          {...(type !== "file" && { value })} // НЕ слагаме value ако е file
           onChange={onChange}
           onBlur={onBlur}
         />

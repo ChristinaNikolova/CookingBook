@@ -12,31 +12,26 @@ const initialValues = {
   description: "",
   image: "",
 };
+
+// todo cleanup data.trim() and servererror return catch
 export default function CreateCategory() {
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
   const config = useConfigToken();
 
-  const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
+  const { fieldHandler, submitHandler, errors, disabledForm, files } = useForm(
     createHandler,
     "category",
     initialValues
   );
 
-  async function createHandler({ name, description, image }) {
+  async function createHandler(data) {
     setServerError("");
-    const data = {
-      name: name.trim(),
-      description: description.trim(),
-      image: image.trim(),
-    };
-
     try {
       await requester("/admin/categories", "post", data, config);
       navigate("/admin/category/all");
     } catch (err) {
       setServerError(err.message);
-      return;
     }
   }
 
@@ -59,14 +54,14 @@ export default function CreateCategory() {
         />
         <CustomInput
           label="Изображение"
-          type="text"
+          type="file"
           error={errors.image}
           {...fieldHandler("image")}
         />
         <Button
           text="Създай категория"
           type="submit"
-          disabled={disabledForm()}
+          disabled={disabledForm() || !files.image}
         />
       </form>
     </section>

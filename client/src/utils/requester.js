@@ -14,8 +14,12 @@ export default async function requester(
   };
 
   if (data) {
-    options.headers["Content-Type"] = "application/json";
-    options.body = JSON.stringify(data);
+    if (data instanceof FormData) {
+      options.body = data;
+    } else {
+      options.headers["Content-Type"] = "application/json";
+      options.body = JSON.stringify(data);
+    }
   }
 
   if (config.authToken) {
