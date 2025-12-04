@@ -36,7 +36,6 @@ export default function Login() {
       navigate("/");
     } catch (err) {
       setServerError(err.message);
-      return;
     }
   }
 
