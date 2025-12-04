@@ -8,18 +8,20 @@ const { mapErrors } = require("../utils/parser");
 // sled submit, scroll to the top to see the rroro + check isBabySafe why not checked
 router.post("/", hasUser(), upload.single("image"), async (req, res) => {
   try {
-    console.log(req.body);
     const imagePath = filePaths.RECIPES + req.file.filename;
+    const userId = req.user._id;
+
     const recipe = await create(
       req.body.title,
       req.body.summary,
       req.body.neededTime,
       req.body.portions,
       req.body.isBabySafe,
-      req.body.isBabySafe,
-      req.body.instructions,
-      req.body.ingredients,
-      imagePath
+      req.body.category,
+      JSON.parse(req.body.instructions),
+      JSON.parse(req.body.ingredients),
+      imagePath,
+      userId
     );
 
     res.json(recipe);

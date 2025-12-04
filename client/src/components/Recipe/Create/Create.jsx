@@ -19,7 +19,7 @@ const initialValues = {
   summary: "",
   neededTime: "",
   portions: "",
-  category: "preMeal",
+  category: "",
   image: "",
   isBabySafe: false,
 };
