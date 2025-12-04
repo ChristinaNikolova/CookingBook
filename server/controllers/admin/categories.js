@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
+const upload = require("../../middlewares/fileUpload");
 const { isAdmin } = require("../../middlewares/guards");
 const {
   create,
@@ -8,32 +9,26 @@ const {
   update,
 } = require("../../services/categories");
 const { mapErrors } = require("../../utils/parser");
-const { errors: globalErrors } = require("../../utils/constants/global");
+const {
+  errors: globalErrors,
+  filePaths,
+} = require("../../utils/constants/global");
 
-router.post(
-  "/",
-  isAdmin(),
-  body("image").isURL().withMessage(globalErrors.INVALID_URL),
-  async (req, res) => {
-    try {
-      const { errors } = validationResult(req);
+router.post("/", isAdmin(), upload.single("image"), async (req, res) => {
+  try {
+    const imagePath = filePaths.CATEGORIES + req.file.filename;
+    const category = await create(
+      req.body.name,
+      req.body.description,
+      imagePath
+    );
 
-      if (errors.length > 0) {
-        throw mapErrors(errors);
-      }
-
-      const category = await create(
-        req.body.name,
-        req.body.description,
-        req.body.image
-      );
-      res.json(category);
-    } catch (error) {
-      const message = mapErrors(error);
-      res.status(400).json({ message });
-    }
+    res.json(category);
+  } catch (error) {
+    const message = mapErrors(error);
+    res.status(400).json({ message });
   }
-);
+});
 
 router.put(
   "/:id",

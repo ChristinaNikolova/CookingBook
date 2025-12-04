@@ -15,8 +15,10 @@ const messages = {
 
 const errors = {
   REQUEST: "Request error",
+  // todo remove this
   INVALID_URL: "Невалиден URL",
   INVALID_EMAIL: "Невалиден адрес",
+  INVALID_IMAGE: "Невалидна картинка",
   REQUIRED_INPUT: "Задължително поле",
   REQUIRED_MIN_LEN(name, value) {
     return `${name} трябва да е поне ${value} символа`;
@@ -39,9 +41,15 @@ const errors = {
   DATABASE_CONNECTION: "Error connecting to database",
 };
 
+const filePaths = {
+  CATEGORIES: "/uploads/categories/",
+  RECIPES: "/uploads/recipes/",
+};
+
 module.exports = {
   important,
   emails,
   messages,
   errors,
+  filePaths,
 };
