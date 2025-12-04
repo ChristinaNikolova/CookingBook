@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { important, messages, errors } = require("../utils/constants/global");
 require("../models/Category");
-require("../models/Image");
 require("../models/Ingredient");
 require("../models/Instruction");
 require("../models/Note");

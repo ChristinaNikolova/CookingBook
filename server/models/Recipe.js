@@ -50,9 +50,8 @@ const recipeSchema = new Schema(
       default: false,
     },
     image: {
-      type: ObjectId,
-      ref: "Image",
-      required: true,
+      type: String,
+      required: [true, errors.REQUIRED_INPUT],
     },
     category: {
       type: ObjectId,
