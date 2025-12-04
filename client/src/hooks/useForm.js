@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { validator } from "../utils/validator";
+import { prepareData } from "../utils/formHelpers";
 
 export default function useForm(
   callback,
@@ -10,6 +11,7 @@ export default function useForm(
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
+  const [files, setFiles] = useState({});
 
   useEffect(() => {
     formRef.current?.scrollIntoView({
@@ -28,11 +30,21 @@ export default function useForm(
   };
 
   const changeHandler = (e) => {
-    setValues((prev) => ({
-      ...prev,
-      [e.target.name]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value,
-    }));
+    const { name, type, checked, value, files: inputFiles } = e.target;
+
+    switch (type) {
+      case "file": {
+        const file = inputFiles?.[0];
+        setFiles((prev) => ({ ...prev, [name]: file }));
+        setValues((prev) => ({ ...prev, [name]: file?.name || "" }));
+        break;
+      }
+      case "checkbox":
+        setValues((prev) => ({ ...prev, [name]: checked }));
+        break;
+      default:
+        setValues((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   // todo remove this
@@ -46,7 +58,8 @@ export default function useForm(
 
   const submitHandler = async () => {
     await wait(2000);
-    callback(values);
+    const data = prepareData(values);
+    callback(data);
   };
 
   const validateHandler = (e) => {
@@ -72,5 +85,6 @@ export default function useForm(
     fieldHandler,
     errors,
     disabledForm,
+    files,
   };
 }
