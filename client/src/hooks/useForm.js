@@ -58,7 +58,7 @@ export default function useForm(
 
   const submitHandler = async () => {
     await wait(2000);
-    const data = formHelpers.prepareData(values);
+    const data = formHelpers.prepareData(values, files);
     callback(data);
   };
 
