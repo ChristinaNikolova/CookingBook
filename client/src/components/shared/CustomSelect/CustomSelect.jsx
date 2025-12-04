@@ -1,4 +1,11 @@
-export default function CustomSelect({ label, name, value, onChange, onBlur }) {
+export default function CustomSelect({
+  label,
+  name,
+  value,
+  onChange,
+  onBlur,
+  values,
+}) {
   return (
     <div className="input-wrapper">
       <label htmlFor={name}>{label}</label>
@@ -9,9 +16,11 @@ export default function CustomSelect({ label, name, value, onChange, onBlur }) {
         onChange={onChange}
         onBlur={onBlur}
       >
-        <option value="preMeal">Предястие</option>
-        <option value="meal">Основно</option>
-        <option value="dessert">Десерт</option>
+        {values.map((v) => (
+          <option key={v.id} value={v.id}>
+            {v.name}
+          </option>
+        ))}
       </select>
     </div>
   );

@@ -1,6 +1,6 @@
 // todo fix all form to use ref
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import useConfigToken from "../../../hooks/useConfigToken";
@@ -13,6 +13,7 @@ import requester from "../../../utils/requester";
 import { httpMethods } from "../../../utils/constants/global";
 import styles from "./Create.module.css";
 
+// todo add default category
 const initialValues = {
   title: "",
   summary: "",
@@ -30,8 +31,9 @@ export default function CreateRecipe() {
   const [ingredientErrors, setIngredientErrors] = useState([]);
   const [instructionsTouched, setInstructionsTouched] = useState([]);
   const [ingredientsTouched, setIngredientsTouched] = useState([]);
-
+  const [categories, setCategories] = useState([]);
   const [serverError, setServerError] = useState("");
+
   const navigate = useNavigate();
   const config = useConfigToken();
   const formRef = useRef();
@@ -42,6 +44,13 @@ export default function CreateRecipe() {
     initialValues,
     formRef
   );
+
+  useEffect(() => {
+    // load categories ????
+    requester("/categories", httpMethods.GET)
+      .then((res) => setCategories(res))
+      .catch((err) => console.error(err));
+  }, []);
 
   async function createHandler(data) {
     setServerError("");
@@ -170,7 +179,11 @@ export default function CreateRecipe() {
           {...fieldHandler("portions")}
         />
 
-        <CustomSelect label="Категория" {...fieldHandler("category")} />
+        <CustomSelect
+          label="Категория"
+          values={categories}
+          {...fieldHandler("category")}
+        />
 
         <div className={styles["create-recipe-wrapper"]}>
           <h4 className={styles["create-recipe-title"]}>Инструкции</h4>

@@ -3,7 +3,7 @@ function categoryViewModel(category) {
   return {
     id: category._id,
     name: category.name,
-    name: category.description,
+    description: category.description,
     image: category.image,
   };
 }
