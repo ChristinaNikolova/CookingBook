@@ -39,6 +39,7 @@ const errors = {
   TOKEN_INVALID: "Invalid authorization token",
   DATABASE: "Database error",
   DATABASE_CONNECTION: "Error connecting to database",
+  DATABASE_ERROR: "Rollback started",
 };
 
 const filePaths = {

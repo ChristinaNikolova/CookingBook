@@ -19,7 +19,11 @@ export default function CustomInput({
           id={name}
           name={name}
           type={type}
-          {...(type !== "file" && { value })} // НЕ слагаме value ако е file
+          {...(type === "checkbox"
+            ? { checked: value }
+            : type !== "file"
+            ? { value }
+            : {})}
           onChange={onChange}
           onBlur={onBlur}
         />

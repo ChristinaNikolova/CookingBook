@@ -54,8 +54,7 @@ async function create(
 
     return recipe;
   } catch (err) {
-    // todo add constanta
-    console.error("ROLLBACK STARTED:", err.message);
+    console.error(errors.DATABASE_ERROR, err.message);
 
     if (instructionIds.length > 0) {
       await Instruction.deleteMany({ _id: { $in: instructionIds } });
