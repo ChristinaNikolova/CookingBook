@@ -3,9 +3,13 @@ import styles from "./ListItem.module.css";
 
 // todo use reducer
 
-export default function ListItem({ id, name, onDelete }) {
+export default function ListItem({ id, name, pending, onDelete }) {
   return (
-    <li className={styles["list-item"]}>
+    <li
+      className={`${styles["list-item"]} ${
+        pending ? styles["list-item-optimistic"] : ""
+      }`}
+    >
       <Link to={`/recipe/${id}`}>{name}</Link>
       <div className={styles["list-item-icon-wrapper"]}>
         <i className="fa-solid fa-pen-to-square" title="Редактирай"></i>

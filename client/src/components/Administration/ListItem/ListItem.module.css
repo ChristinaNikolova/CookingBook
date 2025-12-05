@@ -16,6 +16,14 @@
   transition: var(--transition-clr);
 }
 
+.list-item-optimistic {
+  color: var(--clr-yellow);
+}
+
+.list-item-optimistic a {
+  color: var(--clr-yellow);
+}
+
 .list-item-icon-wrapper i:first-of-type {
   margin-right: 20px;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useOptimistic, useState } from "react";
 import useConfigToken from "../../../../hooks/useConfigToken";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
@@ -9,26 +9,54 @@ import styles from "./All.module.css";
 // todo add title attributes!!!
 // todo add constants for the paths???
 // todo fetch then oder await
+
+function categoryReducer(state, action) {
+  switch (action.type) {
+    case "DELETE":
+      return state.filter((x) => x.id !== action.payload);
+    default:
+      return state;
+  }
+}
+
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
+  const [optimisticCategories, dispatchOptimisticCategories] = useOptimistic(
+    categories,
+    categoryReducer
+  );
+
   const config = useConfigToken();
 
   useEffect(() => {
-    // load categories ????
     requester("/admin/categories", httpMethods.GET, null, config)
-      .then((res) => setCategories(res))
+      .then((res) => {
+        const normalizedCategories = res.map((x) => ({ ...x, pending: false }));
+        setCategories(normalizedCategories);
+      })
       .catch((err) => console.error(err));
   }, []);
 
   // todo try catch
-  const deleteHandler = async (id) => {
+  const deleteHandler = async (categoryId) => {
+    setCategories((state) =>
+      state.map((x) => (x.id === categoryId ? { ...x, pending: true } : x))
+    );
+
+    dispatchOptimisticCategories({
+      type: "DELETE",
+      payload: categoryId,
+    });
+
     try {
       await requester(
-        `/admin/categories/${id}`,
+        `/admin/categories/${categoryId}`,
         httpMethods.DELETE,
         null,
         config
       );
+
+      setCategories((state) => state.filter((x) => x.id !== categoryId));
     } catch (err) {
       console.error(err);
     }
@@ -37,11 +65,12 @@ export default function AllCategories() {
   return (
     <section id={styles["admin-all-categories"]}>
       <ListWrapper title="Категории">
-        {categories.map((x) => (
+        {optimisticCategories.map((x) => (
           <ListItem
             key={x.id}
             id={x.id}
             name={x.name}
+            pending={x.pending}
             onDelete={deleteHandler}
           />
         ))}
