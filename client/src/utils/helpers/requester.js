@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:3030";
+import { baseURL } from "../constants/global";
 
 export default async function requester(
   requestedURL,

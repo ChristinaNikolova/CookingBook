@@ -1,4 +1,3 @@
-// todo clean
 function categoryViewModel(category) {
   return {
     id: category._id,
@@ -8,14 +7,6 @@ function categoryViewModel(category) {
   };
 }
 
-function categoryNameViewModel(category) {
-  return {
-    id: category._id,
-    name: category.name,
-  };
-}
-
 module.exports = {
   categoryViewModel,
-  categoryNameViewModel,
 };

@@ -8,3 +8,5 @@ export const httpMethods = {
   PUT: "PUT",
   DELETE: "DELETE",
 };
+
+export const baseURL = "http://localhost:3030";

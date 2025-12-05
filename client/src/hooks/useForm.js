@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { validator } from "../utils/validator";
-import { formHelpers } from "../utils/formHelpers";
+import { validator } from "../utils/helpers/validator";
+import { formHelpers } from "../utils/helpers/form";
 
 export default function useForm(
   callback,

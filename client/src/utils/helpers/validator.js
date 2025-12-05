@@ -1,10 +1,10 @@
-import { global, auth, recipe } from "./constants/errors";
+import { global, auth, recipe } from "../constants/errors";
 import {
   auth as authModel,
   recipe as recipeModel,
   category as categoryModel,
   note as noteModel,
-} from "./constants/models";
+} from "../constants/models";
 
 export const validator = {
   register: (values, touched) => {
