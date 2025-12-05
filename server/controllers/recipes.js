@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const upload = require("../middlewares/fileUpload");
 const { hasUser } = require("../middlewares/guards");
-const { create, getById } = require("../services/recipes");
+const { create, getById, getByCategory } = require("../services/recipes");
 const { filePaths } = require("../utils/constants/global");
 const { mapErrors } = require("../utils/parser");
 
@@ -24,6 +24,19 @@ router.post("/", hasUser(), upload.single("image"), async (req, res) => {
       userId
     );
 
+    res.json(recipe);
+  } catch (error) {
+    const message = mapErrors(error);
+    res.status(400).json({ message });
+  }
+});
+
+router.get("/byCategory/:id", hasUser(), async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userId = req.user._id;
+
+    const recipe = await getByCategory(id, userId);
     res.json(recipe);
   } catch (error) {
     const message = mapErrors(error);

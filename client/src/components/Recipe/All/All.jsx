@@ -1,45 +1,44 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import useTop from "../../../hooks/useTop";
+import useConfigToken from "../../../hooks/useConfigToken";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
+import requester from "../../../utils/helpers/requester";
+import { image } from "../../../utils/helpers/image";
+import { httpMethods } from "../../../utils/constants/global";
 
 // todo add last three on home page
 
 export default function All() {
+  const { categoryName, categoryId } = useParams();
+  const [recipes, setRecipes] = useState([]);
+  const config = useConfigToken();
   useTop();
 
+  useEffect(() => {
+    requester(
+      `/recipes/byCategory/${categoryId}`,
+      httpMethods.GET,
+      null,
+      config
+    )
+      .then((res) => setRecipes(res))
+      .catch((err) => console.error(err));
+  }, []);
+
+  // todo extract component for no contentF
   return (
     <section id="recipes">
-      <ListWrapper title="Име на категорията">
-        <RecipeItem
-          id="1"
-          title="Заглавие"
-          img="https://www.ciachef.edu/wp-content/uploads/2024/06/Macarons.jpg"
-        />
-        <RecipeItem
-          id="1"
-          title="Заглавие"
-          img="https://www.ciachef.edu/wp-content/uploads/2024/06/Macarons.jpg"
-        />
-        <RecipeItem
-          id="1"
-          title="Заглавие"
-          img="https://www.ciachef.edu/wp-content/uploads/2024/06/Macarons.jpg"
-        />
-        <RecipeItem
-          id="1"
-          title="Заглавие"
-          img="https://www.ciachef.edu/wp-content/uploads/2024/06/Macarons.jpg"
-        />
-        <RecipeItem
-          id="1"
-          title="Заглавие"
-          img="https://www.ciachef.edu/wp-content/uploads/2024/06/Macarons.jpg"
-        />
-        <RecipeItem
-          id="1"
-          title="Заглавие"
-          img="https://www.ciachef.edu/wp-content/uploads/2024/06/Macarons.jpg"
-        />
+      <ListWrapper title={categoryName}>
+        {recipes.map((x) => (
+          <RecipeItem
+            key={x.id}
+            id={x.id}
+            title={x.title}
+            img={image.getImageUrl(x.image)}
+          />
+        ))}
       </ListWrapper>
     </section>
   );

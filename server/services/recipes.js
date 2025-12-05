@@ -1,3 +1,6 @@
+const {
+  Types: { ObjectId },
+} = require("mongoose");
 const Recipe = require("../models/Recipe");
 const Instruction = require("../models/Instruction");
 const Ingredient = require("../models/Ingredient");
@@ -9,6 +12,12 @@ const {
 
 async function all() {
   return (await Recipe.find({}).sort({ title: 1 })).map(recipeAdminViewModel);
+}
+
+async function getByCategory(categoryId, userId) {
+  return (await Recipe.find({ category: new ObjectId(categoryId) }))
+    .filter((x) => x.author.toString() === userId)
+    .map(recipeViewModel);
 }
 
 async function create(
@@ -112,4 +121,5 @@ module.exports = {
   create,
   getById,
   deleteById,
+  getByCategory,
 };
