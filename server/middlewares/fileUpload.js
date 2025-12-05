@@ -4,7 +4,10 @@ const { errors } = require("../utils/constants/global");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/categories/");
+    const folderName = req.baseUrl.includes("recipes")
+      ? "uploads/recipes/"
+      : "uploads/categories/";
+    cb(null, folderName);
   },
   filename: function (req, file, cb) {
     const uniqueName = Date.now() + "-" + file.originalname;
