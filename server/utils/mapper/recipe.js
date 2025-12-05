@@ -1,4 +1,3 @@
-// todo clean
 function recipeAdminViewModel(recipe) {
   return {
     id: recipe._id,
@@ -6,10 +5,10 @@ function recipeAdminViewModel(recipe) {
   };
 }
 
-// todo test this
 function recipeViewModel(recipe) {
   return {
-    recipeAdminViewModel,
+    id: recipe._id,
+    title: recipe.title,
     summary: recipe.summary,
     neededTime: recipe.neededTime,
     portions: recipe.portions,
