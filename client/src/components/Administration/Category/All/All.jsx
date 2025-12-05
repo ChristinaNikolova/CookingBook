@@ -2,7 +2,7 @@ import { startTransition, useEffect, useOptimistic, useState } from "react";
 import useConfigToken from "../../../../hooks/useConfigToken";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
-import requester from "../../../../utils/requester";
+import requester from "../../../../utils/helpers/requester";
 import { categoryReducer } from "../../../../utils/reducers/category";
 import { httpMethods } from "../../../../utils/constants/global";
 import styles from "./All.module.css";

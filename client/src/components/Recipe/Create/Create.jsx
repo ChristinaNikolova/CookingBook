@@ -8,8 +8,8 @@ import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import CustomSelect from "../../shared/CustomSelect/CustomSelect";
 import ServerError from "../../shared/ServerError/ServerError";
-import { validator } from "../../../utils/validator";
-import requester from "../../../utils/requester";
+import { validator } from "../../../utils/helpers/validator";
+import requester from "../../../utils/helpers/requester";
 import { httpMethods } from "../../../utils/constants/global";
 import styles from "./Create.module.css";
 

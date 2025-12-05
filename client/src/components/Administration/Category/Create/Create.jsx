@@ -5,7 +5,7 @@ import useConfigToken from "../../../../hooks/useConfigToken";
 import Button from "../../../shared/Button/Button";
 import CustomInput from "../../../shared/CustomInput/CustomInput";
 import ServerError from "../../../shared/ServerError/ServerError";
-import requester from "../../../../utils/requester";
+import requester from "../../../../utils/helpers/requester";
 import { httpMethods } from "../../../../utils/constants/global";
 
 const initialValues = {
