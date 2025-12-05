@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./ListItem.module.css";
 
-// todo use reducer
-
 export default function ListItem({
   id,
   name,

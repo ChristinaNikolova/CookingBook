@@ -3,22 +3,14 @@ import useConfigToken from "../../../../hooks/useConfigToken";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
 import requester from "../../../../utils/requester";
+import { categoryReducer } from "../../../../utils/reducers/category";
 import { httpMethods } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
 // todo add title attributes!!!
 // todo add constants for the paths???
 // todo fetch then oder await
-
-// todo extract to utils
-function categoryReducer(state, action) {
-  switch (action.type) {
-    case "DELETE":
-      return state.filter((x) => x.id !== action.payload);
-    default:
-      return state;
-  }
-}
+// todo use reducer
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);

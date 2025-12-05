@@ -76,6 +76,10 @@ async function create(
   }
 }
 
+async function deleteById(id) {
+  return Recipe.findByIdAndDelete(id);
+}
+
 async function getById(id) {
   console.log("in");
   const planner = await Recipe.findById(id)
@@ -107,4 +111,5 @@ module.exports = {
   all,
   create,
   getById,
+  deleteById,
 };
