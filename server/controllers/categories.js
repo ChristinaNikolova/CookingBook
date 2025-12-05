@@ -1,8 +1,9 @@
 const router = require("express").Router();
+const { hasUser } = require("../middlewares/guards");
 const { all } = require("../services/categories");
 const { mapErrors } = require("../utils/parser");
 
-router.get("/", async (req, res) => {
+router.get("/", hasUser(), async (req, res) => {
   try {
     const categories = await all();
     res.json(categories);

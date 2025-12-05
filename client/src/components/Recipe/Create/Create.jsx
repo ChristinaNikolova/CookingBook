@@ -47,7 +47,7 @@ export default function CreateRecipe() {
 
   useEffect(() => {
     // load categories ????
-    requester("/categories", httpMethods.GET)
+    requester("/categories", httpMethods.GET, null, config)
       .then((res) => setCategories(res))
       .catch((err) => console.error(err));
   }, []);
