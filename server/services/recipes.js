@@ -2,6 +2,14 @@ const Recipe = require("../models/Recipe");
 const Instruction = require("../models/Instruction");
 const Ingredient = require("../models/Ingredient");
 const { errors } = require("../utils/constants/global");
+const {
+  recipeViewModel,
+  recipeAdminViewModel,
+} = require("../utils/mapper/recipe");
+
+async function all() {
+  return (await Recipe.find({}).sort({ title: 1 })).map(recipeAdminViewModel);
+}
 
 async function create(
   title,
@@ -68,6 +76,26 @@ async function create(
   }
 }
 
+async function getById(id) {
+  console.log("in");
+  const planner = await Recipe.findById(id)
+    .populate("category", "name")
+    .populate({
+      path: "ingredients",
+      populate: {
+        path: "description",
+      },
+    })
+    .populate({
+      path: "instructions",
+      populate: {
+        path: "description",
+      },
+    });
+
+  return recipeViewModel(planner);
+}
+
 async function getByTitle(title) {
   return await Recipe.findOne({ title }).collation({
     locale: "bg",
@@ -76,5 +104,7 @@ async function getByTitle(title) {
 }
 
 module.exports = {
+  all,
   create,
+  getById,
 };

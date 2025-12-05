@@ -10,6 +10,7 @@ import styles from "./All.module.css";
 // todo add constants for the paths???
 // todo fetch then oder await
 
+// todo extract to utils
 function categoryReducer(state, action) {
   switch (action.type) {
     case "DELETE":
@@ -25,7 +26,6 @@ export default function AllCategories() {
     categories,
     categoryReducer
   );
-
   const config = useConfigToken();
 
   useEffect(() => {
@@ -73,6 +73,7 @@ export default function AllCategories() {
             id={x.id}
             name={x.name}
             pending={x.pending}
+            isCategory
             onDelete={deleteHandler}
           />
         ))}

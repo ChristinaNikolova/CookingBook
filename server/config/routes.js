@@ -3,6 +3,7 @@ const authController = require("../controllers/auth");
 const recipesController = require("../controllers/recipes");
 const categoriesController = require("../controllers/categories");
 const adminCategoriesController = require("../controllers/admin/categories");
+const adminRecipesController = require("../controllers/admin/recipes");
 
 module.exports = (app) => {
   app.use("/", homeController);
@@ -10,4 +11,5 @@ module.exports = (app) => {
   app.use("/recipes", recipesController);
   app.use("/categories", categoriesController);
   app.use("/admin/categories", adminCategoriesController);
+  app.use("/admin/recipes", adminRecipesController);
 };
