@@ -14,7 +14,9 @@ export default function ListItem({
         pending ? styles["list-item-optimistic"] : ""
       }`}
     >
-      <Link to={isCategory ? `/recipe/${id}` : `/`}>{name}</Link>
+      <Link to={isCategory ? `/recipe/${id}` : `/recipe/{categoryId}/${id}`}>
+        {name}
+      </Link>
       <div className={styles["list-item-icon-wrapper"]}>
         {isCategory && (
           <i className="fa-solid fa-pen-to-square" title="Редактирай"></i>
