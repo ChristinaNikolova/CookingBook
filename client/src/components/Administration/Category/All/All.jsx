@@ -1,4 +1,4 @@
-import { useEffect, useOptimistic, useState } from "react";
+import { startTransition, useEffect, useOptimistic, useState } from "react";
 import useConfigToken from "../../../../hooks/useConfigToken";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
@@ -43,9 +43,11 @@ export default function AllCategories() {
       state.map((x) => (x.id === categoryId ? { ...x, pending: true } : x))
     );
 
-    dispatchOptimisticCategories({
-      type: "DELETE",
-      payload: categoryId,
+    startTransition(() => {
+      dispatchOptimisticCategories({
+        type: "DELETE",
+        payload: categoryId,
+      });
     });
 
     try {
