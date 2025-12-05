@@ -1,19 +1,9 @@
 const router = require("express").Router();
-const { body, validationResult } = require("express-validator");
-const upload = require("../../middlewares/fileUpload");
 const { isAdmin } = require("../../middlewares/guards");
-const {
-  all,
-  create,
-  deleteById,
-  getById,
-  update,
-} = require("../../services/categories");
+const upload = require("../../middlewares/fileUpload");
+const { all, create, deleteById } = require("../../services/categories");
 const { mapErrors } = require("../../utils/parser");
-const {
-  errors: globalErrors,
-  filePaths,
-} = require("../../utils/constants/global");
+const { filePaths } = require("../../utils/constants/global");
 
 router.get("/", isAdmin(), async (req, res) => {
   try {
@@ -41,33 +31,6 @@ router.post("/", isAdmin(), upload.single("image"), async (req, res) => {
   }
 });
 
-// router.put(
-//   "/:id",
-//   isAdmin(),
-//   body("image").isURL().withMessage(globalErrors.INVALID_URL),
-//   async (req, res) => {
-//     try {
-//       const { errors } = validationResult(req);
-
-//       if (errors.length > 0) {
-//         throw mapErrors(errors);
-//       }
-
-//       const id = req.params.id;
-//       const category = await update(
-//         id,
-//         req.body.name,
-//         req.body.description,
-//         req.body.image
-//       );
-//       res.json(category);
-//     } catch (error) {
-//       const message = mapErrors(error);
-//       res.status(400).json({ message });
-//     }
-//   }
-// );
-
 router.delete("/:id", isAdmin(), async (req, res) => {
   try {
     const id = req.params.id;
@@ -78,16 +41,5 @@ router.delete("/:id", isAdmin(), async (req, res) => {
     res.status(400).json({ message });
   }
 });
-
-// router.get("/:id", isAdmin(), async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const category = await getById(id);
-//     res.json(category);
-//   } catch (error) {
-//     const message = mapErrors(error);
-//     res.status(400).json({ message });
-//   }
-// });
 
 module.exports = router;

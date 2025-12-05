@@ -28,30 +28,6 @@ async function deleteById(id) {
   return Category.findByIdAndDelete(id);
 }
 
-async function update(id, name, image) {
-  const category = await getById(id);
-
-  if (category.name.toLowerCase() !== name.toLowerCase()) {
-    const result = await getByName(name);
-
-    if (result) {
-      throw new Error(errors.NAME_TAKEN);
-    }
-  }
-
-  category.name = name;
-  category.description = description;
-  category.image = image;
-
-  await category.save();
-
-  return category;
-}
-
-async function getById(id) {
-  return Category.findById(id);
-}
-
 async function getByName(name) {
   return await Category.findOne({ name }).collation({
     locale: "bg",
@@ -63,6 +39,4 @@ module.exports = {
   create,
   all,
   deleteById,
-  getById,
-  update,
 };
