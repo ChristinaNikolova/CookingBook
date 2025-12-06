@@ -6,6 +6,7 @@ const {
   getById,
   getByCategory,
   deleteById,
+  like,
 } = require("../services/recipes");
 const { filePaths } = require("../utils/constants/global");
 const { mapErrors } = require("../utils/parser");
@@ -40,9 +41,19 @@ router.get("/byCategory/:id", hasUser(), async (req, res) => {
   try {
     const id = req.params.id;
     const userId = req.user._id;
-
     const recipe = await getByCategory(id, userId);
     res.json(recipe);
+  } catch (error) {
+    const message = mapErrors(error);
+    res.status(400).json({ message });
+  }
+});
+
+router.post("/:id", hasUser(), async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await like(id);
+    res.json(result);
   } catch (error) {
     const message = mapErrors(error);
     res.status(400).json({ message });

@@ -49,6 +49,10 @@ const recipeSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isFav: {
+      type: Boolean,
+      default: false,
+    },
     image: {
       type: String,
       required: [true, errors.REQUIRED_INPUT],

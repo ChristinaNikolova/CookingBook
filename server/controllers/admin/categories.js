@@ -23,7 +23,6 @@ router.post("/", isAdmin(), upload.single("image"), async (req, res) => {
       req.body.description,
       imagePath
     );
-
     res.json(category);
   } catch (error) {
     const message = mapErrors(error);

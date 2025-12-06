@@ -17,13 +17,17 @@ import styles from "./Details.module.css";
 export default function Details() {
   const { recipeId: id } = useParams();
   const [recipe, setRecipe] = useState({});
+  const [isFav, setIsFav] = useState(false);
   const navigate = useNavigate();
   const config = useConfigToken();
   useTop();
 
   useEffect(() => {
     requester(`/recipes/${id}`, httpMethods.GET, null, config)
-      .then((res) => setRecipe(res))
+      .then((res) => {
+        setRecipe(res);
+        setIsFav(res.isFav);
+      })
       .catch((err) => console.error(err));
   }, [id]);
 
@@ -31,6 +35,20 @@ export default function Details() {
     try {
       await requester(`/recipes/${id}`, httpMethods.DELETE, null, config);
       navigate(`/recipe/${recipe.category.name}/${recipe.category._id}`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const likeHandler = async () => {
+    try {
+      const result = await requester(
+        `/recipes/${id}`,
+        httpMethods.POST,
+        null,
+        config
+      );
+      setIsFav(result);
     } catch (err) {
       console.error(err);
     }
@@ -46,8 +64,19 @@ export default function Details() {
         <div className="details-top-left-wrapper">
           <div className={styles["details-top-img-wrapper"]}>
             <img src={image.getImageUrl(recipe.image)} alt={recipe.title} />
-            {/* <i className="fa-solid fa-heart" title="Премахни от любими"></i> */}
-            <i className="fa-regular fa-heart" title="Добави в любими"></i>
+            {isFav ? (
+              <i
+                className="fa-solid fa-heart"
+                title="Премахни от любими"
+                onClick={likeHandler}
+              ></i>
+            ) : (
+              <i
+                className="fa-regular fa-heart"
+                title="Добави в любими"
+                onClick={likeHandler}
+              ></i>
+            )}
           </div>
           <ul className={styles["details-top-icon-list"]}>
             <li className={styles["details-top-icon-item"]}>

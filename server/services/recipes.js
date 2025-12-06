@@ -89,6 +89,14 @@ async function deleteById(id) {
   return Recipe.findByIdAndDelete(id);
 }
 
+async function like(id) {
+  const recipe = await Recipe.findById(id);
+  recipe.isFav = !recipe.isFav;
+  await recipe.save();
+
+  return recipe.isFav;
+}
+
 async function getById(id) {
   const recipe = await Recipe.findById(id)
     .populate("category", "name")
@@ -121,4 +129,5 @@ module.exports = {
   getById,
   deleteById,
   getByCategory,
+  like,
 };

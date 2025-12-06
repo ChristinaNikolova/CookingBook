@@ -15,6 +15,7 @@ function recipeViewModel(recipe) {
     category: recipe.category,
     image: recipe.image,
     isBabySafe: recipe.isBabySafe,
+    isFav: recipe.isFav,
     ingredients: recipe.ingredients,
     instructions: recipe.instructions,
   };
