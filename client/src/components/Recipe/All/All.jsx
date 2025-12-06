@@ -36,7 +36,7 @@ export default function All() {
             key={x.id}
             id={x.id}
             title={x.title}
-            img={image.getImageUrl(x.image)}
+            image={image.getImageUrl(x.image)}
           />
         ))}
       </ListWrapper>

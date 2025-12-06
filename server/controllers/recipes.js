@@ -5,7 +5,7 @@ const { create, getById, getByCategory } = require("../services/recipes");
 const { filePaths } = require("../utils/constants/global");
 const { mapErrors } = require("../utils/parser");
 
-// sled submit, scroll to the top to see the rroro + check isBabySafe why not checked
+// sled submit, scroll to the top to see the rroro
 router.post("/", hasUser(), upload.single("image"), async (req, res) => {
   try {
     const imagePath = filePaths.RECIPES + req.file.filename;
@@ -46,9 +46,8 @@ router.get("/byCategory/:id", hasUser(), async (req, res) => {
 
 router.get("/:id", hasUser(), async (req, res) => {
   try {
-    console.log("in");
     const id = req.params.id;
-    const recipe = await getById("69318c61de39d9acb3e3d2f2");
+    const recipe = await getById(id);
     res.json(recipe);
   } catch (error) {
     const message = mapErrors(error);

@@ -54,7 +54,7 @@ function App() {
           <Route path="/recipe">
             <Route path="categories" element={<Categories />} />
             <Route path=":categoryName/:categoryId" element={<All />} />
-            <Route path=":categoryId/:recipeId" element={<Details />} />
+            <Route path=":recipeId" element={<Details />} />
             <Route path="create" element={<CreateRecipe />} />
           </Route>
           <Route path="/notes" element={<AllNotes />} />

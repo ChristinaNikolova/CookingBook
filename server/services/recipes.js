@@ -90,8 +90,7 @@ async function deleteById(id) {
 }
 
 async function getById(id) {
-  console.log("in");
-  const planner = await Recipe.findById(id)
+  const recipe = await Recipe.findById(id)
     .populate("category", "name")
     .populate({
       path: "ingredients",
@@ -106,7 +105,7 @@ async function getById(id) {
       },
     });
 
-  return recipeViewModel(planner);
+  return recipeViewModel(recipe);
 }
 
 async function getByTitle(title) {
