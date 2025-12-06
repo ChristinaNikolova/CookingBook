@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import AuthProvider from "./contexts/AuthProvider";
+import SearchProvider from "./contexts/SearchProvider";
 import UserRoute from "./components/Routes/UserRoute";
 import AdminRoute from "./components/Routes/AdminRoute";
 import GuestRoute from "./components/Routes/GuestRoute";
@@ -9,6 +10,7 @@ import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Categories from "./components/Recipe/Categories/Categories";
 import Favourite from "./components/Recipe/Favourite/Favourite";
+import Search from "./components/Recipe/Search/Search";
 import All from "./components/Recipe/All/All";
 import Details from "./components/Recipe/Details/Details";
 import CreateRecipe from "./components/Recipe/Create/Create";
@@ -46,82 +48,85 @@ function App() {
 
   return (
     <AuthProvider>
-      <Header isHome={isHome()} />
+      <SearchProvider>
+        <Header isHome={isHome()} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        <Route element={<UserRoute />}>
-          <Route path="/recipe">
-            <Route path="categories" element={<Categories />} />
-            <Route path="favourites" element={<Favourite />} />
-            <Route path=":categoryName/:categoryId" element={<All />} />
-            <Route path=":recipeId" element={<Details />} />
-            <Route path="create" element={<CreateRecipe />} />
+          <Route element={<UserRoute />}>
+            <Route path="/recipe">
+              <Route path="categories" element={<Categories />} />
+              <Route path="favourites" element={<Favourite />} />
+              <Route path="search" element={<Search />} />
+              <Route path=":categoryName/:categoryId" element={<All />} />
+              <Route path=":recipeId" element={<Details />} />
+              <Route path="create" element={<CreateRecipe />} />
+            </Route>
+            <Route path="/notes" element={<AllNotes />} />
+            <Route path="/auth/logout" element={<Logout />} />
           </Route>
-          <Route path="/notes" element={<AllNotes />} />
-          <Route path="/auth/logout" element={<Logout />} />
-        </Route>
 
-        <Route element={<GuestRoute />}>
-          <Route path="/auth">
-            <Route path="register" element={<Register />} />
-            <Route path="login" element={<Login />} />
+          <Route element={<GuestRoute />}>
+            <Route path="/auth">
+              <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route element={<AdminRoute />}>
-          <Route
-            path="/admin"
-            element={
-              <Suspense fallback={<Loader />}>
-                <Jumbo />
-              </Suspense>
-            }
-          >
+          <Route element={<AdminRoute />}>
             <Route
-              index
+              path="/admin"
               element={
                 <Suspense fallback={<Loader />}>
-                  <Dashboard />
+                  <Jumbo />
                 </Suspense>
               }
-            />
-            <Route path="category">
+            >
               <Route
-                path="all"
+                index
                 element={
                   <Suspense fallback={<Loader />}>
-                    <AllCategories />
+                    <Dashboard />
                   </Suspense>
                 }
               />
+              <Route path="category">
+                <Route
+                  path="all"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <AllCategories />
+                    </Suspense>
+                  }
+                />
 
-              <Route
-                path="create"
-                element={
-                  <Suspense fallback={<Loader />}>
-                    <CreateCategory />
-                  </Suspense>
-                }
-              />
-            </Route>
+                <Route
+                  path="create"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <CreateCategory />
+                    </Suspense>
+                  }
+                />
+              </Route>
 
-            <Route path="recipe">
-              <Route
-                path="all"
-                element={
-                  <Suspense fallback={<Loader />}>
-                    <AllRecipes />
-                  </Suspense>
-                }
-              />
+              <Route path="recipe">
+                <Route
+                  path="all"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <AllRecipes />
+                    </Suspense>
+                  }
+                />
+              </Route>
             </Route>
           </Route>
-        </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </SearchProvider>
 
       <Footer />
     </AuthProvider>

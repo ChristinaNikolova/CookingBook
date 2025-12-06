@@ -1,7 +1,6 @@
 import { createContext } from "react";
 
 export const AuthContext = createContext({
-  userAuth() {},
   isAuthenticated: false,
   isAdmin: false,
   user: {
@@ -9,4 +8,5 @@ export const AuthContext = createContext({
     authToken: "",
     email: "",
   },
+  userAuth() {},
 });
