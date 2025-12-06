@@ -49,7 +49,6 @@ router.get("/byCategory/:id", hasUser(), async (req, res) => {
   }
 });
 
-// todo same page search doesnt work
 router.get("/searched/:query", hasUser(), async (req, res) => {
   try {
     const query = req.params.query;
