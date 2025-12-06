@@ -11,7 +11,6 @@ const {
 const { filePaths } = require("../utils/constants/global");
 const { mapErrors } = require("../utils/parser");
 
-// todo fix server error css
 router.post("/", hasUser(), upload.single("image"), async (req, res) => {
   try {
     const imagePath = filePaths.RECIPES + req.file.filename;
