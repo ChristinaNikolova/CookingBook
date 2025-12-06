@@ -17,7 +17,6 @@ export default function LastThree() {
       .catch((err) => console.error(err));
   }, []);
 
-  // todo no user???
   return (
     <section id="last-three">
       <ListWrapper title="Последно добавени рецепти">

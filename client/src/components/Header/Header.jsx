@@ -1,27 +1,14 @@
 import { useState } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
-import useSearchContext from "../../hooks/useSearchContext";
-import useAuthContext from "../../hooks/useAuthContext";
+import { NavLink, Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import useAuthContext from "../../hooks/useAuthContext";
 
 export default function Header({ isHome }) {
   const { isAuthenticated, isAdmin, user } = useAuthContext();
-  const { searchQuery, setSearchQuery } = useSearchContext();
   const [showSearch, setShowSearch] = useState(false);
-  const navigate = useNavigate();
 
   const toogleSearch = () => {
     setShowSearch((state) => !state);
-    setSearchQuery("");
-  };
-
-  const searchHandler = (e) => {
-    e.preventDefault();
-
-    if (searchQuery.trim()) {
-      setShowSearch(false);
-      navigate("/recipe/search");
-    }
   };
 
   const isActiveLink = ({ isActive }) => {
@@ -36,8 +23,6 @@ export default function Header({ isHome }) {
     return `${styles["header-ul"]} ${!isHome ? styles.white : ""}`;
   };
 
-  // todo fix thsi!!!
-  // todo check uncontrolled forms
   const getButtonColor = () => {
     return `${styles["header-nav-form-btn"]} ${!isHome ? styles.white : ""}`;
   };
@@ -107,38 +92,26 @@ export default function Header({ isHome }) {
           )}
         </ul>
       </nav>
-      {isAuthenticated && (
-        <nav className={styles["header-nav"]}>
-          <form className="header-nav-form" onSubmit={searchHandler}>
-            <input
-              className={`${styles["header-nav-form-input"]} ${
-                showSearch && styles.show
-              }`}
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {showSearch && (
-              <button className={getButtonColor()} type="submit">
-                Търси
-              </button>
-            )}
-          </form>
-          {showSearch ? (
+      <nav className={styles["header-nav"]}>
+        <form className="header-nav-form">
+          <input
+            className={`${styles["header-nav-form-input"]} ${
+              showSearch && styles.show
+            }`}
+            type="text"
+          />
+          <button
+            onClick={toogleSearch}
+            className={getButtonColor()}
+            type="button"
+          >
             <i
-              onClick={toogleSearch}
-              className={`fa-solid fa-xmark ${getButtonColor()}`}
-              title="Затвори"
-            ></i>
-          ) : (
-            <i
-              onClick={toogleSearch}
-              className={`fa-solid fa-magnifying-glass ${getButtonColor()}`}
+              className="fa-solid fa-magnifying-glass"
               title="Търси рецепта"
             ></i>
-          )}
-        </nav>
-      )}
+          </button>
+        </form>
+      </nav>
     </header>
   );
 }
