@@ -46,7 +46,6 @@ export default function CreateRecipe() {
   );
 
   useEffect(() => {
-    // load categories ????
     requester("/categories", httpMethods.GET, null, config)
       .then((res) => setCategories(res))
       .catch((err) => console.error(err));
@@ -65,9 +64,13 @@ export default function CreateRecipe() {
     );
 
     try {
-      await requester("/recipes", httpMethods.POST, data, config);
-      // todo navigate to recipes details
-      navigate("/");
+      const result = await requester(
+        "/recipes",
+        httpMethods.POST,
+        data,
+        config
+      );
+      navigate(`/recipe/${result._id}`);
     } catch (err) {
       setServerError(err.message);
     }
