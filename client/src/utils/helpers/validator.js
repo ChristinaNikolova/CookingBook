@@ -100,7 +100,6 @@ export const validator = {
       );
     }
 
-    // todo extend this + db
     if (touched.image && !values.image) {
       errors["image"] = global.REQUIRED_INPUT;
     }
@@ -180,7 +179,6 @@ export const validator = {
       errors["portions"] = recipe.REQUIRED_PORTIONS_POSITIVE_NUMBER;
     }
 
-    // todo extend this + db
     if (touched.image && !values.image) {
       errors["image"] = global.REQUIRED_INPUT;
     }

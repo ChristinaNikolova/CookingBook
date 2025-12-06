@@ -47,7 +47,7 @@ export default function useForm(
     }
   };
 
-  // todo remove this
+  // todo remove this after all form are ready and tested
   const wait = (time) => {
     return new Promise((resolve) => {
       setTimeout(() => {

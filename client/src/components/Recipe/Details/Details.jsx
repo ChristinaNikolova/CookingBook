@@ -10,9 +10,6 @@ import { image } from "../../../utils/helpers/image";
 import { httpMethods } from "../../../utils/constants/global";
 import styles from "./Details.module.css";
 
-// todo add no content case
-// todo check useEffects dep array
-
 export default function Details() {
   const { recipeId: id } = useParams();
   const [recipe, setRecipe] = useState({});

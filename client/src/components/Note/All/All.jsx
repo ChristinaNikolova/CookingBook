@@ -1,6 +1,7 @@
 // todo useMemo
 // todo useCallback
 // todo use Memo
+// todo check useEffects dep array
 
 import CreateNote from "../Create/Create";
 import NoteItem from "../NoteItem/NoteItem";
