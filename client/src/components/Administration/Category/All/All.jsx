@@ -8,7 +8,6 @@ import { categoryReducer } from "../../../../utils/reducers/category";
 import { httpMethods } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
-// todo add title attributes!!!
 // todo add constants for the paths???
 // todo fetch then oder await
 // todo use reducer

@@ -1,6 +1,10 @@
 #server-error {
-  margin: 20px auto;
+  position: sticky;
+  top: 20px;
+  z-index: 1000;
+  margin: 0px auto;
   padding: 8px;
+  min-height: unset;
   background-color: var(--clr-light-grey);
   width: 40%;
 }

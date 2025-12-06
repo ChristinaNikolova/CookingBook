@@ -14,7 +14,6 @@ const initialValues = {
   image: "",
 };
 
-// todo cleanup data.trim() and servererror return catch
 export default function CreateCategory() {
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
