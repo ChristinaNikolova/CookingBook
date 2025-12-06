@@ -60,7 +60,7 @@ export default function Header({ isHome }) {
                 </NavLink>
               </li>
               <li className="header-ul-li">
-                <NavLink to="/favourites" className={isActiveLink}>
+                <NavLink to="/recipe/favourites" className={isActiveLink}>
                   Любими
                 </NavLink>
               </li>

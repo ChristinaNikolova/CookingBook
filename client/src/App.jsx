@@ -8,6 +8,7 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import Categories from "./components/Recipe/Categories/Categories";
+import Favourite from "./components/Recipe/Favourite/Favourite";
 import All from "./components/Recipe/All/All";
 import Details from "./components/Recipe/Details/Details";
 import CreateRecipe from "./components/Recipe/Create/Create";
@@ -53,6 +54,7 @@ function App() {
         <Route element={<UserRoute />}>
           <Route path="/recipe">
             <Route path="categories" element={<Categories />} />
+            <Route path="favourites" element={<Favourite />} />
             <Route path=":categoryName/:categoryId" element={<All />} />
             <Route path=":recipeId" element={<Details />} />
             <Route path="create" element={<CreateRecipe />} />

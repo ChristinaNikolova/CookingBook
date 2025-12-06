@@ -12,9 +12,12 @@ import styles from "./All.module.css";
 // todo add constants for the paths???
 // todo fetch then oder await
 // todo use reducer
-// todo add no content for fav
 // todo add search
 // todo add pagination
+// todo edit recipe
+// todo edit category
+// todo notes logic....
+// todo useFetch
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);

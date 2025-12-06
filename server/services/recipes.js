@@ -10,6 +10,7 @@ const {
   recipeAdminViewModel,
 } = require("../utils/mapper/recipe");
 
+// todo sort by recent
 async function all() {
   return (await Recipe.find({}).sort({ title: 1 })).map(recipeAdminViewModel);
 }
@@ -17,6 +18,12 @@ async function all() {
 async function getByCategory(categoryId, userId) {
   return (await Recipe.find({ category: new ObjectId(categoryId) }))
     .filter((x) => x.author.toString() === userId)
+    .map(recipeViewModel);
+}
+
+async function getFavs(userId) {
+  return (await Recipe.find({ author: new ObjectId(userId) }))
+    .filter((x) => x.isFav)
     .map(recipeViewModel);
 }
 
@@ -130,4 +137,5 @@ module.exports = {
   deleteById,
   getByCategory,
   like,
+  getFavs,
 };
