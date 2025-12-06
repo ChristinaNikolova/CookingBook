@@ -13,6 +13,8 @@ import styles from "./All.module.css";
 // todo fetch then oder await
 // todo use reducer
 // todo add no content for fav
+// todo add search
+// todo add pagination
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
