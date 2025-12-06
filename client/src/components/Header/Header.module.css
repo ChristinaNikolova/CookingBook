@@ -67,7 +67,8 @@
 }
 
 #header a:hover,
-#header i:hover {
+#header i:hover,
+#header button:hover {
   color: var(--clr-yellow);
   transition: var(--transition-clr);
 }
@@ -104,7 +105,7 @@
   font-size: 18px;
 }
 
-.header-nav-form-btn.white i {
+.header-nav-form-btn.white {
   color: var(--clr-white);
 }
 

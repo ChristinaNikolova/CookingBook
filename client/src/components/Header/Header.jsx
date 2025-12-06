@@ -39,7 +39,6 @@ export default function Header({ isHome }) {
     return `${styles["header-ul"]} ${!isHome ? styles.white : ""}`;
   };
 
-  // todo fix thsi!!!
   const getButtonColor = () => {
     return `${styles["header-nav-form-btn"]} ${!isHome ? styles.white : ""}`;
   };
