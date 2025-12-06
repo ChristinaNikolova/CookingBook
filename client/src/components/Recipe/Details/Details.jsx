@@ -25,7 +25,19 @@ export default function Details() {
   useEffect(() => {
     requester(`/recipes/${id}`, httpMethods.GET, null, config)
       .then((res) => {
-        setRecipe(res);
+        const normalizedIngredients = res.ingredients.map((x) => ({
+          ...x,
+          isReady: false,
+        }));
+        const normalizedInstructions = res.instructions.map((x) => ({
+          ...x,
+          isReady: false,
+        }));
+        setRecipe({
+          ...res,
+          ingredients: normalizedIngredients,
+          instructions: normalizedInstructions,
+        });
         setIsFav(res.isFav);
       })
       .catch((err) => console.error(err));
@@ -52,6 +64,18 @@ export default function Details() {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const toogleHandler = (id) => {
+    setRecipe((state) => ({
+      ...state,
+      ingredients: state.ingredients.map((x) =>
+        x._id === id ? { ...x, isReady: !x.isReady } : x
+      ),
+      instructions: state.instructions.map((x) =>
+        x._id === id ? { ...x, isReady: !x.isReady } : x
+      ),
+    }));
   };
 
   if (!recipe?.title) {
@@ -115,7 +139,10 @@ export default function Details() {
               {recipe.ingredients.map((x) => (
                 <li
                   key={x._id}
-                  className={styles["details-top-ingredients-item"]}
+                  className={`${styles["details-top-ingredients-item"]} ${
+                    x.isReady ? styles["details-ready"] : ""
+                  }`}
+                  onClick={() => toogleHandler(x._id)}
                 >
                   {x.description}
                 </li>
@@ -128,7 +155,13 @@ export default function Details() {
       <div className={styles["details-bottom-wrapper"]}>
         <h3 className={styles["details-bottom-title"]}>Стъпки за приготвяне</h3>
         {recipe.instructions.map((x, i) => (
-          <p key={x._id} className={styles["details-bottom-content"]}>
+          <p
+            key={x._id}
+            className={`${styles["details-bottom-content"]} ${
+              x.isReady ? styles["details-ready"] : ""
+            }`}
+            onClick={() => toogleHandler(x._id)}
+          >
             <span>{`Стъпка ${i + 1}`}</span>
             {x.description}
           </p>

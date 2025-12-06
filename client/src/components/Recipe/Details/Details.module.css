@@ -101,6 +101,10 @@
   color: var(--clr-grey);
 }
 
+.details-top-ingredients-item:hover {
+  cursor: pointer;
+}
+
 .details-bottom-wrapper {
   text-align: left;
 }
@@ -113,6 +117,10 @@
 .details-bottom-content {
   margin-bottom: 20px;
   color: var(--clr-grey);
+}
+
+.details-bottom-content:hover {
+  cursor: pointer;
 }
 
 .details-bottom-content > span {
@@ -130,4 +138,8 @@
 
 .details-buttons-wrapper > button:hover {
   background-color: var(--clr-red);
+}
+
+.details-ready {
+  text-decoration: line-through;
 }

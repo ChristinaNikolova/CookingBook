@@ -8,7 +8,7 @@ export default function Header({ isHome }) {
   const [showSearch, setShowSearch] = useState(false);
 
   const toogleSearch = () => {
-    setShowSearch((prev) => !prev);
+    setShowSearch((state) => !state);
   };
 
   const isActiveLink = ({ isActive }) => {

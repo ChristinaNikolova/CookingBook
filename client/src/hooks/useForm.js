@@ -35,15 +35,15 @@ export default function useForm(
     switch (type) {
       case "file": {
         const file = inputFiles?.[0];
-        setFiles((prev) => ({ ...prev, [name]: file }));
-        setValues((prev) => ({ ...prev, [name]: file?.name || "" }));
+        setFiles((state) => ({ ...state, [name]: file }));
+        setValues((state) => ({ ...state, [name]: file?.name || "" }));
         break;
       }
       case "checkbox":
-        setValues((prev) => ({ ...prev, [name]: checked }));
+        setValues((state) => ({ ...state, [name]: checked }));
         break;
       default:
-        setValues((prev) => ({ ...prev, [name]: value }));
+        setValues((state) => ({ ...state, [name]: value }));
     }
   };
 
