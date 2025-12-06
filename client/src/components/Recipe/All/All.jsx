@@ -4,6 +4,7 @@ import useTop from "../../../hooks/useTop";
 import useConfigToken from "../../../hooks/useConfigToken";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
+import NoContent from "../../NoContent/NoContent";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
 import { httpMethods } from "../../../utils/constants/global";
@@ -27,18 +28,21 @@ export default function All() {
       .catch((err) => console.error(err));
   }, []);
 
-  // todo extract component for no contentF
   return (
     <section id="recipes">
       <ListWrapper title={categoryName}>
-        {recipes.map((x) => (
-          <RecipeItem
-            key={x.id}
-            id={x.id}
-            title={x.title}
-            image={image.getImageUrl(x.image)}
-          />
-        ))}
+        {!recipes.length ? (
+          <NoContent title="рецепти" path="/recipe/create" />
+        ) : (
+          recipes.map((x) => (
+            <RecipeItem
+              key={x.id}
+              id={x.id}
+              title={x.title}
+              image={image.getImageUrl(x.image)}
+            />
+          ))
+        )}
       </ListWrapper>
     </section>
   );

@@ -2,6 +2,7 @@ import { startTransition, useEffect, useOptimistic, useState } from "react";
 import useConfigToken from "../../../../hooks/useConfigToken";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
+import NoContent from "../../../NoContent/NoContent";
 import requester from "../../../../utils/helpers/requester";
 import { recipesReducer } from "../../../../utils/reducers/recipes";
 import { httpMethods } from "../../../../utils/constants/global";
@@ -18,7 +19,7 @@ export default function AllRecipes() {
   useEffect(() => {
     requester("/admin/recipes", httpMethods.GET, null, config)
       .then((res) => {
-        // todo useNormalized???
+        // todo useNormalized hook???
         const normalizedRecipes = res.map((x) => ({ ...x, pending: false }));
         setRecipes(normalizedRecipes);
       })
@@ -50,6 +51,10 @@ export default function AllRecipes() {
       console.error(err);
     }
   };
+
+  if (!recipes.length) {
+    return <NoContent title="рецепти" path="/recipe/create" />;
+  }
 
   return (
     <section id={styles["admin-all-categories"]}>
