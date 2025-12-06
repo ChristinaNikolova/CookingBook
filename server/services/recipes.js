@@ -15,6 +15,14 @@ async function all() {
   return (await Recipe.find({}).sort({ title: 1 })).map(recipeAdminViewModel);
 }
 
+async function searchByTitle(query) {
+  return (
+    await Recipe.find({ title: { $regex: query, $options: "i" } }).sort({
+      title: 1,
+    })
+  ).map(recipeSlimViewModel);
+}
+
 async function getByCategory(categoryId, userId) {
   return (
     await Recipe.find({ category: new ObjectId(categoryId) }).sort({
@@ -153,4 +161,5 @@ module.exports = {
   like,
   getFavs,
   getLastThree,
+  searchByTitle,
 };

@@ -7,6 +7,7 @@ const {
   getByCategory,
   deleteById,
   like,
+  searchByTitle,
 } = require("../services/recipes");
 const { filePaths } = require("../utils/constants/global");
 const { mapErrors } = require("../utils/parser");
@@ -42,6 +43,18 @@ router.get("/byCategory/:id", hasUser(), async (req, res) => {
     const userId = req.user._id;
     const recipe = await getByCategory(id, userId);
     res.json(recipe);
+  } catch (error) {
+    const message = mapErrors(error);
+    res.status(400).json({ message });
+  }
+});
+
+// todo same page search doesnt work
+router.get("/searched/:query", hasUser(), async (req, res) => {
+  try {
+    const query = req.params.query;
+    const recipes = await searchByTitle(query);
+    res.json(recipes);
   } catch (error) {
     const message = mapErrors(error);
     res.status(400).json({ message });
