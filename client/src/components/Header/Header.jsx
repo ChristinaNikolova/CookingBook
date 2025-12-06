@@ -40,7 +40,6 @@ export default function Header({ isHome }) {
   };
 
   // todo fix thsi!!!
-  // todo check uncontrolled forms
   const getButtonColor = () => {
     return `${styles["header-nav-form-btn"]} ${!isHome ? styles.white : ""}`;
   };

@@ -1,9 +1,11 @@
+import useAuthContext from "../../hooks/useAuthContext";
 import useTop from "../../hooks/useTop";
 import LastThree from "../Recipe/LastThree/LastThree";
 import ButtonLink from "../shared/ButtonLink/ButtonLink";
 import styles from "./Home.module.css";
 
 export default function Home() {
+  const { isAuthenticated } = useAuthContext();
   useTop();
 
   return (
@@ -14,7 +16,7 @@ export default function Home() {
           <ButtonLink path="/recipe/create" text="Добави рецепта" />
         </div>
       </section>
-      <LastThree />
+      {isAuthenticated && <LastThree />}
     </>
   );
 }
