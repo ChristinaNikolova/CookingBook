@@ -9,8 +9,6 @@ import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
 import { httpMethods } from "../../../utils/constants/global";
 
-// todo add last three on home page
-
 export default function All() {
   const { categoryName, categoryId } = useParams();
   const [recipes, setRecipes] = useState([]);

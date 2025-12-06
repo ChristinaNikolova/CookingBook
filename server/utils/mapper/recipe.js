@@ -5,6 +5,14 @@ function recipeAdminViewModel(recipe) {
   };
 }
 
+function recipeSlimViewModel(recipe) {
+  return {
+    id: recipe._id,
+    title: recipe.title,
+    image: recipe.image,
+  };
+}
+
 function recipeViewModel(recipe) {
   return {
     id: recipe._id,
@@ -23,5 +31,6 @@ function recipeViewModel(recipe) {
 
 module.exports = {
   recipeAdminViewModel,
+  recipeSlimViewModel,
   recipeViewModel,
 };

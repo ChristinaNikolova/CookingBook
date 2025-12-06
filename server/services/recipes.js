@@ -7,6 +7,7 @@ const Ingredient = require("../models/Ingredient");
 const { errors } = require("../utils/constants/global");
 const {
   recipeViewModel,
+  recipeSlimViewModel,
   recipeAdminViewModel,
 } = require("../utils/mapper/recipe");
 
@@ -21,7 +22,7 @@ async function getByCategory(categoryId, userId) {
     })
   )
     .filter((x) => x.author.toString() === userId)
-    .map(recipeViewModel);
+    .map(recipeSlimViewModel);
 }
 
 async function getFavs(userId) {
@@ -29,7 +30,15 @@ async function getFavs(userId) {
     await Recipe.find({ author: new ObjectId(userId) }).sort({ title: 1 })
   )
     .filter((x) => x.isFav)
-    .map(recipeViewModel);
+    .map(recipeSlimViewModel);
+}
+
+async function getLastThree(userId) {
+  return (
+    await Recipe.find({ author: new ObjectId(userId) })
+      .sort({ createdAt: -1 })
+      .limit(3)
+  ).map(recipeSlimViewModel);
 }
 
 async function create(
@@ -143,4 +152,5 @@ module.exports = {
   getByCategory,
   like,
   getFavs,
+  getLastThree,
 };
