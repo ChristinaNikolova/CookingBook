@@ -86,5 +86,6 @@ export default function useForm(
     errors,
     disabledForm,
     files,
+    values,
   };
 }

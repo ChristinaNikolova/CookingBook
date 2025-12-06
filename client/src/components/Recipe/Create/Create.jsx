@@ -10,16 +10,15 @@ import CustomSelect from "../../shared/CustomSelect/CustomSelect";
 import ServerError from "../../shared/ServerError/ServerError";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, ids } from "../../../utils/constants/global";
 import styles from "./Create.module.css";
 
-// todo add default category
 const initialValues = {
   title: "",
   summary: "",
   neededTime: "",
   portions: "",
-  category: "",
+  category: ids.DEFAULT_CATEGORY_ID,
   image: "",
   isBabySafe: false,
 };
@@ -38,12 +37,8 @@ export default function CreateRecipe() {
   const config = useConfigToken();
   const formRef = useRef();
 
-  const { fieldHandler, submitHandler, errors, disabledForm, files } = useForm(
-    createHandler,
-    "recipe",
-    initialValues,
-    formRef
-  );
+  const { fieldHandler, submitHandler, errors, disabledForm, files, values } =
+    useForm(createHandler, "recipe", initialValues, formRef);
 
   useEffect(() => {
     requester("/categories", httpMethods.GET, null, config)
@@ -141,6 +136,7 @@ export default function CreateRecipe() {
       !disabledForm() &&
       !hasInstructionErrors &&
       !hasIngredientErrors &&
+      values.category !== initialValues.category &&
       files.image
     );
   };
