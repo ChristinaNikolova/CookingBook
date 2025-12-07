@@ -22,6 +22,11 @@ export default function AllNotes() {
       .catch((err) => console.error(err));
   }, []);
 
+  // todo check if owner
+  const deleteHandler = async (noteId) => {
+    await requester(`/notes/${noteId}`, httpMethods.DELETE, null, config);
+  };
+
   return (
     <section id="notes">
       <h2 className={styles["notes-title"]}>Моите бележки</h2>
@@ -29,7 +34,12 @@ export default function AllNotes() {
       {!notes.length && <NoContent title="бележки" />}
       <ul className={styles["notes-list"]}>
         {notes.map((x) => (
-          <NoteItem key={x.id} id={x.id} description={x.description} />
+          <NoteItem
+            key={x.id}
+            id={x.id}
+            description={x.description}
+            onDelete={deleteHandler}
+          />
         ))}
       </ul>
     </section>

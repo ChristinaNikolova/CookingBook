@@ -17,6 +17,7 @@
 }
 
 .note-item i:last-of-type:hover {
+  cursor: pointer;
   color: var(--clr-red);
   transition: var(--transition-clr);
 }

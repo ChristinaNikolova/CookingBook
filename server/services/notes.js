@@ -21,7 +21,12 @@ async function create(description, userId) {
   return note;
 }
 
+async function deleteById(id) {
+  return Note.findByIdAndDelete(id);
+}
+
 module.exports = {
   all,
   create,
+  deleteById,
 };
