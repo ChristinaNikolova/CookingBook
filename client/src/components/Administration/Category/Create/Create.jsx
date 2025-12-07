@@ -15,6 +15,7 @@ const initialValues = {
 };
 
 export default function CreateCategory() {
+  const [currentImage, setCurrentImage] = useState("");
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
   const config = useConfigToken();
@@ -29,11 +30,13 @@ export default function CreateCategory() {
 
   async function createHandler(data) {
     setServerError("");
+    setCurrentImage("");
     try {
       await requester("/admin/categories", httpMethods.POST, data, config);
       navigate("/admin/category/all");
     } catch (err) {
       setServerError(err.message);
+      setCurrentImage(files.image);
     }
   }
 
@@ -56,6 +59,9 @@ export default function CreateCategory() {
           error={errors.description}
           {...fieldHandler("description")}
         />
+        {currentImage && (
+          <CustomInput label="Test" value={currentImage.name} disabled />
+        )}
         <CustomInput
           label="Изображение"
           type="file"

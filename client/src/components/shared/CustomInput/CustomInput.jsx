@@ -8,6 +8,7 @@ export default function CustomInput({
   value,
   error,
   rows = 12,
+  disabled = false,
   onChange,
   onBlur,
 }) {
@@ -24,6 +25,7 @@ export default function CustomInput({
             : type !== "file"
             ? { value }
             : {})}
+          disabled={disabled}
           onChange={onChange}
           onBlur={onBlur}
         />
@@ -33,6 +35,7 @@ export default function CustomInput({
           name={name}
           rows={rows}
           value={value}
+          disabled={disabled}
           onChange={onChange}
           onBlur={onBlur}
         ></textarea>
