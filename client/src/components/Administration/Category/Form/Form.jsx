@@ -43,7 +43,6 @@ export default function FormCategory({
       <form className="form" action={submitHandler}>
         <CustomInput
           label="Име"
-          type="text"
           error={errors.name}
           {...fieldHandler("name")}
         />

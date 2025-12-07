@@ -21,7 +21,9 @@ const initialValues = {
   isBabySafe: false,
 };
 
+// todo add lines
 export default function CreateRecipe() {
+  const [currentImage, setCurrentImage] = useState("");
   const [instructions, setInstructions] = useState([""]);
   const [ingredients, setIngredients] = useState([""]);
   const [instructionErrors, setInstructionErrors] = useState([]);
@@ -46,6 +48,7 @@ export default function CreateRecipe() {
 
   async function createHandler(data) {
     setServerError("");
+    setCurrentImage("");
 
     data.append(
       "instructions",
@@ -63,9 +66,10 @@ export default function CreateRecipe() {
         data,
         config
       );
-      navigate(`/recipe/${result._id}`);
+      navigate(`/recipe/${result.id}`);
     } catch (err) {
       setServerError(err.message);
+      setCurrentImage(files.image);
     }
   }
 
@@ -234,6 +238,14 @@ export default function CreateRecipe() {
             onClick={() => addInputHandler("ingredient")}
           />
         </div>
+
+        {currentImage && (
+          <CustomInput
+            label="Текущо изображение"
+            value={currentImage.name}
+            disabled
+          />
+        )}
 
         <CustomInput
           label="Качи снимка"

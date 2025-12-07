@@ -10,12 +10,11 @@ import styles from "./All.module.css";
 
 // todo add constants for the paths???
 // todo fetch then oder await
-// todo add pagination
+// todo add pagination => fetch, async, dep array, constants
 // todo edit recipe
 // todo useFetch
 // todo check if owner for reipe crud
 // todo check useEffects dep array
-// todo fix dep array config
 // todo add everywhere server error
 // todo try catch / async await everywhere
 // todo list for shopping

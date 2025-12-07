@@ -98,7 +98,7 @@ async function create(
 
     await recipe.save();
 
-    return recipe;
+    return recipeViewModel(recipe);
   } catch (err) {
     console.error(errors.DATABASE_ERROR, err.message);
 
