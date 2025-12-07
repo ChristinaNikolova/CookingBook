@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
-export default function ButtonLink({ path, text, disabled = false }) {
+function ButtonLink({ path, text, disabled = false }) {
   const clickHandler = (e) => {
     if (disabled) {
       e.preventDefault();
@@ -17,3 +18,5 @@ export default function ButtonLink({ path, text, disabled = false }) {
     </Link>
   );
 }
+
+export default memo(ButtonLink);

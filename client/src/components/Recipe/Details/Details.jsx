@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useTop from "../../../hooks/useTop";
 import useConfigToken from "../../../hooks/useConfigToken";
@@ -22,6 +22,9 @@ export default function Details() {
   const config = useConfigToken();
   useTop();
 
+  const categoryName = recipe?.category?.name;
+  const categoryId = recipe?.category?._id;
+
   useEffect(() => {
     requester(`/recipes/${id}`, httpMethods.GET, null, config)
       .then((res) => {
@@ -41,17 +44,17 @@ export default function Details() {
         setIsFav(res.isFav);
       })
       .catch((err) => console.error(err));
-  }, [id]);
+  }, [id, config]);
 
-  const deleteHandler = async () => {
+  const deleteHandler = useCallback(async () => {
     setServerError("");
     try {
       await requester(`/recipes/${id}`, httpMethods.DELETE, null, config);
-      navigate(`/recipe/${recipe.category.name}/${recipe.category._id}`);
+      navigate(`/recipe/${categoryName}/${categoryId}`);
     } catch (err) {
       setServerError(err.message);
     }
-  };
+  }, [config, categoryName, categoryId, id, navigate]);
 
   const likeHandler = async () => {
     setServerError("");

@@ -1,11 +1,7 @@
+import { memo } from "react";
 import { useFormStatus } from "react-dom";
 
-export default function Button({
-  text,
-  type = "button",
-  disabled = true,
-  onClick,
-}) {
+function Button({ text, type = "button", disabled = true, onClick }) {
   const { pending } = useFormStatus();
 
   return (
@@ -19,3 +15,5 @@ export default function Button({
     </button>
   );
 }
+
+export default memo(Button);
