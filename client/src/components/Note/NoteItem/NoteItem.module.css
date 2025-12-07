@@ -9,6 +9,10 @@
   margin-right: 30px;
 }
 
+.note-item-span-line {
+  display: block;
+}
+
 .note-item i:last-of-type {
   position: absolute;
   right: 20px;

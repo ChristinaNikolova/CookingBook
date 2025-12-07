@@ -11,9 +11,10 @@ async function all(userId) {
   ).map(noteViewModel);
 }
 
-async function create(description, userId) {
+async function create(description, isList, userId) {
   const note = new Note({
     description,
+    isList,
     author: userId,
   });
 

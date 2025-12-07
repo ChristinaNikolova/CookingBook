@@ -64,6 +64,10 @@
   transition: var(--transition-clr);
 }
 
+.details-top-right-wrapper {
+  width: 100%;
+}
+
 .details-top-title {
   margin-bottom: 20px;
   font-size: 38px;
@@ -92,7 +96,6 @@
   justify-content: flex-start;
   align-items: flex-start;
   height: 35vh;
-  list-style-type: disc;
 }
 
 .details-top-ingredients-item {
@@ -103,6 +106,12 @@
 
 .details-top-ingredients-item:hover {
   cursor: pointer;
+  color: var(--clr-black);
+  transition: var(--transition-clr);
+}
+
+.details-top-ingredients-item i {
+  margin-right: 20px;
 }
 
 .details-bottom-wrapper {
@@ -121,6 +130,8 @@
 
 .details-bottom-content:hover {
   cursor: pointer;
+  color: var(--clr-black);
+  transition: var(--transition-clr);
 }
 
 .details-bottom-content > span {

@@ -17,7 +17,7 @@ router.get("/", hasUser(), async (req, res) => {
 router.post("/", hasUser(), async (req, res) => {
   try {
     const userId = req.user._id;
-    const note = await create(req.body.description, userId);
+    const note = await create(req.body.description, req.body.isList, userId);
     res.json(note);
   } catch (error) {
     const message = mapErrors(error);

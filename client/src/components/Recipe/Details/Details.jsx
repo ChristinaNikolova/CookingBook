@@ -12,11 +12,14 @@ import { image } from "../../../utils/helpers/image";
 import { httpMethods } from "../../../utils/constants/global";
 import styles from "./Details.module.css";
 
+// todo use memo, callbakc.... again here
 export default function Details() {
   const { recipeId: id } = useParams();
   const [recipe, setRecipe] = useState({});
   const [isFav, setIsFav] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [neededIngredients, setNeededIngredients] = useState([]);
+
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const config = useConfigToken();
@@ -83,6 +86,49 @@ export default function Details() {
     }));
   };
 
+  const neededIngredientsHandler = (ingredientId) => {
+    if (neededIngredients.includes(ingredientId)) {
+      setNeededIngredients((state) => state.filter((x) => x !== ingredientId));
+    } else {
+      setNeededIngredients((state) => [...state, ingredientId]);
+    }
+  };
+
+  const createNoteHandler = async () => {
+    if (!neededIngredients.length) {
+      return;
+    }
+    const result = [];
+
+    for (const curr of neededIngredients) {
+      result.push(recipe.ingredients.find((x) => x._id === curr).description);
+    }
+
+    const data = {
+      description: result.join("\n"),
+      isList: true,
+    };
+
+    try {
+      await requester("/notes", httpMethods.POST, data, config);
+      navigate("/notes");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getIconTitle = (ingredientId) => {
+    return neededIngredients.includes(ingredientId)
+      ? "Махни от списъка за пазаруване"
+      : "Добави в списъка за пазаруване";
+  };
+
+  const getIcon = (ingredientId) => {
+    return neededIngredients.includes(ingredientId)
+      ? "fa-check"
+      : "fa-basket-shopping";
+  };
+
   const isOwner = () => {
     return user.id === recipe.author._id;
   };
@@ -138,7 +184,7 @@ export default function Details() {
           </ul>
         </div>
 
-        <div className="details-top-right-wrapper">
+        <div className={styles["details-top-right-wrapper"]}>
           <h2 className={styles["details-top-title"]}>{recipe.title}</h2>
           <p className={styles["details-top-summary"]}>{recipe.summary}</p>
           <div className={styles["details-top-ingredients-wrapper"]}>
@@ -152,13 +198,24 @@ export default function Details() {
                   className={`${styles["details-top-ingredients-item"]} ${
                     x.isReady ? styles["details-ready"] : ""
                   }`}
-                  onClick={() => toogleHandler(x._id)}
                 >
-                  {x.description}
+                  <i
+                    className={`fa-solid ${getIcon(x._id)}`}
+                    title={getIconTitle(x._id)}
+                    onClick={() => neededIngredientsHandler(x._id)}
+                  ></i>
+                  <span onClick={() => toogleHandler(x._id)}>
+                    {x.description}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
+          <Button
+            text="Създай бележка за пазаруване"
+            disabled={false}
+            onClick={createNoteHandler}
+          />
         </div>
       </div>
 

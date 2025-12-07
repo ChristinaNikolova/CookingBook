@@ -16,6 +16,10 @@ const noteSchema = new Schema(
         errors.REQUIRED_MAX_LEN("Описанието", note.DESC_MAX_LEN),
       ],
     },
+    isList: {
+      type: Boolean,
+      default: false,
+    },
     author: {
       type: ObjectId,
       ref: "User",

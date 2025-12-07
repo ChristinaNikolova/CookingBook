@@ -66,6 +66,7 @@ export default function AllNotes() {
             key={x.id}
             id={x.id}
             description={x.description}
+            isList={x.isList}
             onDelete={deleteHandler}
           />
         ))}
