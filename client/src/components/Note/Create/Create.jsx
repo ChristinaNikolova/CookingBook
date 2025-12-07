@@ -7,7 +7,6 @@ import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
 import { httpMethods } from "../../../utils/constants/global";
 
-// todo clean form after successful creation
 const initialValues = {
   description: "",
 };

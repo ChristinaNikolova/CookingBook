@@ -17,7 +17,7 @@ import styles from "./All.module.css";
 // todo check useEffects dep array
 // todo fix dep array config
 // todo add everywhere server error
-// todo try catch / async await
+// todo try catch / async await everywhere
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
