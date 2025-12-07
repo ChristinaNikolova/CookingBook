@@ -1,7 +1,7 @@
 // todo useMemo
 // todo useCallback
 
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import useConfigToken from "../../../hooks/useConfigToken";
 import CreateNote from "../Create/Create";
 import NoteItem from "../NoteItem/NoteItem";
@@ -29,26 +29,29 @@ export default function AllNotes() {
       .catch((err) => console.error(err));
   }, []);
 
-  const createHandler = (note) => {
+  const createHandler = useCallback((note) => {
     dispatch({
       type: "ADD",
       payload: note,
     });
-  };
+  }, []);
 
-  const deleteHandler = async (noteId) => {
-    setServerError("");
+  const deleteHandler = useCallback(
+    async (noteId) => {
+      setServerError("");
 
-    try {
-      await requester(`/notes/${noteId}`, httpMethods.DELETE, null, config);
-      dispatch({
-        type: "DELETE",
-        payload: noteId,
-      });
-    } catch (err) {
-      setServerError(err.message);
-    }
-  };
+      try {
+        await requester(`/notes/${noteId}`, httpMethods.DELETE, null, config);
+        dispatch({
+          type: "DELETE",
+          payload: noteId,
+        });
+      } catch (err) {
+        setServerError(err.message);
+      }
+    },
+    [config]
+  );
 
   return (
     <section id="notes">

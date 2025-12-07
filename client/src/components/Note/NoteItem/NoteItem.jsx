@@ -1,6 +1,7 @@
+import { memo } from "react";
 import styles from "./NoteItem.module.css";
 
-export default function NoteItem({ id, description, onDelete }) {
+function NoteItem({ id, description, onDelete }) {
   return (
     <li className={styles["note-item"]}>
       <i className="fa-regular fa-note-sticky"></i>
@@ -13,3 +14,5 @@ export default function NoteItem({ id, description, onDelete }) {
     </li>
   );
 }
+
+export default memo(NoteItem);
