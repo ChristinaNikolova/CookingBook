@@ -7,6 +7,7 @@ import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
 import { httpMethods } from "../../../utils/constants/global";
 
+// todo clean form after successful creation
 const initialValues = {
   description: "",
 };
@@ -15,17 +16,14 @@ export default function CreateNote() {
   const [serverError, setServerError] = useState("");
   const config = useConfigToken();
 
-  const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
-    createHandler,
-    "note",
-    initialValues
-  );
+  const { fieldHandler, submitHandler, errors, disabledForm, setValues } =
+    useForm(createHandler, "note", initialValues);
 
   async function createHandler(data) {
     setServerError("");
     try {
-      const result = await requester("/notes", httpMethods.POST, data, config);
-      console.log(result);
+      await requester("/notes", httpMethods.POST, data, config);
+      setValues(initialValues);
     } catch (err) {
       setServerError(err.message);
     }
