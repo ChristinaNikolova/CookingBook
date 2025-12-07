@@ -1,10 +1,13 @@
+import { useMemo } from "react";
 import useAuthContext from "./useAuthContext";
 
 export default function useConfigToken() {
   const { user } = useAuthContext();
-  const config = {
-    authToken: user.authToken,
-  };
 
-  return config;
+  return useMemo(
+    () => ({
+      authToken: user.authToken,
+    }),
+    [user.authToken]
+  );
 }
