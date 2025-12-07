@@ -55,7 +55,6 @@ export default function AllCategories() {
         null,
         config
       );
-
       setCategories((state) => state.filter((x) => x.id !== categoryId));
     } catch (err) {
       console.error(err);

@@ -3,8 +3,9 @@ const important = {
   SECRET: "my-very-secret",
 };
 
-const emails = {
-  ADMIN: "admin@cookingbook.com",
+const admin = {
+  EMAIL: "admin@cookingbook.com",
+  ID: "6933ad25118cc4e52f06bf98",
 };
 
 const messages = {
@@ -50,7 +51,7 @@ const filePaths = {
 
 module.exports = {
   important,
-  emails,
+  admin,
   messages,
   errors,
   filePaths,

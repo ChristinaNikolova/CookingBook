@@ -1,9 +1,9 @@
-const { emails, errors } = require("../utils/constants/global");
+const { errors, admin } = require("../utils/constants/global");
 const { mapErrors } = require("../utils/parser");
 
 function isAdmin() {
   return (req, res, next) => {
-    if (req.user && req.user.email === emails.ADMIN) {
+    if (req.user && req.user.email === admin.EMAIL) {
       next();
     } else {
       const message = mapErrors({ message: errors.NOT_LOGGED_IN });

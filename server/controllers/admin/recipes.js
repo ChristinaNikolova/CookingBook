@@ -16,7 +16,8 @@ router.get("/", isAdmin(), async (req, res) => {
 router.delete("/:id", isAdmin(), async (req, res) => {
   try {
     const id = req.params.id;
-    await deleteById(id);
+    const userId = req.user._id;
+    await deleteById(id, userId);
     res.status(204).end();
   } catch (error) {
     const message = mapErrors(error);

@@ -4,7 +4,7 @@ const {
 const Recipe = require("../models/Recipe");
 const Instruction = require("../models/Instruction");
 const Ingredient = require("../models/Ingredient");
-const { errors } = require("../utils/constants/global");
+const { errors, admin } = require("../utils/constants/global");
 const {
   recipeViewModel,
   recipeSlimViewModel,
@@ -116,7 +116,10 @@ async function create(
 
 async function deleteById(id, userId) {
   const recipe = await Recipe.findById(id);
-  checkOwner(recipe.author, userId);
+
+  if (userId !== admin.ID) {
+    checkOwner(recipe.author, userId);
+  }
 
   return Recipe.findByIdAndDelete(id);
 }
