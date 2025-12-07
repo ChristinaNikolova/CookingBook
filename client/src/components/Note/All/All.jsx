@@ -1,12 +1,12 @@
 // todo useMemo
 // todo useCallback
-// todo use Memo
 
 import { useEffect, useReducer, useState } from "react";
 import useConfigToken from "../../../hooks/useConfigToken";
 import CreateNote from "../Create/Create";
 import NoteItem from "../NoteItem/NoteItem";
 import NoContent from "../../NoContent/NoContent";
+import Info from "../Info/Info";
 import ServerError from "../../shared/ServerError/ServerError";
 import { noteReducer } from "../../../utils/reducers/note";
 import requester from "../../../utils/helpers/requester";
@@ -53,6 +53,7 @@ export default function AllNotes() {
   return (
     <section id="notes">
       <h2 className={styles["notes-title"]}>Моите бележки</h2>
+      <Info />
       {serverError && <ServerError error={serverError} />}
       <CreateNote onCreate={createHandler} />
       {!notes.length && <NoContent title="бележки" />}

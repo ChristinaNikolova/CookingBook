@@ -1,0 +1,7 @@
+.info-content {
+  width: 40%;
+  margin: 0 auto;
+  padding: 40px;
+  text-transform: uppercase;
+  background-color: var(--clr-light-grey);
+}
