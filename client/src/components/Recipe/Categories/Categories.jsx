@@ -4,7 +4,7 @@ import CategoryItem from "../CategoryItem/CategoryItem";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import { image } from "../../../utils/helpers/image";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, ids } from "../../../utils/constants/global";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -12,7 +12,10 @@ export default function Categories() {
 
   useEffect(() => {
     requester("/categories", httpMethods.GET, null, config)
-      .then((res) => setCategories(res))
+      .then((res) => {
+        const result = res.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
+        setCategories(result);
+      })
       .catch((err) => console.error(err));
   }, [config]);
 

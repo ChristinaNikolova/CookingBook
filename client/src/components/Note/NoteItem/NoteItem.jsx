@@ -1,7 +1,6 @@
 import { memo } from "react";
 import styles from "./NoteItem.module.css";
 
-// todo remove default category from category list
 function NoteItem({ id, description, isList, onDelete }) {
   return (
     <li className={styles["note-item"]}>
