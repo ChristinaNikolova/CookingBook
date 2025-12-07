@@ -15,6 +15,7 @@ async function register(email, password) {
     email,
     hashedPassword,
   });
+
   await user.save();
 
   return createToken(user);

@@ -121,6 +121,7 @@ async function deleteById(id) {
 async function like(id) {
   const recipe = await Recipe.findById(id);
   recipe.isFav = !recipe.isFav;
+
   await recipe.save();
 
   return recipe.isFav;
