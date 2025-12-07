@@ -17,6 +17,9 @@ const errors = {
   REQUEST: "Request error",
   INVALID_EMAIL: "Невалиден адрес",
   INVALID_IMAGE: "Невалидна картинка",
+  NOT_AUTHOR(name, action) {
+    return `Само авторът на ${name} може да ${action}`;
+  },
   REQUIRED_INPUT: "Задължително поле",
   REQUIRED_MIN_LEN(name, value) {
     return `${name} трябва да е поне ${value} символа`;

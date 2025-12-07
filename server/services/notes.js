@@ -3,6 +3,7 @@ const {
 } = require("mongoose");
 const Note = require("../models/Note");
 const { noteViewModel } = require("../utils/mapper/note");
+const { errors } = require("../utils/constants/global");
 
 async function all(userId) {
   return (
@@ -21,7 +22,13 @@ async function create(description, userId) {
   return note;
 }
 
-async function deleteById(id) {
+async function deleteById(id, userId) {
+  const note = await Note.findById(id);
+
+  if (note.author.toString() !== userId) {
+    throw new Error(errors.NOT_AUTHOR("бележката", "я изтрие"));
+  }
+
   return Note.findByIdAndDelete(id);
 }
 
