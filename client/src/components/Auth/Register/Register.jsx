@@ -6,7 +6,7 @@ import CustomInput from "../../shared/CustomInput/CustomInput";
 import Button from "../../shared/Button/Button";
 import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, paths } from "../../../utils/constants/global";
 
 const initialValues = {
   email: "",
@@ -28,7 +28,7 @@ export default function Register() {
   async function registerHandler(data) {
     setServerError("");
     try {
-      const result = await requester("/auth/register", httpMethods.POST, data);
+      const result = await requester(paths.REGISTER, httpMethods.POST, data);
       userAuth(result);
       navigate("/");
     } catch (err) {

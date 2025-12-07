@@ -9,6 +9,12 @@ export const httpMethods = {
   DELETE: "DELETE",
 };
 
+export const paths = {
+  LOGIN: "/auth/login",
+  REGISTER: "/auth/register",
+  CATEGORIES: "",
+};
+
 export const ids = {
   DEFAULT_CATEGORY_ID: "69345bbbc89e9bd851506c91",
 };
