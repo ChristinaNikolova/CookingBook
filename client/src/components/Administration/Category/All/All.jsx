@@ -18,6 +18,7 @@ import styles from "./All.module.css";
 // todo fix dep array config
 // todo add everywhere server error
 // todo try catch / async await everywhere
+// todo list for shopping
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
