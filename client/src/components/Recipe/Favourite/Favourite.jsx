@@ -15,7 +15,7 @@ export default function Favourite() {
     requester("/users/fav", httpMethods.GET, null, config)
       .then((res) => setFavRecipes(res))
       .catch((err) => console.error(err));
-  }, []);
+  }, [config]);
 
   return (
     <section id="fav-recipes">

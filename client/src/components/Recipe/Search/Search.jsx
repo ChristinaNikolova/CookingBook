@@ -18,7 +18,7 @@ export default function Search() {
     requester(`/recipes/searched/${query}`, httpMethods.GET, "", config)
       .then((res) => setSearchedRecipes(res))
       .catch((err) => console.error(err));
-  }, [query]);
+  }, [query, config]);
 
   return (
     <section id="fav-recipes">

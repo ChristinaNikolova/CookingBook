@@ -14,7 +14,7 @@ export default function Categories() {
     requester("/categories", httpMethods.GET, null, config)
       .then((res) => setCategories(res))
       .catch((err) => console.error(err));
-  }, []);
+  }, [config]);
 
   return (
     <section id="categories">

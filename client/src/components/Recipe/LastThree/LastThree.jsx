@@ -15,7 +15,7 @@ export default function LastThree() {
     requester("/users", httpMethods.GET, null, config)
       .then((res) => setLastThreeRecipes(res))
       .catch((err) => console.error(err));
-  }, []);
+  }, [config]);
 
   return (
     <section id="last-three">

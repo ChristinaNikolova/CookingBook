@@ -24,7 +24,7 @@ export default function All() {
     )
       .then((res) => setRecipes(res))
       .catch((err) => console.error(err));
-  }, []);
+  }, [config, categoryId]);
 
   return (
     <section id="recipes">

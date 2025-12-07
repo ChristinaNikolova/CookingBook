@@ -42,7 +42,7 @@ export default function CreateRecipe() {
     requester("/categories", httpMethods.GET, null, config)
       .then((res) => setCategories(res))
       .catch((err) => console.error(err));
-  }, []);
+  }, [config]);
 
   async function createHandler(data) {
     setServerError("");
