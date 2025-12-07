@@ -12,7 +12,10 @@ export const httpMethods = {
 export const paths = {
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
+  LOGOUT: "",
   CATEGORIES: "",
+  RECIPES: "",
+  NOTES: "/notes",
 };
 
 export const ids = {

@@ -11,6 +11,7 @@ export default function Logout() {
     const abortController = new AbortController();
     // todo use requestre
     // todo add abort controller for all useEffects
+    // todo add default path
     fetch("http://localhost:3030/auth/logout", {
       method: httpMethods.GET,
       headers: {

@@ -47,17 +47,7 @@ export default function useForm(
     }
   };
 
-  // todo remove this after all form are ready and tested
-  const wait = (time) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("Wait is over!");
-      }, time);
-    });
-  };
-
   const submitHandler = async () => {
-    await wait(2000);
     const data = formHelpers.prepareData(values, files);
     callback(data);
   };
