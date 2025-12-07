@@ -20,6 +20,29 @@ async function create(name, description, image) {
   return category;
 }
 
+async function update(id, name, description, image) {
+  const category = await getById(id);
+
+  if (category.name.toLowerCase() !== name.toLowerCase()) {
+    const result = await getByName(name);
+
+    if (result) {
+      throw new Error(errors.NAME_TAKEN);
+    }
+  }
+
+  category.name = name;
+  category.description = description;
+
+  if (image) {
+    category.image = image;
+  }
+
+  await category.save();
+
+  return category;
+}
+
 async function all() {
   return (await Category.find({}).sort({ name: 1 })).map(categoryViewModel);
 }
@@ -44,4 +67,5 @@ module.exports = {
   all,
   deleteById,
   getById,
+  update,
 };

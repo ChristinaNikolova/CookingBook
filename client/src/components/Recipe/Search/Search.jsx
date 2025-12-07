@@ -15,7 +15,7 @@ export default function Search() {
   const config = useConfigToken();
 
   useEffect(() => {
-    requester(`/recipes/searched/${query}`, httpMethods.GET, "", config)
+    requester(`/recipes/searched/${query}`, httpMethods.GET, null, config)
       .then((res) => setSearchedRecipes(res))
       .catch((err) => console.error(err));
   }, [query, config]);
