@@ -34,6 +34,10 @@ const CreateCategory = lazy(() =>
   import("./components/Administration/Category/Create/Create")
 );
 
+const EditCategory = lazy(() =>
+  import("./components/Administration/Category/Edit/Edit")
+);
+
 const AllRecipes = lazy(() =>
   import("./components/Administration/Recipe/All/All")
 );
@@ -104,6 +108,15 @@ function App() {
                 element={
                   <Suspense fallback={<Loader />}>
                     <CreateCategory />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="edit/:id"
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <EditCategory />
                   </Suspense>
                 }
               />

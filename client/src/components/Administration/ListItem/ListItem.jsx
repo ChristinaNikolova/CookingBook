@@ -19,7 +19,9 @@ export default function ListItem({
       </Link>
       <div className={styles["list-item-icon-wrapper"]}>
         {isCategory && (
-          <i className="fa-solid fa-pen-to-square" title="Редактирай"></i>
+          <Link to={`/admin/category/edit/${id}`}>
+            <i className="fa-solid fa-pen-to-square" title="Редактирай"></i>
+          </Link>
         )}
         <i
           className="fa-solid fa-trash"
