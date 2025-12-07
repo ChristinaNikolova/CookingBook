@@ -10,6 +10,18 @@ async function all(userId) {
   ).map(noteViewModel);
 }
 
+async function create(description, userId) {
+  const note = new Note({
+    description,
+    author: userId,
+  });
+
+  await note.save();
+
+  return note;
+}
+
 module.exports = {
   all,
+  create,
 };
