@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useForm from "../../../hooks/useForm";
 import useConfigToken from "../../../hooks/useConfigToken";
 import Button from "../../shared/Button/Button";
@@ -15,9 +15,10 @@ const initialValues = {
 export default function CreateNote({ onCreate }) {
   const [serverError, setServerError] = useState("");
   const config = useConfigToken();
+  const formRef = useRef();
 
   const { fieldHandler, submitHandler, errors, disabledForm, setValues } =
-    useForm(createHandler, "note", initialValues);
+    useForm(createHandler, "note", initialValues, formRef);
 
   async function createHandler(data) {
     setServerError("");
@@ -33,7 +34,9 @@ export default function CreateNote({ onCreate }) {
   return (
     <section className="section-form">
       {serverError && <ServerError error={serverError} />}
-      <h2 className="form-title">Добави бележка</h2>
+      <h2 ref={formRef} className="form-title">
+        Добави бележка
+      </h2>
       <form className="form" action={submitHandler}>
         <CustomInput
           tag="textarea"

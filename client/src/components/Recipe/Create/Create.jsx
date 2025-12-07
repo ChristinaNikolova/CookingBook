@@ -1,5 +1,3 @@
-// todo fix all form to use ref
-
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";

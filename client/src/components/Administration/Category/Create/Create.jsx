@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../../hooks/useForm";
 import useConfigToken from "../../../../hooks/useConfigToken";
@@ -18,11 +18,13 @@ export default function CreateCategory() {
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
   const config = useConfigToken();
+  const formRef = useRef();
 
   const { fieldHandler, submitHandler, errors, disabledForm, files } = useForm(
     createHandler,
     "category",
-    initialValues
+    initialValues,
+    formRef
   );
 
   async function createHandler(data) {
@@ -38,7 +40,9 @@ export default function CreateCategory() {
   return (
     <section id="admin-create-category" className="section-form">
       {serverError && <ServerError error={serverError} />}
-      <h2 className="form-title">Създай нова категория</h2>
+      <h2 ref={formRef} className="form-title">
+        Създай нова категория
+      </h2>
       <form className="form" action={submitHandler}>
         <CustomInput
           label="Име"
