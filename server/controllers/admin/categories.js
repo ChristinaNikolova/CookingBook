@@ -1,7 +1,12 @@
 const router = require("express").Router();
 const { isAdmin } = require("../../middlewares/guards");
 const upload = require("../../middlewares/fileUpload");
-const { all, create, deleteById } = require("../../services/categories");
+const {
+  all,
+  create,
+  deleteById,
+  getById,
+} = require("../../services/categories");
 const { mapErrors } = require("../../utils/parser");
 const { filePaths } = require("../../utils/constants/global");
 
@@ -9,6 +14,17 @@ router.get("/", isAdmin(), async (req, res) => {
   try {
     const categories = await all();
     res.json(categories);
+  } catch (error) {
+    const message = mapErrors(error);
+    res.status(400).json({ message });
+  }
+});
+
+router.get("/:id", isAdmin(), async (req, res) => {
+  try {
+    const id = req.params.id;
+    const category = await getById(id);
+    res.json(category);
   } catch (error) {
     const message = mapErrors(error);
     res.status(400).json({ message });

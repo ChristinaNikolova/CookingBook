@@ -35,8 +35,13 @@ async function getByName(name) {
   });
 }
 
+async function getById(id) {
+  return Category.findById(id);
+}
+
 module.exports = {
   create,
   all,
   deleteById,
+  getById,
 };
