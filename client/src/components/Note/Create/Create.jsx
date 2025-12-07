@@ -12,7 +12,7 @@ const initialValues = {
   description: "",
 };
 
-export default function CreateNote() {
+export default function CreateNote({ onCreate }) {
   const [serverError, setServerError] = useState("");
   const config = useConfigToken();
 
@@ -22,8 +22,9 @@ export default function CreateNote() {
   async function createHandler(data) {
     setServerError("");
     try {
-      await requester("/notes", httpMethods.POST, data, config);
+      const result = await requester("/notes", httpMethods.POST, data, config);
       setValues(initialValues);
+      onCreate(result);
     } catch (err) {
       setServerError(err.message);
     }

@@ -19,7 +19,7 @@ async function create(description, userId) {
 
   await note.save();
 
-  return note;
+  return noteViewModel(note);
 }
 
 async function deleteById(id, userId) {
