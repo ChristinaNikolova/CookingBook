@@ -10,12 +10,11 @@ import styles from "./All.module.css";
 
 // todo add constants for the paths???
 // todo fetch then oder await
-// todo use reducer
 // todo add pagination
 // todo edit recipe
 // todo edit category
-// todo notes logic....
 // todo useFetch
+// todo check if owner for reipe crud
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);

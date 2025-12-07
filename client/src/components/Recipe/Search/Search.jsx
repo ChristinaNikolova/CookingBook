@@ -12,7 +12,6 @@ export default function Search() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("searched") || "";
   const [searchedRecipes, setSearchedRecipes] = useState([]);
-  // todo fix dep array config
   const config = useConfigToken();
 
   useEffect(() => {

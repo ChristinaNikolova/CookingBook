@@ -2,6 +2,7 @@
 // todo useCallback
 // todo use Memo
 // todo check useEffects dep array
+// todo fix dep array config
 
 import { useEffect, useReducer, useState } from "react";
 import useConfigToken from "../../../hooks/useConfigToken";
@@ -37,7 +38,6 @@ export default function AllNotes() {
     });
   };
 
-  // todo check if owner for reipe crud
   const deleteHandler = async (noteId) => {
     setServerError("");
 
