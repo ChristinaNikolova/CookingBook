@@ -14,7 +14,7 @@ export default function ListItem({
         pending ? styles["list-item-optimistic"] : ""
       }`}
     >
-      <Link to={isCategory ? `/recipe/${id}` : `/recipe/{categoryId}/${id}`}>
+      <Link to={isCategory ? `/recipe/${name}/${id}` : `/recipe/${id}`}>
         {name}
       </Link>
       <div className={styles["list-item-icon-wrapper"]}>
