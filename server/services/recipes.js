@@ -114,12 +114,16 @@ async function create(
   }
 }
 
-async function deleteById(id) {
+async function deleteById(id, userId) {
+  const recipe = await Recipe.findById(id);
+  checkOwner(recipe.author, userId);
+
   return Recipe.findByIdAndDelete(id);
 }
 
-async function like(id) {
+async function like(id, userId) {
   const recipe = await Recipe.findById(id);
+  checkOwner(recipe.author, userId);
   recipe.isFav = !recipe.isFav;
 
   await recipe.save();
@@ -130,6 +134,7 @@ async function like(id) {
 async function getById(id) {
   const recipe = await Recipe.findById(id)
     .populate("category", "name")
+    .populate("author", "_id")
     .populate({
       path: "ingredients",
       populate: {
@@ -151,6 +156,12 @@ async function getByTitle(title) {
     locale: "bg",
     strength: 2,
   });
+}
+
+function checkOwner(ownerId, userId) {
+  if (ownerId.toString() !== userId) {
+    throw new Error(errors.NOT_AUTHOR("рецептата", "я изтрие"));
+  }
 }
 
 module.exports = {

@@ -26,6 +26,7 @@ function recipeViewModel(recipe) {
     isFav: recipe.isFav,
     ingredients: recipe.ingredients,
     instructions: recipe.instructions,
+    author: recipe.author,
   };
 }
 

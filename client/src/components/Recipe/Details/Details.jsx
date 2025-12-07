@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useTop from "../../../hooks/useTop";
 import useConfigToken from "../../../hooks/useConfigToken";
+import useAuthContext from "../../../hooks/useAuthContext";
 import Button from "../../shared/Button/Button";
 import ButtonLink from "../../shared/ButtonLink/ButtonLink";
 import Loader from "../../Loader/Loader";
+import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
 import { httpMethods } from "../../../utils/constants/global";
@@ -14,7 +16,9 @@ export default function Details() {
   const { recipeId: id } = useParams();
   const [recipe, setRecipe] = useState({});
   const [isFav, setIsFav] = useState(false);
+  const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
+  const { user } = useAuthContext();
   const config = useConfigToken();
   useTop();
 
@@ -40,15 +44,17 @@ export default function Details() {
   }, [id]);
 
   const deleteHandler = async () => {
+    setServerError("");
     try {
       await requester(`/recipes/${id}`, httpMethods.DELETE, null, config);
       navigate(`/recipe/${recipe.category.name}/${recipe.category._id}`);
     } catch (err) {
-      console.error(err);
+      setServerError(err.message);
     }
   };
 
   const likeHandler = async () => {
+    setServerError("");
     try {
       const result = await requester(
         `/recipes/${id}`,
@@ -58,7 +64,7 @@ export default function Details() {
       );
       setIsFav(result);
     } catch (err) {
-      console.error(err);
+      setServerError(err.message);
     }
   };
 
@@ -74,12 +80,17 @@ export default function Details() {
     }));
   };
 
+  const isOwner = () => {
+    return user.id === recipe.author._id;
+  };
+
   if (!recipe?.title) {
     return <Loader />;
   }
 
   return (
     <section id={styles.details}>
+      {serverError && <ServerError error={serverError} />}
       <div className={styles["details-top-wrapper"]}>
         <div className="details-top-left-wrapper">
           <div className={styles["details-top-img-wrapper"]}>
@@ -164,10 +175,12 @@ export default function Details() {
         ))}
       </div>
 
-      <div className={styles["details-buttons-wrapper"]}>
-        <ButtonLink path="/edit" text="Редактирай" />
-        <Button text="Изтрий" disabled={false} onClick={deleteHandler} />
-      </div>
+      {isOwner() && (
+        <div className={styles["details-buttons-wrapper"]}>
+          <ButtonLink path="/edit" text="Редактирай" />
+          <Button text="Изтрий" disabled={false} onClick={deleteHandler} />
+        </div>
+      )}
     </section>
   );
 }

@@ -63,7 +63,8 @@ router.get("/searched/:query", hasUser(), async (req, res) => {
 router.post("/:id", hasUser(), async (req, res) => {
   try {
     const id = req.params.id;
-    const result = await like(id);
+    const userId = req.user._id;
+    const result = await like(id, userId);
     res.json(result);
   } catch (error) {
     const message = mapErrors(error);
@@ -85,7 +86,8 @@ router.get("/:id", hasUser(), async (req, res) => {
 router.delete("/:id", hasUser(), async (req, res) => {
   try {
     const id = req.params.id;
-    const recipe = await deleteById(id);
+    const userId = req.user._id;
+    const recipe = await deleteById(id, userId);
     res.json(recipe);
   } catch (error) {
     const message = mapErrors(error);
