@@ -1,0 +1,18 @@
+.image-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.image-preview-wrapper label {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.image-preview {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
