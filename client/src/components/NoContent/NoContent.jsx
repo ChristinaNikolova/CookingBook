@@ -7,7 +7,7 @@ export default function NoContent({ title, path }) {
       <p
         className={styles["no-content-text"]}
       >{`Все още няма добавени ${title}`}</p>
-      <ButtonLink path={path} text="Създай" />
+      {path && <ButtonLink path={path} text="Създай" />}
     </section>
   );
 }

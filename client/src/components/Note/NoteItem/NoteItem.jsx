@@ -1,6 +1,6 @@
 import styles from "./NoteItem.module.css";
 
-export default function NoteItem({ description }) {
+export default function NoteItem({ id, description }) {
   return (
     <li className={styles["note-item"]}>
       <i className="fa-regular fa-note-sticky"></i>
