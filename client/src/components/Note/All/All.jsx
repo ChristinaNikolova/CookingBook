@@ -1,8 +1,6 @@
 // todo useMemo
 // todo useCallback
 // todo use Memo
-// todo check useEffects dep array
-// todo fix dep array config
 
 import { useEffect, useReducer, useState } from "react";
 import useConfigToken from "../../../hooks/useConfigToken";

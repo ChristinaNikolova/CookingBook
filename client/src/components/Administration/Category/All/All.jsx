@@ -15,6 +15,8 @@ import styles from "./All.module.css";
 // todo edit category
 // todo useFetch
 // todo check if owner for reipe crud
+// todo check useEffects dep array
+// todo fix dep array config
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
