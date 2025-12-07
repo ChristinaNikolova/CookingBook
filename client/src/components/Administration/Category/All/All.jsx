@@ -12,12 +12,12 @@ import styles from "./All.module.css";
 // todo fetch then oder await
 // todo add pagination
 // todo edit recipe
-// todo edit category
 // todo useFetch
 // todo check if owner for reipe crud
 // todo check useEffects dep array
 // todo fix dep array config
 // todo add everywhere server error
+// todo try catch / async await
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
@@ -36,7 +36,6 @@ export default function AllCategories() {
       .catch((err) => console.error(err));
   }, []);
 
-  // todo try catch
   const deleteHandler = async (categoryId) => {
     setCategories((state) =>
       state.map((x) => (x.id === categoryId ? { ...x, pending: true } : x))
