@@ -1,5 +1,27 @@
 /* Buttons */
 
+.form-btns-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.form-btns-wrapper button {
+  margin-top: unset;
+}
+
+.form-btns-wrapper button:last-of-type {
+  color: var(--clr-red);
+  border-color: var(--clr-red);
+}
+
+.form-btns-wrapper button:last-of-type:hover {
+  color: var(--clr-white);
+  background-color: var(--clr-red);
+}
+
 .btn {
   padding: 14px 30px;
   font-size: 16px;
