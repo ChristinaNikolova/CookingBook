@@ -62,7 +62,6 @@ export default function EditCategory() {
   return (
     <FormCategory
       type={types.EDIT}
-      title="Редактирай категория"
       currentImage={currentImage}
       serverError={serverError}
       formRef={formRef}

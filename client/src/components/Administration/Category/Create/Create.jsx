@@ -43,7 +43,6 @@ export default function CreateCategory() {
   return (
     <FormCategory
       type={types.CREATE}
-      title="Създай нова категория"
       currentImage={currentImage}
       serverError={serverError}
       formRef={formRef}

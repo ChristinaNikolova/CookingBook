@@ -6,7 +6,6 @@ import { types } from "../../../../utils/constants/global";
 
 export default function FormCategory({
   type,
-  title,
   currentImage,
   serverError,
   formRef,
@@ -16,6 +15,12 @@ export default function FormCategory({
   fieldHandler,
   backHandler,
 }) {
+  const getTitle = () => {
+    return type === types.CREATE
+      ? "Създай нова категория"
+      : "Редактирай категория";
+  };
+
   const getButtons = () => {
     if (type === types.CREATE) {
       return (
@@ -40,7 +45,7 @@ export default function FormCategory({
     <section id="admin-form-category" className="section-form">
       {serverError && <ServerError error={serverError} />}
       <h2 ref={formRef} className="form-title">
-        {title}
+        {getTitle()}
       </h2>
       <form className="form" action={submitHandler}>
         <CustomInput
