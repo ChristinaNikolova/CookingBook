@@ -23,16 +23,21 @@ async function searchByTitle(query) {
   ).map(recipeSlimViewModel);
 }
 
-async function getByCategory(categoryId, userId) {
+async function getByCategory(categoryId, userId, take, skip) {
   return (
-    await Recipe.find({ category: new ObjectId(categoryId) }).sort({
+    await Recipe.find({
+      category: new ObjectId(categoryId),
+      author: new ObjectId(userId),
+    }).sort({
       createdAt: -1,
     })
   )
-    .filter((x) => x.author.toString() === userId)
+    .skip(skip)
+    .limit(take)
     .map(recipeSlimViewModel);
 }
 
+// todo check find 2 riteria
 async function getFavs(userId) {
   return (
     await Recipe.find({ author: new ObjectId(userId) }).sort({ title: 1 })
@@ -236,8 +241,12 @@ async function getById(id) {
   return recipeViewModel(recipe);
 }
 
-async function getTotalCategoryCount(categoryId) {
-  return Recipe.countDocuments({ category: new ObjectId(categoryId) });
+// todo test this
+async function getTotalCategoryCount(categoryId, userId) {
+  return Recipe.countDocuments({
+    category: new ObjectId(categoryId),
+    author: new ObjectId(userId),
+  });
 }
 
 async function getByTitle(title) {
