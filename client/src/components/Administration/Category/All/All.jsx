@@ -17,10 +17,9 @@ import styles from "./All.module.css";
 
 // todo add pagination => url update???
 // todo useFetch
+
 // todo final test
 // todo add lines
-
-// todo add everywhere server error
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
