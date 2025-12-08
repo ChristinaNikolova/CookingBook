@@ -1,4 +1,10 @@
-import { startTransition, useEffect, useOptimistic, useState } from "react";
+import {
+  startTransition,
+  useCallback,
+  useEffect,
+  useOptimistic,
+  useState,
+} from "react";
 import useConfigToken from "../../../../hooks/useConfigToken";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
@@ -18,7 +24,6 @@ import styles from "./All.module.css";
 // todo useFetch
 
 // todo edit recipe
-// todo check if owner for reipe crud
 // todo add everywhere server error
 
 export default function AllCategories() {
@@ -36,32 +41,35 @@ export default function AllCategories() {
         setCategories(normalizedCategories);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [config]);
 
-  const deleteHandler = async (categoryId) => {
-    setCategories((state) =>
-      state.map((x) => (x.id === categoryId ? { ...x, pending: true } : x))
-    );
-
-    startTransition(() => {
-      dispatchOptimisticCategories({
-        type: "DELETE",
-        payload: categoryId,
-      });
-    });
-
-    try {
-      await requester(
-        `/admin/categories/${categoryId}`,
-        httpMethods.DELETE,
-        null,
-        config
+  const deleteHandler = useCallback(
+    async (categoryId) => {
+      setCategories((state) =>
+        state.map((x) => (x.id === categoryId ? { ...x, pending: true } : x))
       );
-      setCategories((state) => state.filter((x) => x.id !== categoryId));
-    } catch (err) {
-      console.error(err);
-    }
-  };
+
+      startTransition(() => {
+        dispatchOptimisticCategories({
+          type: "DELETE",
+          payload: categoryId,
+        });
+      });
+
+      try {
+        await requester(
+          `/admin/categories/${categoryId}`,
+          httpMethods.DELETE,
+          null,
+          config
+        );
+        setCategories((state) => state.filter((x) => x.id !== categoryId));
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [config, dispatchOptimisticCategories]
+  );
 
   if (!categories.length) {
     return <NoContent title="категории" path="/admin/category/create" />;

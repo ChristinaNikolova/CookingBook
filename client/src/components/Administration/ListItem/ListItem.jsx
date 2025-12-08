@@ -1,13 +1,8 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ListItem.module.css";
 
-export default function ListItem({
-  id,
-  name,
-  pending,
-  isCategory = false,
-  onDelete,
-}) {
+function ListItem({ id, name, pending, isCategory = false, onDelete }) {
   return (
     <li
       className={`${styles["list-item"]} ${
@@ -32,3 +27,5 @@ export default function ListItem({
     </li>
   );
 }
+
+export default memo(ListItem);
