@@ -12,18 +12,18 @@ import { directions, httpMethods } from "../../../utils/constants/global";
 
 export default function All() {
   const { categoryName, categoryId } = useParams();
-
   const [searchParams] = useSearchParams();
-  const page = searchParams?.get("page") ? searchParams.get("page") : "1";
-  // todo use number
-  const [currentPage, setCurrentPage] = useState(page);
-  const [pagesCount, setPagesCount] = useState(1);
+  const initialPage = Number(searchParams.get("page") ?? 1);
 
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [pagesCount, setPagesCount] = useState(1);
   const [recipes, setRecipes] = useState([]);
+
   const config = useConfigToken();
   useTop();
 
   useEffect(() => {
+    console.log("in");
     requester(
       `/recipes/byCategory/${categoryId}/${currentPage}`,
       httpMethods.GET,
@@ -32,17 +32,19 @@ export default function All() {
     )
       .then((res) => {
         setRecipes(res.recipe);
-        setCurrentPage(Number(res.currentPage));
         setPagesCount(res.pagesCount);
 
-        console.log(res);
+        const newPage = Number(res.currentPage);
+        if (currentPage !== newPage) {
+          setCurrentPage(newPage);
+        }
       })
       .catch((err) => console.error(err));
   }, [config, categoryId, currentPage]);
 
   const paginationHandler = (direction) => {
     const value = direction === directions.PREV ? -1 : 1;
-    setCurrentPage(currentPage + value);
+    setCurrentPage((state) => state + value);
   };
 
   return (
