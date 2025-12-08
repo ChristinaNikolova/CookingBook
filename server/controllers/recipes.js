@@ -54,8 +54,8 @@ router.put("/:id", hasUser(), upload.single("image"), async (req, res) => {
       req.body.portions,
       req.body.isBabySafe,
       req.body.category,
-      req.body.instructions,
-      req.body.ingredients,
+      JSON.parse(req.body.instructions),
+      JSON.parse(req.body.ingredients),
       imagePath,
       userId
     );

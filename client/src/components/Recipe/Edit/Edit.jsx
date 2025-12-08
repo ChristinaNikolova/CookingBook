@@ -23,7 +23,6 @@ const initialValues = {
   isBabySafe: false,
 };
 
-// todo add lines
 export default function EditRecipe() {
   const { id } = useParams();
   const [currentImage, setCurrentImage] = useState("");
