@@ -21,7 +21,6 @@ const initialValues = {
   isBabySafe: false,
 };
 
-// todo add lines
 export default function CreateRecipe() {
   const [currentImage, setCurrentImage] = useState("");
   const [instructions, setInstructions] = useState([""]);

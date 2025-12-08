@@ -13,7 +13,6 @@ import { data } from "../../../utils/helpers/data";
 import { httpMethods } from "../../../utils/constants/global";
 import styles from "./Details.module.css";
 
-// todo use memo, callbakc.... again here
 export default function Details() {
   const { recipeId: id } = useParams();
   const [recipe, setRecipe] = useState({});
