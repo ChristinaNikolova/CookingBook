@@ -9,8 +9,9 @@ const {
   like,
   searchByTitle,
   update,
+  getTotalCategoryCount,
 } = require("../services/recipes");
-const { filePaths } = require("../utils/constants/global");
+const { filePaths, pagination } = require("../utils/constants/global");
 const { mapErrors } = require("../utils/parser");
 
 router.post("/", hasUser(), upload.single("image"), async (req, res) => {
@@ -66,12 +67,25 @@ router.put("/:id", hasUser(), upload.single("image"), async (req, res) => {
   }
 });
 
-router.get("/byCategory/:id", hasUser(), async (req, res) => {
+router.get("/byCategory/:id/:currentPage", hasUser(), async (req, res) => {
   try {
+    const currentPage = req.params.currentPage;
     const id = req.params.id;
     const userId = req.user._id;
-    const recipe = await getByCategory(id, userId);
-    res.json(recipe);
+
+    const skip = (currentPage - 1) * pagination.RECIPES_PER_PAGE;
+    const totalRecipesByCategory = await getTotalCategoryCount(id, userId);
+    const pagesCount = Math.ceil(
+      totalRecipesByCategory / pagination.RECIPES_PER_PAGE
+    );
+
+    const recipe = await getByCategory(
+      id,
+      userId,
+      pagination.RECIPES_PER_PAGE,
+      skip
+    );
+    res.json({ recipe, pagesCount, currentPage });
   } catch (error) {
     const message = mapErrors(error);
     res.status(400).json({ message });
