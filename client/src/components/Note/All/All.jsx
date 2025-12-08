@@ -1,6 +1,3 @@
-// todo useMemo
-// todo useCallback
-
 import { useCallback, useEffect, useReducer, useState } from "react";
 import useConfigToken from "../../../hooks/useConfigToken";
 import CreateNote from "../Create/Create";

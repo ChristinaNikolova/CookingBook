@@ -1,4 +1,10 @@
-import { startTransition, useEffect, useOptimistic, useState } from "react";
+import {
+  startTransition,
+  useCallback,
+  useEffect,
+  useOptimistic,
+  useState,
+} from "react";
 import useConfigToken from "../../../../hooks/useConfigToken";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
@@ -20,37 +26,41 @@ export default function AllRecipes() {
     requester("/admin/recipes", httpMethods.GET, null, config)
       .then((res) => {
         // todo useNormalized hook???
+        // todo delete cepices when category is deleted??
         const normalizedRecipes = res.map((x) => ({ ...x, pending: false }));
         setRecipes(normalizedRecipes);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [config]);
 
-  const deleteHandler = async (recipeId) => {
-    setRecipes((state) =>
-      state.map((x) => (x.id === recipeId ? { ...x, pending: true } : x))
-    );
-
-    startTransition(() => {
-      dispatchOptimisticRecipes({
-        type: "DELETE",
-        payload: recipeId,
-      });
-    });
-
-    try {
-      await requester(
-        `/admin/recipes/${recipeId}`,
-        httpMethods.DELETE,
-        null,
-        config
+  const deleteHandler = useCallback(
+    async (recipeId) => {
+      setRecipes((state) =>
+        state.map((x) => (x.id === recipeId ? { ...x, pending: true } : x))
       );
 
-      setRecipes((state) => state.filter((x) => x.id !== recipeId));
-    } catch (err) {
-      console.error(err);
-    }
-  };
+      startTransition(() => {
+        dispatchOptimisticRecipes({
+          type: "DELETE",
+          payload: recipeId,
+        });
+      });
+
+      try {
+        await requester(
+          `/admin/recipes/${recipeId}`,
+          httpMethods.DELETE,
+          null,
+          config
+        );
+
+        setRecipes((state) => state.filter((x) => x.id !== recipeId));
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [config, dispatchOptimisticRecipes]
+  );
 
   if (!recipes.length) {
     return <NoContent title="рецепти" path="/recipe/create" />;
