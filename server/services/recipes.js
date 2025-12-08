@@ -139,26 +139,61 @@ async function update(
     }
   }
 
-  recipe.title = title;
-  recipe.summary = summary;
-  recipe.neededTime = neededTime;
-  recipe.portions = portions;
-  recipe.isBabySafe = isBabySafe;
-  recipe.title = title;
-  recipe.category = category;
+  const instructionIds = [];
+  const ingredientIds = [];
 
-  // instructions,
-  // ingredients,
+  const oldInstructionIds = [...recipe.instructions];
+  const oldIngredientIds = [...recipe.ingredients];
 
-  if (image) {
-    recipe.image = image;
+  try {
+    for (const curr of instructions) {
+      const instruction = new Instruction({ description: curr });
+      await instruction.save();
+      instructionIds.push(instruction._id);
+    }
+
+    for (const curr of ingredients) {
+      const ingredient = new Ingredient({ description: curr });
+      await ingredient.save();
+      ingredientIds.push(ingredient._id);
+    }
+
+    recipe.title = title;
+    recipe.summary = summary;
+    recipe.neededTime = neededTime;
+    recipe.portions = portions;
+    recipe.isBabySafe = isBabySafe;
+    recipe.category = category;
+    recipe.instructions = instructionIds;
+    recipe.ingredients = ingredientIds;
+
+    if (image) {
+      recipe.image = image;
+    }
+    await recipe.save();
+
+    if (oldInstructionIds.length > 0) {
+      await Instruction.deleteMany({ _id: { $in: oldInstructionIds } });
+    }
+
+    if (oldIngredientIds.length > 0) {
+      await Ingredient.deleteMany({ _id: { $in: oldIngredientIds } });
+    }
+
+    return recipeViewModel(recipe);
+  } catch (err) {
+    console.error(errors.DATABASE_ERROR, err.message);
+
+    if (instructionIds.length > 0) {
+      await Instruction.deleteMany({ _id: { $in: instructionIds } });
+    }
+
+    if (ingredientIds.length > 0) {
+      await Ingredient.deleteMany({ _id: { $in: ingredientIds } });
+    }
+
+    throw err;
   }
-
-  console.log(recipe);
-
-  await recipe.save();
-
-  return recipe;
 }
 
 async function deleteById(id, userId) {
