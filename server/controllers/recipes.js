@@ -67,9 +67,9 @@ router.put("/:id", hasUser(), upload.single("image"), async (req, res) => {
   }
 });
 
-router.get("/byCategory/:id/:currentPage", hasUser(), async (req, res) => {
+router.get("/byCategory/:id/:page", hasUser(), async (req, res) => {
   try {
-    const currentPage = req.params.currentPage;
+    const currentPage = req.params.page;
     const id = req.params.id;
     const userId = req.user._id;
 

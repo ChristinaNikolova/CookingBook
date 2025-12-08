@@ -136,7 +136,7 @@ export default function CreateRecipe() {
     return input.some((x) => validator[validatorFunc](x));
   };
 
-  // todo title with create ? : uand for categories as well
+  // todo extract same logic
   return (
     <FormRecipe
       type={types.CREATE}
