@@ -34,6 +34,7 @@ export default function FormCategory({
       </div>
     );
   };
+
   return (
     <section id="admin-form-category" className="section-form">
       {serverError && <ServerError error={serverError} />}

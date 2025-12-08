@@ -1,4 +1,4 @@
-.create-recipe-wrapper {
+.form-recipe-wrapper {
   position: relative;
   width: 60%;
   margin: 40px auto;
@@ -6,7 +6,7 @@
   border: 1px solid var(--clr-grey);
 }
 
-.create-recipe-title {
+.form-recipe-title {
   position: absolute;
   top: -15px;
   left: 50%;
@@ -20,28 +20,28 @@
   background-color: var(--clr-white);
 }
 
-.create-recipe-input-wrapper {
+.form-recipe-input-wrapper {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.create-recipe-input-wrapper > div {
+.form-recipe-input-wrapper > div {
   flex: 1;
 }
 
-.create-recipe-input-wrapper > div > input {
+.form-recipe-input-wrapper > div > input {
   width: 100%;
 }
 
-.create-recipe-input-wrapper i {
+.form-recipe-input-wrapper i {
   flex-shrink: 0;
   font-size: 18px;
   color: var(--clr-grey);
   transition: var(--transition-clr);
 }
 
-.create-recipe-input-wrapper i:hover {
+.form-recipe-input-wrapper i:hover {
   cursor: pointer;
   color: var(--clr-yellow);
 }

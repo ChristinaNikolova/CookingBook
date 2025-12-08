@@ -9,7 +9,6 @@ import ServerError from "../../shared/ServerError/ServerError";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
 import { httpMethods, ids } from "../../../utils/constants/global";
-import styles from "./Create.module.css";
 
 const initialValues = {
   title: "",
