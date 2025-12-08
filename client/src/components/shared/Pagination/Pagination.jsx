@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import { directions } from "../../../utils/constants/global";
-
-// import { directions } from "../../../utils/constants/global";
-
-// import styles from "./Pagination.module.css";
+import styles from "./Pagination.module.css";
 
 export default function Pagination({
   currentPage,
@@ -13,11 +10,11 @@ export default function Pagination({
   onClick,
 }) {
   return (
-    <div className="pagination-wrapper">
+    <div className={styles["pagination-wrapper"]}>
       {currentPage !== 1 && (
         <Link
           onClick={() => onClick(directions.PREV)}
-          className="pagination"
+          className={styles.pagination}
           to={`/recipe/${categoryName}/${categoryId}?page=${currentPage - 1}`}
         >
           Newer recipes
@@ -26,7 +23,7 @@ export default function Pagination({
       {currentPage !== pagesCount && (
         <Link
           onClick={() => onClick(directions.NEXT)}
-          className="pagination"
+          className={styles.pagination}
           to={`/recipe/${categoryName}/${categoryId}?page=${currentPage + 1}`}
         >
           Older recipes
