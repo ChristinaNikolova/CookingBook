@@ -12,6 +12,7 @@ export default function Logout() {
     // todo use requestre
     // todo add abort controller for all useEffects
     // todo add default path
+    // todo fix dep array
     fetch("http://localhost:3030/auth/logout", {
       method: httpMethods.GET,
       headers: {

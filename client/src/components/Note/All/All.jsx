@@ -24,7 +24,7 @@ export default function AllNotes() {
         });
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [config]);
 
   const createHandler = useCallback((note) => {
     dispatch({

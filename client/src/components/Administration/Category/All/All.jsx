@@ -17,17 +17,14 @@ import styles from "./All.module.css";
 
 // todo add constants for the paths???
 // todo fetch then oder await
-// todo check useEffects dep array
 // todo try catch / async await everywhere
-// todo final test
-// todo add lines
 
 // todo add pagination => fetch, async, dep array, constants
 // todo useFetch
+// todo final test
+// todo add lines
 
-// todo edit recipe
 // todo add everywhere server error
-// todo delete cepices when category is deleted??
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
