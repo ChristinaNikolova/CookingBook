@@ -2,6 +2,7 @@ import Button from "../../../shared/Button/Button";
 import CustomInput from "../../../shared/CustomInput/CustomInput";
 import ImagePreview from "../../../shared/ImagePreview/ImagePreview";
 import ServerError from "../../../shared/ServerError/ServerError";
+import { types } from "../../../../utils/constants/global";
 
 export default function FormCategory({
   type,
@@ -16,7 +17,7 @@ export default function FormCategory({
   backHandler,
 }) {
   const getButtons = () => {
-    if (type === "create") {
+    if (type === types.CREATE) {
       return (
         <Button text="Създай категория" type="submit" disabled={disabled} />
       );
@@ -53,14 +54,14 @@ export default function FormCategory({
           error={errors.description}
           {...fieldHandler("description")}
         />
-        {type === "create" && currentImage && (
+        {type === types.CREATE && currentImage && (
           <CustomInput
             label="Текущо изображение"
             value={currentImage.name}
             disabled
           />
         )}
-        {type === "edit" && currentImage && (
+        {type === types.EDIT && currentImage && (
           <ImagePreview name="Текущо изображение" currentImage={currentImage} />
         )}
         <CustomInput

@@ -6,7 +6,7 @@ import FormRecipe from "../Form/Form";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, types } from "../../../utils/constants/global";
 
 const initialValues = {
   title: "",
@@ -169,7 +169,7 @@ export default function EditRecipe() {
 
   return (
     <FormRecipe
-      type="edit"
+      type={types.EDIT}
       instructions={instructions}
       ingredients={ingredients}
       currentImage={currentImage}

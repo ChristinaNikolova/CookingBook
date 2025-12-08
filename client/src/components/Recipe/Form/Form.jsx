@@ -6,7 +6,7 @@ import CustomSelect from "../../shared/CustomSelect/CustomSelect";
 import ImagePreview from "../../shared/ImagePreview/ImagePreview";
 import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods, ids } from "../../../utils/constants/global";
+import { httpMethods, ids, types } from "../../../utils/constants/global";
 import styles from "./Form.module.css";
 
 export default function FormRecipe({
@@ -39,7 +39,7 @@ export default function FormRecipe({
       .then((res) => {
         let result = res;
 
-        if (type === "edit") {
+        if (type === types.EDIT) {
           result = res.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
         }
         setCategories(result);
@@ -48,11 +48,11 @@ export default function FormRecipe({
   }, [config, type]);
 
   const getTitle = () => {
-    return type === "create" ? "Създай рецепта" : "Редактирай рецептата";
+    return type === types.CREATE ? "Създай рецепта" : "Редактирай рецептата";
   };
 
   const getButtons = () => {
-    if (type === "create") {
+    if (type === types.CREATE) {
       return <Button text="Създай рецепта" type="submit" disabled={disabled} />;
     }
 
@@ -162,7 +162,7 @@ export default function FormRecipe({
           />
         </div>
 
-        {type === "create" && currentImage && (
+        {type === types.CREATE && currentImage && (
           <CustomInput
             label="Текущо изображение"
             value={currentImage.name}
@@ -170,7 +170,7 @@ export default function FormRecipe({
           />
         )}
 
-        {type === "edit" && currentImage && (
+        {type === types.EDIT && currentImage && (
           <ImagePreview name="Текущо изображение" currentImage={currentImage} />
         )}
 

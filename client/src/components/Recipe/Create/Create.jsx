@@ -5,7 +5,7 @@ import useConfigToken from "../../../hooks/useConfigToken";
 import FormRecipe from "../Form/Form";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods, ids } from "../../../utils/constants/global";
+import { httpMethods, ids, types } from "../../../utils/constants/global";
 
 const initialValues = {
   title: "",
@@ -137,10 +137,9 @@ export default function CreateRecipe() {
   };
 
   // todo title with create ? : uand for categories as well
-  // todo costants for type
   return (
     <FormRecipe
-      type="create"
+      type={types.CREATE}
       instructions={instructions}
       ingredients={ingredients}
       currentImage={currentImage}

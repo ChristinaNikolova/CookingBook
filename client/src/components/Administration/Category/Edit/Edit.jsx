@@ -5,7 +5,7 @@ import useConfigToken from "../../../../hooks/useConfigToken";
 import FormCategory from "../Form/Form";
 import requester from "../../../../utils/helpers/requester";
 import { image } from "../../../../utils/helpers/image";
-import { httpMethods } from "../../../../utils/constants/global";
+import { httpMethods, types } from "../../../../utils/constants/global";
 
 const initialValues = {
   name: "",
@@ -61,7 +61,7 @@ export default function EditCategory() {
 
   return (
     <FormCategory
-      type="edit"
+      type={types.EDIT}
       title="Редактирай категория"
       currentImage={currentImage}
       serverError={serverError}

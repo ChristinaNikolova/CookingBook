@@ -4,7 +4,7 @@ import useForm from "../../../../hooks/useForm";
 import useConfigToken from "../../../../hooks/useConfigToken";
 import FormCategory from "../Form/Form";
 import requester from "../../../../utils/helpers/requester";
-import { httpMethods } from "../../../../utils/constants/global";
+import { httpMethods, types } from "../../../../utils/constants/global";
 
 const initialValues = {
   name: "",
@@ -42,7 +42,7 @@ export default function CreateCategory() {
 
   return (
     <FormCategory
-      type="create"
+      type={types.CREATE}
       title="Създай нова категория"
       currentImage={currentImage}
       serverError={serverError}
