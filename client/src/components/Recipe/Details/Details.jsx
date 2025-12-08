@@ -237,7 +237,7 @@ export default function Details() {
 
       {isOwner() && (
         <div className={styles["details-buttons-wrapper"]}>
-          <ButtonLink path="/edit" text="Редактирай" />
+          <ButtonLink path={`/recipe/edit/${id}`} text="Редактирай" />
           <Button text="Изтрий" disabled={false} onClick={deleteHandler} />
         </div>
       )}

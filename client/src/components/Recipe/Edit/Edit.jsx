@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import useConfigToken from "../../../hooks/useConfigToken";
 import Button from "../../shared/Button/Button";
@@ -9,20 +9,25 @@ import ServerError from "../../shared/ServerError/ServerError";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
 import { httpMethods, ids } from "../../../utils/constants/global";
-import styles from "./Create.module.css";
+import styles from "./Edit.module.css";
+import ImagePreview from "../../shared/ImagePreview/ImagePreview";
+import { image } from "../../../utils/helpers/image";
+
+// todo test update without hanging the category!!!
 
 const initialValues = {
   title: "",
   summary: "",
   neededTime: "",
   portions: "",
-  category: ids.DEFAULT_CATEGORY_ID,
+  category: "",
   image: "",
   isBabySafe: false,
 };
 
 // todo add lines
-export default function CreateRecipe() {
+export default function EditRecipe() {
+  const { id } = useParams();
   const [currentImage, setCurrentImage] = useState("");
   const [instructions, setInstructions] = useState([""]);
   const [ingredients, setIngredients] = useState([""]);
@@ -37,18 +42,36 @@ export default function CreateRecipe() {
   const config = useConfigToken();
   const formRef = useRef();
 
-  const { fieldHandler, submitHandler, errors, disabledForm, files, values } =
-    useForm(createHandler, "recipe", initialValues, formRef);
+  const {
+    fieldHandler,
+    submitHandler,
+    errors,
+    disabledForm,
+    files,
+    values,
+    setValues,
+  } = useForm(editHandler, "recipe", initialValues, formRef);
 
   useEffect(() => {
     requester("/categories", httpMethods.GET, null, config)
-      .then((res) => setCategories(res))
+      .then((res) => {
+        const result = res.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
+        setCategories(result);
+      })
       .catch((err) => console.error(err));
   }, [config]);
 
-  async function createHandler(data) {
+  useEffect(() => {
+    requester(`/recipes/${id}`, httpMethods.GET, null, config)
+      .then((res) => {
+        setValues(res);
+        setCurrentImage(image.getImageUrl(res.image));
+      })
+      .catch((err) => console.error(err));
+  });
+
+  async function editHandler(data) {
     setServerError("");
-    setCurrentImage("");
 
     data.append(
       "instructions",
@@ -60,9 +83,13 @@ export default function CreateRecipe() {
     );
 
     try {
+      if (!files.image) {
+        delete data.image;
+      }
+
       const result = await requester(
-        "/recipes",
-        httpMethods.POST,
+        `/recipes/${id}`,
+        httpMethods.PUT,
         data,
         config
       );
@@ -145,6 +172,10 @@ export default function CreateRecipe() {
 
   const areErrors = (input, validatorFunc) => {
     return input.some((x) => validator[validatorFunc](x));
+  };
+
+  const backHandler = () => {
+    navigate(`/recipe/${id}`);
   };
 
   return (
@@ -247,6 +278,10 @@ export default function CreateRecipe() {
           />
         )}
 
+        {currentImage && (
+          <ImagePreview name="Текущо изображение" currentImage={currentImage} />
+        )}
+
         <CustomInput
           label="Качи снимка"
           type="file"
@@ -261,7 +296,19 @@ export default function CreateRecipe() {
           {...fieldHandler("isBabySafe")}
         />
 
-        <Button text="Създай рецепта" type="submit" disabled={!isFormValid()} />
+        <div className="form-btns-wrapper">
+          <Button
+            text="Запази промените"
+            type="submit"
+            disabled={!isFormValid()}
+          />
+          <Button
+            text="Затвори"
+            type="button"
+            disabled={false}
+            onClick={backHandler}
+          />
+        </div>
       </form>
     </section>
   );

@@ -13,6 +13,7 @@ import Search from "./components/Recipe/Search/Search";
 import All from "./components/Recipe/All/All";
 import Details from "./components/Recipe/Details/Details";
 import CreateRecipe from "./components/Recipe/Create/Create";
+import EditRecipe from "./components/Recipe/Edit/Edit";
 import AllNotes from "./components/Note/All/All";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
@@ -64,6 +65,7 @@ function App() {
             <Route path=":categoryName/:categoryId" element={<All />} />
             <Route path=":recipeId" element={<Details />} />
             <Route path="create" element={<CreateRecipe />} />
+            <Route path="edit/:id" element={<EditRecipe />} />
           </Route>
           <Route path="/notes" element={<AllNotes />} />
           <Route path="/auth/logout" element={<Logout />} />
