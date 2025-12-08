@@ -67,7 +67,7 @@ export default function EditRecipe() {
           neededTime: res.neededTime,
           portions: res.portions,
           category: res.category._id,
-          image: "",
+          image: res.image,
           isBabySafe: res.isBabySafe,
         });
         setCurrentImage(image.getImageUrl(res.image));
@@ -81,22 +81,30 @@ export default function EditRecipe() {
 
   async function editHandler(data) {
     setServerError("");
+    let formData = data;
 
-    data.append(
+    if (!(data instanceof FormData)) {
+      formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key]);
+      });
+    }
+
+    formData.append(
       "instructions",
       JSON.stringify(instructions.filter((x) => x.trim()))
     );
-    data.append(
+    formData.append(
       "ingredients",
       JSON.stringify(ingredients.filter((x) => x.trim()))
     );
 
     if (!files.image) {
-      delete data.image;
+      delete formData.image;
     }
 
     try {
-      await requester(`/recipes/${id}`, httpMethods.PUT, data, config);
+      await requester(`/recipes/${id}`, httpMethods.PUT, formData, config);
       navigate(`/recipe/${id}`);
     } catch (err) {
       setServerError(err.message);
@@ -272,7 +280,7 @@ export default function EditRecipe() {
         )}
 
         <CustomInput
-          label="Ново изображение (опционално)"
+          label="Изображение"
           type="file"
           error={errors.image}
           {...fieldHandler("image")}

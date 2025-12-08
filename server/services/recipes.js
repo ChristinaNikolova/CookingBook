@@ -114,6 +114,53 @@ async function create(
   }
 }
 
+async function update(
+  id,
+  title,
+  summary,
+  neededTime,
+  portions,
+  isBabySafe,
+  category,
+  instructions,
+  ingredients,
+  image,
+  userId
+) {
+  const recipe = await Recipe.findById(id);
+
+  checkOwner(recipe.author, userId);
+
+  if (recipe.title.toLowerCase() !== title.toLowerCase()) {
+    const result = await getByTitle(title);
+
+    if (result) {
+      throw new Error(errors.TITEL_TAKEN);
+    }
+  }
+
+  recipe.title = title;
+  recipe.summary = summary;
+  recipe.neededTime = neededTime;
+  recipe.portions = portions;
+  recipe.isBabySafe = isBabySafe;
+  recipe.title = title;
+  recipe.category = category;
+
+  // instructions,
+  // ingredients,
+
+  if (image) {
+    recipe.image = image;
+  }
+
+  console.log(recipe);
+
+  await recipe.save();
+
+  return recipe;
+}
+
 async function deleteById(id, userId) {
   const recipe = await Recipe.findById(id);
 
@@ -177,4 +224,5 @@ module.exports = {
   getFavs,
   getLastThree,
   searchByTitle,
+  update,
 };
