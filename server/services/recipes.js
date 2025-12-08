@@ -236,8 +236,12 @@ async function getById(id) {
   return recipeViewModel(recipe);
 }
 
+async function getTotalCategoryCount(categoryId) {
+  return Recipe.countDocuments({ category: new ObjectId(categoryId) });
+}
+
 async function getByTitle(title) {
-  return await Recipe.findOne({ title }).collation({
+  return Recipe.findOne({ title }).collation({
     locale: "bg",
     strength: 2,
   });
@@ -260,4 +264,5 @@ module.exports = {
   getLastThree,
   searchByTitle,
   update,
+  getTotalCategoryCount,
 };

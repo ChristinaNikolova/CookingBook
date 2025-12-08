@@ -52,7 +52,7 @@ async function deleteById(id) {
 }
 
 async function getByName(name) {
-  return await Category.findOne({ name }).collation({
+  return Category.findOne({ name }).collation({
     locale: "bg",
     strength: 2,
   });

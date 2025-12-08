@@ -49,10 +49,15 @@ const filePaths = {
   RECIPES: "/uploads/recipes/",
 };
 
+const pagination = {
+  RECIPES_PER_PAGE: 6,
+};
+
 module.exports = {
   important,
   admin,
   messages,
   errors,
   filePaths,
+  pagination,
 };
