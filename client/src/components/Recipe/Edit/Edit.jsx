@@ -61,30 +61,34 @@ export default function EditRecipe() {
   useEffect(() => {
     requester(`/recipes/${id}`, httpMethods.GET, null, config)
       .then((res) => {
-        setValues(res);
+        setValues({
+          title: res.title,
+          summary: res.summary,
+          neededTime: res.neededTime,
+          portions: res.portions,
+          category: res.category._id,
+          image: "",
+          isBabySafe: res.isBabySafe,
+        });
         setCurrentImage(image.getImageUrl(res.image));
-        setInstructions(
-          res.instructions.map((x) => {
-            x.description;
-          })
-        );
+        setInstructions(res.instructions.map((x) => x.description));
         setIngredients(res.ingredients.map((x) => x.description));
       })
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [config, id, setValues]);
 
   async function editHandler(data) {
     setServerError("");
 
     data.append(
       "instructions",
-      JSON.stringify(instructions.filter((i) => i.trim()))
+      JSON.stringify(instructions.filter((x) => x.trim()))
     );
     data.append(
       "ingredients",
-      JSON.stringify(ingredients.filter((i) => i.trim()))
+      JSON.stringify(ingredients.filter((x) => x.trim()))
     );
 
     if (!files.image) {
@@ -287,6 +291,7 @@ export default function EditRecipe() {
             type="submit"
             disabled={!isFormValid()}
           />
+
           <Button
             text="Затвори"
             type="button"
