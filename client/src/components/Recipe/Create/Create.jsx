@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import useConfigToken from "../../../hooks/useConfigToken";
@@ -25,7 +25,7 @@ export default function CreateRecipe() {
   const [ingredientErrors, setIngredientErrors] = useState([]);
   const [instructionsTouched, setInstructionsTouched] = useState([]);
   const [ingredientsTouched, setIngredientsTouched] = useState([]);
-  const [categories, setCategories] = useState([]);
+
   const [serverError, setServerError] = useState("");
 
   const navigate = useNavigate();
@@ -34,12 +34,6 @@ export default function CreateRecipe() {
 
   const { fieldHandler, submitHandler, errors, disabledForm, files, values } =
     useForm(createHandler, "recipe", initialValues, formRef);
-
-  useEffect(() => {
-    requester("/categories", httpMethods.GET, null, config)
-      .then((res) => setCategories(res))
-      .catch((err) => console.error(err));
-  }, [config]);
 
   async function createHandler(data) {
     setServerError("");
@@ -142,11 +136,11 @@ export default function CreateRecipe() {
     return input.some((x) => validator[validatorFunc](x));
   };
 
+  // todo title with create ? : uand for categories as well
+  // todo costants for type
   return (
     <FormRecipe
       type="create"
-      title="Създай рецепта"
-      categories={categories}
       instructions={instructions}
       ingredients={ingredients}
       currentImage={currentImage}

@@ -6,7 +6,7 @@ import FormRecipe from "../Form/Form";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods, ids } from "../../../utils/constants/global";
+import { httpMethods } from "../../../utils/constants/global";
 
 const initialValues = {
   title: "",
@@ -27,7 +27,6 @@ export default function EditRecipe() {
   const [ingredientErrors, setIngredientErrors] = useState([]);
   const [instructionsTouched, setInstructionsTouched] = useState([]);
   const [ingredientsTouched, setIngredientsTouched] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [serverError, setServerError] = useState("");
 
   const navigate = useNavigate();
@@ -42,15 +41,6 @@ export default function EditRecipe() {
     files,
     setValues,
   } = useForm(editHandler, "recipe", initialValues, formRef);
-
-  useEffect(() => {
-    requester("/categories", httpMethods.GET, null, config)
-      .then((res) => {
-        const result = res.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
-        setCategories(result);
-      })
-      .catch((err) => console.error(err));
-  }, [config]);
 
   useEffect(() => {
     requester(`/recipes/${id}`, httpMethods.GET, null, config)
@@ -180,8 +170,6 @@ export default function EditRecipe() {
   return (
     <FormRecipe
       type="edit"
-      title="Редактирай рецептата"
-      categories={categories}
       instructions={instructions}
       ingredients={ingredients}
       currentImage={currentImage}
