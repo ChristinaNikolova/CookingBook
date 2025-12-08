@@ -27,4 +27,9 @@ export const types = {
   EDIT: "edit",
 };
 
+export const directions = {
+  PREV: "prev",
+  NEXT: "next",
+};
+
 export const baseURL = "http://localhost:3030";
