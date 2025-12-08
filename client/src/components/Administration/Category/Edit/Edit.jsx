@@ -17,6 +17,7 @@ export default function EditCategory() {
   const { id } = useParams();
   const [currentImage, setCurrentImage] = useState("");
   const [serverError, setServerError] = useState("");
+
   const navigate = useNavigate();
   const config = useConfigToken();
   const formRef = useRef();

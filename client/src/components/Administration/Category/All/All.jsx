@@ -12,6 +12,7 @@ import styles from "./All.module.css";
 // todo fetch then oder await
 // todo check useEffects dep array
 // todo try catch / async await everywhere
+// todo final test
 
 // todo add pagination => fetch, async, dep array, constants
 // todo useFetch
