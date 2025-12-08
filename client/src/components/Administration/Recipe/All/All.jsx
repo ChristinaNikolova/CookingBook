@@ -11,6 +11,7 @@ import ListItem from "../../ListItem/ListItem";
 import NoContent from "../../../NoContent/NoContent";
 import requester from "../../../../utils/helpers/requester";
 import { recipesReducer } from "../../../../utils/reducers/recipes";
+import { data } from "../../../../utils/helpers/data";
 import { httpMethods } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
@@ -25,9 +26,7 @@ export default function AllRecipes() {
   useEffect(() => {
     requester("/admin/recipes", httpMethods.GET, null, config)
       .then((res) => {
-        // todo useNormalized hook???
-        // todo delete cepices when category is deleted??
-        const normalizedRecipes = res.map((x) => ({ ...x, pending: false }));
+        const normalizedRecipes = data.map(res, "pending", false);
         setRecipes(normalizedRecipes);
       })
       .catch((err) => console.error(err));

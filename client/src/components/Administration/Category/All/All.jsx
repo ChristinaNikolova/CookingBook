@@ -11,6 +11,7 @@ import ListItem from "../../ListItem/ListItem";
 import NoContent from "../../../NoContent/NoContent";
 import requester from "../../../../utils/helpers/requester";
 import { categoryReducer } from "../../../../utils/reducers/category";
+import { data } from "../../../../utils/helpers/data";
 import { httpMethods } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
@@ -25,6 +26,7 @@ import styles from "./All.module.css";
 
 // todo edit recipe
 // todo add everywhere server error
+// todo delete cepices when category is deleted??
 
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
@@ -37,7 +39,7 @@ export default function AllCategories() {
   useEffect(() => {
     requester("/admin/categories", httpMethods.GET, null, config)
       .then((res) => {
-        const normalizedCategories = res.map((x) => ({ ...x, pending: false }));
+        const normalizedCategories = data.map(res, "pending", false);
         setCategories(normalizedCategories);
       })
       .catch((err) => console.error(err));

@@ -9,6 +9,7 @@ import Loader from "../../Loader/Loader";
 import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
+import { data } from "../../../utils/helpers/data";
 import { httpMethods } from "../../../utils/constants/global";
 import styles from "./Details.module.css";
 
@@ -31,14 +32,16 @@ export default function Details() {
   useEffect(() => {
     requester(`/recipes/${id}`, httpMethods.GET, null, config)
       .then((res) => {
-        const normalizedIngredients = res.ingredients.map((x) => ({
-          ...x,
-          isReady: false,
-        }));
-        const normalizedInstructions = res.instructions.map((x) => ({
-          ...x,
-          isReady: false,
-        }));
+        const normalizedIngredients = data.map(
+          res.ingredients,
+          "isReady",
+          false
+        );
+        const normalizedInstructions = data.map(
+          res.instructions,
+          "isReady",
+          false
+        );
         setRecipe({
           ...res,
           ingredients: normalizedIngredients,
