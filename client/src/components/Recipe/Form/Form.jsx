@@ -6,7 +6,12 @@ import CustomSelect from "../../shared/CustomSelect/CustomSelect";
 import ImagePreview from "../../shared/ImagePreview/ImagePreview";
 import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods, ids, types } from "../../../utils/constants/global";
+import {
+  httpMethods,
+  ids,
+  serverPaths,
+  types,
+} from "../../../utils/constants/global";
 import styles from "./Form.module.css";
 
 export default function FormRecipe({
@@ -35,7 +40,7 @@ export default function FormRecipe({
   const config = useConfigToken();
 
   useEffect(() => {
-    requester("/categories", httpMethods.GET, null, config)
+    requester(serverPaths.CATEGORIES, httpMethods.GET, null, config)
       .then((res) => {
         let result = res;
 

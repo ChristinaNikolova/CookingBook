@@ -5,7 +5,11 @@ import useConfigToken from "../../../../hooks/useConfigToken";
 import FormCategory from "../Form/Form";
 import requester from "../../../../utils/helpers/requester";
 import { image } from "../../../../utils/helpers/image";
-import { httpMethods, types } from "../../../../utils/constants/global";
+import {
+  httpMethods,
+  serverPaths,
+  types,
+} from "../../../../utils/constants/global";
 
 const initialValues = {
   name: "",
@@ -32,7 +36,12 @@ export default function EditCategory() {
   } = useForm(editHandler, "category", initialValues, formRef);
 
   useEffect(() => {
-    requester(`/admin/categories/${id}`, httpMethods.GET, null, config)
+    requester(
+      `${serverPaths.ADMIN_CATEGORIES}/${id}`,
+      httpMethods.GET,
+      null,
+      config
+    )
       .then((res) => {
         setValues(res);
         setCurrentImage(image.getImageUrl(res.image));
@@ -48,7 +57,12 @@ export default function EditCategory() {
     }
 
     try {
-      await requester(`/admin/categories/${id}`, httpMethods.PUT, data, config);
+      await requester(
+        `${serverPaths.ADMIN_CATEGORIES}/${id}`,
+        httpMethods.PUT,
+        data,
+        config
+      );
       navigate("/admin/category/all");
     } catch (err) {
       setServerError(err.message);

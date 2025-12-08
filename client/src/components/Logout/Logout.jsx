@@ -13,6 +13,7 @@ export default function Logout() {
     // todo add abort controller for all useEffects
     // todo add default path
     // todo fix dep array
+    // todo add constant for the server path
     fetch("http://localhost:3030/auth/logout", {
       method: httpMethods.GET,
       headers: {

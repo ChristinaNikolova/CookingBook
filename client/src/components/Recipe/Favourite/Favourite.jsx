@@ -5,14 +5,14 @@ import RecipeItem from "../RecipeItem/RecipeItem";
 import NoContent from "../../NoContent/NoContent";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, serverPaths } from "../../../utils/constants/global";
 
 export default function Favourite() {
   const [favRecipes, setFavRecipes] = useState([]);
   const config = useConfigToken();
 
   useEffect(() => {
-    requester("/users/fav", httpMethods.GET, null, config)
+    requester(serverPaths.USERS_FAV, httpMethods.GET, null, config)
       .then((res) => setFavRecipes(res))
       .catch((err) => console.error(err));
   }, [config]);

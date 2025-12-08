@@ -6,7 +6,7 @@ import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, serverPaths } from "../../../utils/constants/global";
 
 export default function Search() {
   const [searchParams] = useSearchParams();
@@ -15,7 +15,12 @@ export default function Search() {
   const config = useConfigToken();
 
   useEffect(() => {
-    requester(`/recipes/searched/${query}`, httpMethods.GET, null, config)
+    requester(
+      `${serverPaths.RECIPES_SEARCH}/${query}`,
+      httpMethods.GET,
+      null,
+      config
+    )
       .then((res) => setSearchedRecipes(res))
       .catch((err) => console.error(err));
   }, [query, config]);

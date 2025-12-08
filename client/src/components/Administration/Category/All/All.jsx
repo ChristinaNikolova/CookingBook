@@ -12,14 +12,10 @@ import NoContent from "../../../NoContent/NoContent";
 import requester from "../../../../utils/helpers/requester";
 import { categoryReducer } from "../../../../utils/reducers/category";
 import { data } from "../../../../utils/helpers/data";
-import { httpMethods } from "../../../../utils/constants/global";
+import { httpMethods, serverPaths } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
-// todo add constants for the paths???
-// todo fetch then oder await
-// todo try catch / async await everywhere
-
-// todo add pagination => fetch, async, dep array, constants
+// todo add pagination => url update???
 // todo useFetch
 // todo final test
 // todo add lines
@@ -35,7 +31,7 @@ export default function AllCategories() {
   const config = useConfigToken();
 
   useEffect(() => {
-    requester("/admin/categories", httpMethods.GET, null, config)
+    requester(serverPaths.ADMIN_CATEGORIES, httpMethods.GET, null, config)
       .then((res) => {
         const normalizedCategories = data.map(res, "pending", false);
         setCategories(normalizedCategories);
@@ -58,7 +54,7 @@ export default function AllCategories() {
 
       try {
         await requester(
-          `/admin/categories/${categoryId}`,
+          `${serverPaths.ADMIN_CATEGORIES}/${categoryId}`,
           httpMethods.DELETE,
           null,
           config

@@ -9,13 +9,19 @@ export const httpMethods = {
   DELETE: "DELETE",
 };
 
-export const paths = {
+export const serverPaths = {
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
   LOGOUT: "",
-  CATEGORIES: "",
-  RECIPES: "",
+  CATEGORIES: "/categories",
+  RECIPES: "/recipes",
+  RECIPES_SEARCH: "/recipes/searched",
+  RECIPES_CATEGORY: "/recipes/byCategory",
   NOTES: "/notes",
+  USERS: "/users",
+  USERS_FAV: "/users/fav",
+  ADMIN_CATEGORIES: "/admin/categories",
+  ADMIN_RECIPES: "/admin/recipes",
 };
 
 export const ids = {

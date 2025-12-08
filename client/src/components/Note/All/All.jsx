@@ -7,7 +7,7 @@ import Info from "../Info/Info";
 import ServerError from "../../shared/ServerError/ServerError";
 import { noteReducer } from "../../../utils/reducers/note";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods, paths } from "../../../utils/constants/global";
+import { httpMethods, serverPaths } from "../../../utils/constants/global";
 import styles from "./All.module.css";
 
 export default function AllNotes() {
@@ -16,7 +16,7 @@ export default function AllNotes() {
   const config = useConfigToken();
 
   useEffect(() => {
-    requester(paths.NOTES, httpMethods.GET, null, config)
+    requester(serverPaths.NOTES, httpMethods.GET, null, config)
       .then((res) => {
         dispatch({
           type: "ALL",
@@ -39,7 +39,7 @@ export default function AllNotes() {
 
       try {
         await requester(
-          `${paths.NOTES}/${noteId}`,
+          `${serverPaths.NOTES}/${noteId}`,
           httpMethods.DELETE,
           null,
           config

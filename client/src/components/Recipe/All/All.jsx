@@ -8,7 +8,11 @@ import NoContent from "../../NoContent/NoContent";
 import Pagination from "../../shared/Pagination/Pagination";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
-import { directions, httpMethods } from "../../../utils/constants/global";
+import {
+  directions,
+  httpMethods,
+  serverPaths,
+} from "../../../utils/constants/global";
 
 export default function All() {
   const { categoryName, categoryId } = useParams();
@@ -23,9 +27,8 @@ export default function All() {
   useTop();
 
   useEffect(() => {
-    console.log("in");
     requester(
-      `/recipes/byCategory/${categoryId}/${currentPage}`,
+      `${serverPaths.RECIPES_CATEGORY}/${categoryId}/${currentPage}`,
       httpMethods.GET,
       null,
       config

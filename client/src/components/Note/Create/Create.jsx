@@ -5,7 +5,7 @@ import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, serverPaths } from "../../../utils/constants/global";
 
 const initialValues = {
   description: "",
@@ -22,7 +22,12 @@ export default function CreateNote({ onCreate }) {
   async function createHandler(data) {
     setServerError("");
     try {
-      const result = await requester("/notes", httpMethods.POST, data, config);
+      const result = await requester(
+        serverPaths.NOTES,
+        httpMethods.POST,
+        data,
+        config
+      );
       setValues(initialValues);
       onCreate(result);
     } catch (err) {

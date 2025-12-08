@@ -6,7 +6,11 @@ import FormRecipe from "../Form/Form";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods, types } from "../../../utils/constants/global";
+import {
+  httpMethods,
+  serverPaths,
+  types,
+} from "../../../utils/constants/global";
 
 const initialValues = {
   title: "",
@@ -43,7 +47,7 @@ export default function EditRecipe() {
   } = useForm(editHandler, "recipe", initialValues, formRef);
 
   useEffect(() => {
-    requester(`/recipes/${id}`, httpMethods.GET, null, config)
+    requester(`${serverPaths.RECIPES}/${id}`, httpMethods.GET, null, config)
       .then((res) => {
         setValues({
           title: res.title,
@@ -88,7 +92,12 @@ export default function EditRecipe() {
     }
 
     try {
-      await requester(`/recipes/${id}`, httpMethods.PUT, formData, config);
+      await requester(
+        `${serverPaths.RECIPES}/${id}`,
+        httpMethods.PUT,
+        formData,
+        config
+      );
       navigate(`/recipe/${id}`);
     } catch (err) {
       setServerError(err.message);

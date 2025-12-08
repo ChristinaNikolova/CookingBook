@@ -4,7 +4,11 @@ import useForm from "../../../../hooks/useForm";
 import useConfigToken from "../../../../hooks/useConfigToken";
 import FormCategory from "../Form/Form";
 import requester from "../../../../utils/helpers/requester";
-import { httpMethods, types } from "../../../../utils/constants/global";
+import {
+  httpMethods,
+  serverPaths,
+  types,
+} from "../../../../utils/constants/global";
 
 const initialValues = {
   name: "",
@@ -32,7 +36,12 @@ export default function CreateCategory() {
     setCurrentImage("");
 
     try {
-      await requester("/admin/categories", httpMethods.POST, data, config);
+      await requester(
+        serverPaths.ADMIN_CATEGORIES,
+        httpMethods.POST,
+        data,
+        config
+      );
       navigate("/admin/category/all");
     } catch (err) {
       setServerError(err.message);

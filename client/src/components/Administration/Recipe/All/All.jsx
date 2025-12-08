@@ -12,7 +12,7 @@ import NoContent from "../../../NoContent/NoContent";
 import requester from "../../../../utils/helpers/requester";
 import { recipesReducer } from "../../../../utils/reducers/recipes";
 import { data } from "../../../../utils/helpers/data";
-import { httpMethods } from "../../../../utils/constants/global";
+import { httpMethods, serverPaths } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
 export default function AllRecipes() {
@@ -24,7 +24,7 @@ export default function AllRecipes() {
   const config = useConfigToken();
 
   useEffect(() => {
-    requester("/admin/recipes", httpMethods.GET, null, config)
+    requester(serverPaths.ADMIN_RECIPES, httpMethods.GET, null, config)
       .then((res) => {
         const normalizedRecipes = data.map(res, "pending", false);
         setRecipes(normalizedRecipes);
@@ -47,7 +47,7 @@ export default function AllRecipes() {
 
       try {
         await requester(
-          `/admin/recipes/${recipeId}`,
+          `${serverPaths.ADMIN_RECIPES}/${recipeId}`,
           httpMethods.DELETE,
           null,
           config

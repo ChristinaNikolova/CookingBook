@@ -5,14 +5,14 @@ import RecipeItem from "../RecipeItem/RecipeItem";
 import NoContent from "../../NoContent/NoContent";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, serverPaths } from "../../../utils/constants/global";
 
 export default function LastThree() {
   const [lastThreeRecipes, setLastThreeRecipes] = useState([]);
   const config = useConfigToken();
 
   useEffect(() => {
-    requester("/users", httpMethods.GET, null, config)
+    requester(serverPaths.USERS, httpMethods.GET, null, config)
       .then((res) => setLastThreeRecipes(res))
       .catch((err) => console.error(err));
   }, [config]);

@@ -4,14 +4,14 @@ import CategoryItem from "../CategoryItem/CategoryItem";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import { image } from "../../../utils/helpers/image";
 import requester from "../../../utils/helpers/requester";
-import { httpMethods, ids } from "../../../utils/constants/global";
+import { httpMethods, ids, serverPaths } from "../../../utils/constants/global";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const config = useConfigToken();
 
   useEffect(() => {
-    requester("/categories", httpMethods.GET, null, config)
+    requester(serverPaths.CATEGORIES, httpMethods.GET, null, config)
       .then((res) => {
         const result = res.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
         setCategories(result);

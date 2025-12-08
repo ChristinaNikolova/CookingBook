@@ -10,7 +10,7 @@ import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
 import { data } from "../../../utils/helpers/data";
-import { httpMethods } from "../../../utils/constants/global";
+import { httpMethods, serverPaths } from "../../../utils/constants/global";
 import styles from "./Details.module.css";
 
 export default function Details() {
@@ -29,7 +29,7 @@ export default function Details() {
   const categoryId = recipe?.category?._id;
 
   useEffect(() => {
-    requester(`/recipes/${id}`, httpMethods.GET, null, config)
+    requester(`${serverPaths.RECIPES}/${id}`, httpMethods.GET, null, config)
       .then((res) => {
         const normalizedIngredients = data.map(
           res.ingredients,
@@ -54,7 +54,12 @@ export default function Details() {
   const deleteHandler = useCallback(async () => {
     setServerError("");
     try {
-      await requester(`/recipes/${id}`, httpMethods.DELETE, null, config);
+      await requester(
+        `${serverPaths.RECIPES}/${id}`,
+        httpMethods.DELETE,
+        null,
+        config
+      );
       navigate(`/recipe/${categoryName}/${categoryId}`);
     } catch (err) {
       setServerError(err.message);
@@ -65,7 +70,7 @@ export default function Details() {
     setServerError("");
     try {
       const result = await requester(
-        `/recipes/${id}`,
+        `${serverPaths.RECIPES}/${id}`,
         httpMethods.POST,
         null,
         config
@@ -112,7 +117,7 @@ export default function Details() {
     };
 
     try {
-      await requester("/notes", httpMethods.POST, data, config);
+      await requester(serverPaths.NOTES, httpMethods.POST, data, config);
       navigate("/notes");
     } catch (err) {
       console.error(err);
