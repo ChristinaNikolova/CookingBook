@@ -248,7 +248,7 @@ export default function CreateRecipe() {
         )}
 
         <CustomInput
-          label="Качи снимка"
+          label="Изображение"
           type="file"
           error={errors.image}
           {...fieldHandler("image")}

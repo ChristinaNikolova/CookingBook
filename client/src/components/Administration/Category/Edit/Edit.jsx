@@ -42,10 +42,12 @@ export default function EditCategory() {
 
   async function editHandler(data) {
     setServerError("");
+
+    if (!files.image) {
+      delete data.image;
+    }
+
     try {
-      if (!files.image) {
-        delete data.image;
-      }
       await requester(`/admin/categories/${id}`, httpMethods.PUT, data, config);
       navigate("/admin/category/all");
     } catch (err) {

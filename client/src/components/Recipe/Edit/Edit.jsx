@@ -6,14 +6,12 @@ import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import CustomSelect from "../../shared/CustomSelect/CustomSelect";
 import ServerError from "../../shared/ServerError/ServerError";
+import ImagePreview from "../../shared/ImagePreview/ImagePreview";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
+import { image } from "../../../utils/helpers/image";
 import { httpMethods, ids } from "../../../utils/constants/global";
 import styles from "./Edit.module.css";
-import ImagePreview from "../../shared/ImagePreview/ImagePreview";
-import { image } from "../../../utils/helpers/image";
-
-// todo test update without hanging the category!!!
 
 const initialValues = {
   title: "",
@@ -48,7 +46,6 @@ export default function EditRecipe() {
     errors,
     disabledForm,
     files,
-    values,
     setValues,
   } = useForm(editHandler, "recipe", initialValues, formRef);
 
@@ -66,9 +63,17 @@ export default function EditRecipe() {
       .then((res) => {
         setValues(res);
         setCurrentImage(image.getImageUrl(res.image));
+        setInstructions(
+          res.instructions.map((x) => {
+            x.description;
+          })
+        );
+        setIngredients(res.ingredients.map((x) => x.description));
       })
-      .catch((err) => console.error(err));
-  });
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   async function editHandler(data) {
     setServerError("");
@@ -82,21 +87,15 @@ export default function EditRecipe() {
       JSON.stringify(ingredients.filter((i) => i.trim()))
     );
 
-    try {
-      if (!files.image) {
-        delete data.image;
-      }
+    if (!files.image) {
+      delete data.image;
+    }
 
-      const result = await requester(
-        `/recipes/${id}`,
-        httpMethods.PUT,
-        data,
-        config
-      );
-      navigate(`/recipe/${result.id}`);
+    try {
+      await requester(`/recipes/${id}`, httpMethods.PUT, data, config);
+      navigate(`/recipe/${id}`);
     } catch (err) {
       setServerError(err.message);
-      setCurrentImage(files.image);
     }
   }
 
@@ -161,13 +160,7 @@ export default function EditRecipe() {
     const hasInstructionErrors = areErrors(instructions, "validateInstruction");
     const hasIngredientErrors = areErrors(ingredients, "validateIngredient");
 
-    return (
-      !disabledForm() &&
-      !hasInstructionErrors &&
-      !hasIngredientErrors &&
-      values.category !== initialValues.category &&
-      files.image
-    );
+    return !disabledForm() && !hasInstructionErrors && !hasIngredientErrors;
   };
 
   const areErrors = (input, validatorFunc) => {
@@ -179,10 +172,10 @@ export default function EditRecipe() {
   };
 
   return (
-    <section id="create-recipe" className="section-form">
+    <section id="edit-recipe" className="section-form">
       {serverError && <ServerError error={serverError} />}
       <h2 ref={formRef} className="form-title">
-        Добави нова рецепта
+        Редактирай рецепта
       </h2>
       <form className="form" action={submitHandler}>
         <CustomInput
@@ -271,19 +264,11 @@ export default function EditRecipe() {
         </div>
 
         {currentImage && (
-          <CustomInput
-            label="Текущо изображение"
-            value={currentImage.name}
-            disabled
-          />
-        )}
-
-        {currentImage && (
           <ImagePreview name="Текущо изображение" currentImage={currentImage} />
         )}
 
         <CustomInput
-          label="Качи снимка"
+          label="Ново изображение (опционално)"
           type="file"
           error={errors.image}
           {...fieldHandler("image")}
