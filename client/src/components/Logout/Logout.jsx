@@ -1,35 +1,22 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import useAuthContext from "../../hooks/useAuthContext";
-import { httpMethods } from "../../utils/constants/global";
+import Loader from "../Loader/Loader";
+import { serverPaths } from "../../utils/constants/global";
 
 export default function Logout() {
-  const { userAuth, user } = useAuthContext();
+  const { userAuth } = useAuthContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    // todo use requestre
-    // todo add abort controller for all useEffects
-    // todo add default path
-    // todo fix dep array
-    // todo add constant for the server path
-    fetch("http://localhost:3030/auth/logout", {
-      method: httpMethods.GET,
-      headers: {
-        "Content-Type": "application/json",
-        "X-Authorization": `Bearer ${user.authToken}`,
-      },
-      signal: abortController.signal,
-    })
-      .then(() => {
-        userAuth();
-        navigate("/");
-      })
-      .catch((err) => console.error(err));
+  const { loading } = useFetch(null, serverPaths.LOGOUT);
 
-    return () => {
-      abortController.abort();
-    };
-  }, []);
+  useEffect(() => {
+    if (!loading) {
+      userAuth();
+      navigate("/");
+    }
+  }, [loading, navigate, userAuth]);
+
+  return <Loader text="Отписване" />;
 }

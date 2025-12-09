@@ -12,7 +12,7 @@ export const httpMethods = {
 export const serverPaths = {
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
-  LOGOUT: "",
+  LOGOUT: "/auth/logout",
   CATEGORIES: "/categories",
   RECIPES: "/recipes",
   RECIPES_SEARCH: "/recipes/searched",
