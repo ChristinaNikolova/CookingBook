@@ -1,4 +1,5 @@
 export const global = {
+  REQUEST_ABORTED: "Request aborted",
   REQUIRED_INPUT: "Полето е задължително",
   REQUIRED_MAX_LEN(name, max) {
     return `${name} трябва да е до ${max} символа`;
