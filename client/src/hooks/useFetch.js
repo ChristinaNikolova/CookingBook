@@ -28,14 +28,14 @@ export default function useFetch(
           return;
         }
         setValues(res);
+        // todo setError here or before requester
         setError("");
       })
       .catch((err) => {
-        if (err.name === "AbortError") {
-          return;
+        if (err.name !== "AbortError") {
+          console.error(err);
+          setError(err.message);
         }
-        console.error(err);
-        setError(err.message);
       })
       .finally(() => {
         if (isActive) {
