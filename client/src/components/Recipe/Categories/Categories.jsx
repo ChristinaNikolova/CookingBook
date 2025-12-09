@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
-import useConfigToken from "../../../hooks/useConfigToken";
+import useFetch from "../../../hooks/useFetch";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import ListWrapper from "../ListWrapper/ListWrapper";
+import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
-import requester from "../../../utils/helpers/requester";
-import { httpMethods, ids, serverPaths } from "../../../utils/constants/global";
+import { ids, serverPaths } from "../../../utils/constants/global";
+
+const initialValues = [];
 
 export default function Categories() {
-  const [categories, setCategories] = useState([]);
-  const config = useConfigToken();
+  const { values, loading } = useFetch(initialValues, serverPaths.CATEGORIES);
 
-  useEffect(() => {
-    requester(serverPaths.CATEGORIES, httpMethods.GET, null, config)
-      .then((res) => {
-        const result = res.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
-        setCategories(result);
-      })
-      .catch((err) => console.error(err));
-  }, [config]);
+  const categories = values.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section id="categories">
