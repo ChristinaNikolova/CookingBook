@@ -3,7 +3,6 @@ import useConfigToken from "./useConfigToken";
 import requester from "../utils/helpers/requester";
 import { httpMethods } from "../utils/constants/global";
 
-// todo dep array
 export default function useFetch(
   initialValue,
   url,
