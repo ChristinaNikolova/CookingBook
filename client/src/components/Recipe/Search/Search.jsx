@@ -1,29 +1,28 @@
-import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import useConfigToken from "../../../hooks/useConfigToken";
-import NoContent from "../../NoContent/NoContent";
+import useFetch from "../../../hooks/useFetch";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
-import requester from "../../../utils/helpers/requester";
+import NoContent from "../../NoContent/NoContent";
+import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods, serverPaths } from "../../../utils/constants/global";
+import { serverPaths } from "../../../utils/constants/global";
+
+const initialValues = [];
 
 export default function Search() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("searched") || "";
-  const [searchedRecipes, setSearchedRecipes] = useState([]);
-  const config = useConfigToken();
 
-  useEffect(() => {
-    requester(
-      `${serverPaths.RECIPES_SEARCH}/${query}`,
-      httpMethods.GET,
-      null,
-      config
-    )
-      .then((res) => setSearchedRecipes(res))
-      .catch((err) => console.error(err));
-  }, [query, config]);
+  const { values: searchedRecipes, loading } = useFetch(
+    initialValues,
+    `${serverPaths.RECIPES_SEARCH}/${query}`
+  );
+
+  // to do use effect quety dep appa
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section id="fav-recipes">
