@@ -17,19 +17,29 @@ export default function useFetch(
 
   useEffect(() => {
     console.log("in useeffect");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLoading(true);
+    const abortController = new AbortController();
 
-    requester(url, method, data, config)
+    requester(url, method, data, config, abortController.signal)
       .then((res) => {
         setValues(res);
         setServerError("");
       })
       .catch((err) => {
+        if (err.name === "AbortError") {
+          return;
+        }
         console.error(err);
         setServerError(err.message);
       })
       .finally(() => {
         setLoading(false);
       });
+
+    return () => {
+      abortController.abort();
+    };
   }, [url, method, data, config]);
 
   return { values, loading, serverError };
