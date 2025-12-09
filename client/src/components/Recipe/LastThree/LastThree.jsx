@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react";
-import useConfigToken from "../../../hooks/useConfigToken";
+import useFetch from "../../../hooks/useFetch";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import NoContent from "../../NoContent/NoContent";
-import requester from "../../../utils/helpers/requester";
+import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods, serverPaths } from "../../../utils/constants/global";
+import { serverPaths } from "../../../utils/constants/global";
+
+const initialValues = [];
 
 export default function LastThree() {
-  const [lastThreeRecipes, setLastThreeRecipes] = useState([]);
-  const config = useConfigToken();
+  const { values: lastThreeRecipes, loading } = useFetch(
+    initialValues,
+    serverPaths.USERS
+  );
 
-  useEffect(() => {
-    requester(serverPaths.USERS, httpMethods.GET, null, config)
-      .then((res) => setLastThreeRecipes(res))
-      .catch((err) => console.error(err));
-  }, [config]);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section id="last-three">
