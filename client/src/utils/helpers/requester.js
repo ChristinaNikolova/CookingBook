@@ -1,17 +1,27 @@
 import { baseURL } from "../constants/global";
+import { global } from "../constants/errors";
 
 export default async function requester(
   requestedURL,
   method,
   data,
-  config = {}
+  config = {},
+  signal = null
 ) {
+  // todo remove this
+  console.log("config", config);
+  console.log("signal", signal);
+
   const url = baseURL + requestedURL;
 
   let options = {
     method,
     headers: {},
   };
+
+  if (signal) {
+    options.signal = signal;
+  }
 
   if (data) {
     if (data instanceof FormData) {
@@ -39,7 +49,11 @@ export default async function requester(
 
     return result;
   } catch (err) {
-    console.error(err);
+    if (err.name === "AbortError") {
+      console.log(global.REQUEST_ABORTED);
+    } else {
+      console.error(err);
+    }
     throw err;
   }
 }
