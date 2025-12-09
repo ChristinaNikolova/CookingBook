@@ -12,7 +12,7 @@ export default function useFetch(
 ) {
   const [values, setValues] = useState(initialValue);
   const [loading, setLoading] = useState(true);
-  const [serverError, setServerError] = useState("");
+  const [error, setError] = useState("");
   const config = useConfigToken();
 
   useEffect(() => {
@@ -29,14 +29,14 @@ export default function useFetch(
           return;
         }
         setValues(res);
-        setServerError("");
+        setError("");
       })
       .catch((err) => {
         if (err.name === "AbortError") {
           return;
         }
         console.error(err);
-        setServerError(err.message);
+        setError(err.message);
       })
       .finally(() => {
         if (isActive) {
@@ -50,5 +50,5 @@ export default function useFetch(
     };
   }, [url, method, data, config]);
 
-  return { values, loading, serverError };
+  return { values, loading, error };
 }
