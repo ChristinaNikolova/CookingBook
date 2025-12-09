@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react";
-import useConfigToken from "../../../hooks/useConfigToken";
+import useFetch from "../../../hooks/useFetch";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import NoContent from "../../NoContent/NoContent";
-import requester from "../../../utils/helpers/requester";
+import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
-import { httpMethods, serverPaths } from "../../../utils/constants/global";
+import { serverPaths } from "../../../utils/constants/global";
+
+const initialValues = [];
 
 export default function Favourite() {
-  const [favRecipes, setFavRecipes] = useState([]);
-  const config = useConfigToken();
+  const { values: favRecipes, loading } = useFetch(
+    initialValues,
+    serverPaths.USERS_FAV
+  );
 
-  useEffect(() => {
-    requester(serverPaths.USERS_FAV, httpMethods.GET, null, config)
-      .then((res) => setFavRecipes(res))
-      .catch((err) => console.error(err));
-  }, [config]);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section id="fav-recipes">

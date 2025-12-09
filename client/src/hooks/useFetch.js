@@ -1,23 +1,36 @@
 import { useEffect, useState } from "react";
-import useAuthContext from "./useAuthContext";
+import useConfigToken from "./useConfigToken";
 import requester from "../utils/helpers/requester";
+import { httpMethods } from "../utils/constants/global";
 
 // todo dep array
-export default function useFetch(initialValue, url, method, data) {
+export default function useFetch(
+  initialValue,
+  url,
+  method = httpMethods.GET,
+  data = null
+) {
   const [values, setValues] = useState(initialValue);
-  const { isAuthenticated, user } = useAuthContext();
+  const [loading, setLoading] = useState(true);
+  const [serverError, setServerError] = useState("");
+  const config = useConfigToken();
 
   useEffect(() => {
-    let config = {};
-
-    if (isAuthenticated) {
-      config.authToken = user.authToken;
-    }
+    console.log("in useeffect");
 
     requester(url, method, data, config)
-      .then((res) => setValues(res))
-      .catch((err) => console.error(err));
-  }, []);
+      .then((res) => {
+        setValues(res);
+        setServerError("");
+      })
+      .catch((err) => {
+        console.error(err);
+        setServerError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [url, method, data, config]);
 
-  return { values };
+  return { values, loading, serverError };
 }
