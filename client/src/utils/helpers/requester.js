@@ -8,7 +8,7 @@ export default async function requester(
   config = {},
   signal = null
 ) {
-  // todo remove this
+  // todo remove this after cheking guest logic with no config
   console.log("config", config);
   console.log("signal", signal);
 
