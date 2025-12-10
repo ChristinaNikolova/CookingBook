@@ -18,6 +18,8 @@ export default function Search() {
     `${serverPaths.RECIPES_SEARCH}/${query}`
   );
 
+  // to do use effect quety dep appa
+
   if (loading) {
     return <Loader />;
   }

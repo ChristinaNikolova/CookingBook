@@ -17,7 +17,6 @@ import styles from "./All.module.css";
 
 // todo add pagination => url update???
 // todo useFetch
-// todo add tests
 
 // todo final test
 // todo add lines
