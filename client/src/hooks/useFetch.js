@@ -28,7 +28,6 @@ export default function useFetch(
           return;
         }
         setValues(res);
-        // todo setError here or before requester
         setError("");
       })
       .catch((err) => {
