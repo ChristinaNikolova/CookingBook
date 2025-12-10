@@ -15,8 +15,6 @@ export default function useFetch(
   const config = useConfigToken();
 
   useEffect(() => {
-    console.log("in useeffect");
-
     let isActive = true;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);

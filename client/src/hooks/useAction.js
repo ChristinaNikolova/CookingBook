@@ -11,16 +11,14 @@ export default function useAction() {
 
   const config = useConfigToken();
   const abortRef = useRef(null);
+  const isActiveRef = useRef(true);
 
   const execute = useCallback(
     async (url, method = httpMethods.GET, data = null) => {
-      console.log("in useCallbakc");
-
       setValues(null);
       setLoading(true);
       setServerError("");
 
-      // todo do this also in useFetch
       if (abortRef.current) {
         abortRef.current.abort();
       }
@@ -36,7 +34,10 @@ export default function useAction() {
           config,
           abortController.signal
         );
-        setValues(result);
+
+        if (isActiveRef.current) {
+          setValues(result);
+        }
 
         return result;
       } catch (err) {
@@ -44,19 +45,21 @@ export default function useAction() {
           console.error(err);
           setServerError(err.message);
         }
-        // todo why diffrebt from useFeth
-        // todo flad isActive
         throw err;
       } finally {
-        setLoading(false);
+        if (isActiveRef.current) {
+          setLoading(false);
+        }
       }
     },
     [config]
   );
 
-  // Cleanup при unmount
   useEffect(() => {
+    isActiveRef.current = true;
+
     return () => {
+      isActiveRef.current = false;
       if (abortRef.current) {
         abortRef.current.abort();
       }
