@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
+import useFetch from "../../../hooks/useFetch";
 import useConfigToken from "../../../hooks/useConfigToken";
 import FormRecipe from "../Form/Form";
+import Loader from "../../Loader/Loader";
 import { validator } from "../../../utils/helpers/validator";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
@@ -37,6 +39,11 @@ export default function EditRecipe() {
   const config = useConfigToken();
   const formRef = useRef();
 
+  const { values: result, loading } = useFetch(
+    initialValues,
+    `${serverPaths.RECIPES}/${id}`
+  );
+
   const {
     fieldHandler,
     submitHandler,
@@ -47,25 +54,22 @@ export default function EditRecipe() {
   } = useForm(editHandler, "recipe", initialValues, formRef);
 
   useEffect(() => {
-    requester(`${serverPaths.RECIPES}/${id}`, httpMethods.GET, null, config)
-      .then((res) => {
-        setValues({
-          title: res.title,
-          summary: res.summary,
-          neededTime: res.neededTime,
-          portions: res.portions,
-          category: res.category._id,
-          image: res.image,
-          isBabySafe: res.isBabySafe,
-        });
-        setCurrentImage(image.getImageUrl(res.image));
-        setInstructions(res.instructions.map((x) => x.description));
-        setIngredients(res.ingredients.map((x) => x.description));
-      })
-      .catch((err) => {
-        console.error(err);
+    if (result.title) {
+      setValues({
+        title: result.title,
+        summary: result.summary,
+        neededTime: result.neededTime,
+        portions: result.portions,
+        category: result.category._id,
+        image: result.image,
+        isBabySafe: result.isBabySafe,
       });
-  }, [config, id, setValues]);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCurrentImage(image.getImageUrl(result.image));
+      setInstructions(result.instructions.map((x) => x.description));
+      setIngredients(result.ingredients.map((x) => x.description));
+    }
+  }, [result, setValues]);
 
   async function editHandler(data) {
     setServerError("");
@@ -175,6 +179,10 @@ export default function EditRecipe() {
   const backHandler = () => {
     navigate(`/recipe/${id}`);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <FormRecipe
