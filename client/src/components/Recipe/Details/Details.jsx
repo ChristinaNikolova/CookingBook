@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import useTop from "../../../hooks/useTop";
 import useConfigToken from "../../../hooks/useConfigToken";
 import useAuthContext from "../../../hooks/useAuthContext";
+import useAction from "../../../hooks/useAction";
 import Button from "../../shared/Button/Button";
 import ButtonLink from "../../shared/ButtonLink/ButtonLink";
 import Loader from "../../Loader/Loader";
@@ -17,13 +18,14 @@ export default function Details() {
   const { recipeId: id } = useParams();
   const [recipe, setRecipe] = useState({});
   const [isFav, setIsFav] = useState(false);
-  const [serverError, setServerError] = useState("");
   const [neededIngredients, setNeededIngredients] = useState([]);
 
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const config = useConfigToken();
   useTop();
+
+  const { execute, serverError } = useAction();
 
   const categoryName = recipe?.category?.name;
   const categoryId = recipe?.category?._id;
@@ -52,32 +54,24 @@ export default function Details() {
   }, [id, config]);
 
   const deleteHandler = useCallback(async () => {
-    setServerError("");
     try {
-      await requester(
-        `${serverPaths.RECIPES}/${id}`,
-        httpMethods.DELETE,
-        null,
-        config
-      );
+      await execute(`${serverPaths.RECIPES}/${id}`, httpMethods.DELETE, null);
       navigate(`/recipe/${categoryName}/${categoryId}`);
     } catch (err) {
-      setServerError(err.message);
+      console.error(err.message);
     }
-  }, [config, categoryName, categoryId, id, navigate]);
+  }, [execute, categoryName, categoryId, id, navigate]);
 
   const likeHandler = async () => {
-    setServerError("");
     try {
-      const result = await requester(
+      const result = await execute(
         `${serverPaths.RECIPES}/${id}`,
         httpMethods.POST,
-        null,
-        config
+        null
       );
       setIsFav(result);
     } catch (err) {
-      setServerError(err.message);
+      console.error(err.message);
     }
   };
 
