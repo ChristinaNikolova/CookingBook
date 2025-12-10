@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
+import useAction from "../../../hooks/useAction";
 import useAuthContext from "../../../hooks/useAuthContext";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import Button from "../../shared/Button/Button";
 import ServerError from "../../shared/ServerError/ServerError";
-import requester from "../../../utils/helpers/requester";
 import { httpMethods, serverPaths } from "../../../utils/constants/global";
 
 const initialValues = {
@@ -15,10 +14,10 @@ const initialValues = {
 };
 
 export default function Register() {
-  const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
   const { userAuth } = useAuthContext();
 
+  const { execute, serverError } = useAction();
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
     registerHandler,
     "register",
@@ -26,9 +25,8 @@ export default function Register() {
   );
 
   async function registerHandler(data) {
-    setServerError("");
     try {
-      const result = await requester(
+      const result = await execute(
         serverPaths.REGISTER,
         httpMethods.POST,
         data
@@ -36,7 +34,7 @@ export default function Register() {
       userAuth(result);
       navigate("/");
     } catch (err) {
-      setServerError(err.message);
+      console.error(err);
     }
   }
 
