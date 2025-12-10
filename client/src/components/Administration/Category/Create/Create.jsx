@@ -1,9 +1,8 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../../hooks/useForm";
-import useConfigToken from "../../../../hooks/useConfigToken";
+import useAction from "../../../../hooks/useAction";
 import FormCategory from "../Form/Form";
-import requester from "../../../../utils/helpers/requester";
 import {
   httpMethods,
   serverPaths,
@@ -18,12 +17,10 @@ const initialValues = {
 
 export default function CreateCategory() {
   const [currentImage, setCurrentImage] = useState("");
-  const [serverError, setServerError] = useState("");
-
   const navigate = useNavigate();
-  const config = useConfigToken();
   const formRef = useRef();
 
+  const { execute, serverError } = useAction();
   const { fieldHandler, submitHandler, errors, disabledForm, files } = useForm(
     createHandler,
     "category",
@@ -32,19 +29,13 @@ export default function CreateCategory() {
   );
 
   async function createHandler(data) {
-    setServerError("");
     setCurrentImage("");
 
     try {
-      await requester(
-        serverPaths.ADMIN_CATEGORIES,
-        httpMethods.POST,
-        data,
-        config
-      );
+      await execute(serverPaths.ADMIN_CATEGORIES, httpMethods.POST, data);
       navigate("/admin/category/all");
     } catch (err) {
-      setServerError(err.message);
+      console.error(err);
       setCurrentImage(files.image);
     }
   }
