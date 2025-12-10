@@ -49,7 +49,7 @@ export default function useForm(
 
   const submitHandler = async () => {
     const data = formHelpers.prepareData(values, files);
-    callback(data);
+    await callback(data);
   };
 
   const validateHandler = (e) => {
