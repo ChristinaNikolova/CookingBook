@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./ServerError.module.css";
 
-// todo use error from useFetch
 export default function ServerError({ error, duration = 3000 }) {
   const [isVisible, setIsVisible] = useState(true);
   const [isFading, setIsFading] = useState(false);
