@@ -40,7 +40,9 @@ export default function Register() {
 
   return (
     <section id="register" className="section-form">
-      {serverError && <ServerError error={serverError} />}
+      {serverError.message && (
+        <ServerError error={serverError.message} key={serverError.time} />
+      )}
       <h2 className="form-title">Регистрация</h2>
       <form className="form" action={submitHandler}>
         <CustomInput

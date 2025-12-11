@@ -35,7 +35,9 @@ export default function Login() {
 
   return (
     <section id="login" className="section-form">
-      {serverError && <ServerError error={serverError} />}
+      {serverError.message && (
+        <ServerError error={serverError.message} key={serverError.time} />
+      )}
       <h2 className="form-title">Вход</h2>
       <form className="form" action={submitHandler}>
         <CustomInput

@@ -43,7 +43,9 @@ export default function FormCategory({
 
   return (
     <section id="admin-form-category" className="section-form">
-      {serverError && <ServerError error={serverError} />}
+      {serverError.message && (
+        <ServerError error={serverError.message} key={serverError.time} />
+      )}
       <h2 ref={formRef} className="form-title">
         {getTitle()}
       </h2>

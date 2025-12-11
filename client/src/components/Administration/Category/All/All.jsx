@@ -35,7 +35,7 @@ export default function AllCategories() {
   const { execute } = useAction();
 
   useEffect(() => {
-    if (result) {
+    if (result.length) {
       const normalizedCategories = data.map(result, "pending", false);
       setCategories(normalizedCategories);
     }
