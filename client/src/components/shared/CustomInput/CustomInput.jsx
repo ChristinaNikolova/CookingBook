@@ -17,6 +17,7 @@ export default function CustomInput({
       <label htmlFor={name}>{label}</label>
       {tag === "input" ? (
         <input
+          key={type === "checkbox" ? `${name}-${value}` : undefined}
           id={name}
           name={name}
           type={type}
