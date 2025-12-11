@@ -45,7 +45,7 @@ export default function EditRecipe() {
     setValues,
   } = useForm(editHandler, "recipe", initialValues, formRef);
 
-  const { loading, values: result } = useFetch(
+  const { values: result, loading } = useFetch(
     initialValues,
     `${serverPaths.RECIPES}/${id}`
   );

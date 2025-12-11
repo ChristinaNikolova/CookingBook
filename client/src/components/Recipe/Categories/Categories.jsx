@@ -8,9 +8,12 @@ import { ids, serverPaths } from "../../../utils/constants/global";
 const initialValues = [];
 
 export default function Categories() {
-  const { values, loading } = useFetch(initialValues, serverPaths.CATEGORIES);
+  const { values: result, loading } = useFetch(
+    initialValues,
+    serverPaths.CATEGORIES
+  );
 
-  const categories = values.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
+  const categories = result.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
 
   if (loading) {
     return <Loader />;

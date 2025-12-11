@@ -5,8 +5,6 @@ import { httpMethods } from "../utils/constants/global";
 
 export default function useAction() {
   const [values, setValues] = useState(null);
-  // todo do I need this
-  const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
 
   const config = useConfigToken();
@@ -16,7 +14,6 @@ export default function useAction() {
   const execute = useCallback(
     async (url, method = httpMethods.GET, data = null) => {
       setValues(null);
-      setLoading(true);
       setServerError("");
 
       if (abortRef.current) {
@@ -46,10 +43,6 @@ export default function useAction() {
           setServerError(err.message);
         }
         throw err;
-      } finally {
-        if (isActiveRef.current) {
-          setLoading(false);
-        }
       }
     },
     [config]
@@ -66,5 +59,5 @@ export default function useAction() {
     };
   }, []);
 
-  return { execute, values, loading, serverError };
+  return { execute, values, serverError };
 }

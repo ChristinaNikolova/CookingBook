@@ -5,6 +5,7 @@ import CustomInput from "../../shared/CustomInput/CustomInput";
 import CustomSelect from "../../shared/CustomSelect/CustomSelect";
 import ImagePreview from "../../shared/ImagePreview/ImagePreview";
 import ServerError from "../../shared/ServerError/ServerError";
+import Loader from "../../Loader/Loader";
 import { ids, serverPaths, types } from "../../../utils/constants/global";
 import styles from "./Form.module.css";
 
@@ -31,7 +32,7 @@ export default function FormRecipe({
   deleteIngredientHandler,
 }) {
   const [categories, setCategories] = useState([]);
-  const { values } = useFetch([], serverPaths.CATEGORIES);
+  const { values, loading } = useFetch([], serverPaths.CATEGORIES);
 
   useEffect(() => {
     if (values) {
@@ -67,6 +68,10 @@ export default function FormRecipe({
       </div>
     );
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section id="form-recipe" className="section-form">

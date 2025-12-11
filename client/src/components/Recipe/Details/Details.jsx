@@ -23,33 +23,33 @@ export default function Details() {
   useTop();
 
   // todo check name values
-  const { values } = useFetch({}, `${serverPaths.RECIPES}/${id}`);
+  const { values: result } = useFetch({}, `${serverPaths.RECIPES}/${id}`);
   const { execute } = useAction();
 
   const categoryName = recipe?.category?.name;
   const categoryId = recipe?.category?._id;
 
   useEffect(() => {
-    if (values.title) {
+    if (result.title) {
       const normalizedIngredients = data.map(
-        values.ingredients,
+        result.ingredients,
         "isReady",
         false
       );
       const normalizedInstructions = data.map(
-        values.instructions,
+        result.instructions,
         "isReady",
         false
       );
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setRecipe({
-        ...values,
+        ...result,
         ingredients: normalizedIngredients,
         instructions: normalizedInstructions,
       });
-      setIsFav(values.isFav);
+      setIsFav(result.isFav);
     }
-  }, [values]);
+  }, [result]);
 
   const deleteHandler = useCallback(async () => {
     try {

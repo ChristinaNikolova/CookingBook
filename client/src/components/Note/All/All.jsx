@@ -14,7 +14,7 @@ import styles from "./All.module.css";
 export default function AllNotes() {
   const [notes, dispatch] = useReducer(noteReducer, []);
 
-  const { loading, values: result } = useFetch([], serverPaths.NOTES);
+  const { values: result, loading } = useFetch([], serverPaths.NOTES);
   const { execute, serverError } = useAction();
 
   useEffect(() => {

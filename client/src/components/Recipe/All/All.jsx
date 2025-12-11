@@ -22,23 +22,23 @@ export default function All() {
   useTop();
 
   // todo check loading
-  const { values, loading } = useFetch(
+  const { values: result, loading } = useFetch(
     {},
     `${serverPaths.RECIPES_CATEGORY}/${categoryId}/${currentPage}`
   );
 
   useEffect(() => {
-    if (values.recipes) {
+    if (result.recipes) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setRecipes(values.recipes);
-      setPagesCount(values.pagesCount);
+      setRecipes(result.recipes);
+      setPagesCount(result.pagesCount);
 
-      const newPage = Number(values.currentPage);
+      const newPage = Number(result.currentPage);
       if (currentPage !== newPage) {
         setCurrentPage(newPage);
       }
     }
-  }, [currentPage, values]);
+  }, [currentPage, result]);
 
   const paginationHandler = (direction) => {
     const value = direction === directions.PREV ? -1 : 1;
