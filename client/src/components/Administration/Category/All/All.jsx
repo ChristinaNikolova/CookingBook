@@ -5,11 +5,12 @@ import {
   useOptimistic,
   useState,
 } from "react";
-import useConfigToken from "../../../../hooks/useConfigToken";
+import useFetch from "../../../../hooks/useFetch";
+import useAction from "../../../../hooks/useAction";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
 import NoContent from "../../../NoContent/NoContent";
-import requester from "../../../../utils/helpers/requester";
+import Loader from "../../../Loader/Loader";
 import { categoryReducer } from "../../../../utils/reducers/category";
 import { data } from "../../../../utils/helpers/data";
 import { httpMethods, serverPaths } from "../../../../utils/constants/global";
@@ -26,16 +27,20 @@ export default function AllCategories() {
     categories,
     categoryReducer
   );
-  const config = useConfigToken();
+
+  const { values: result, loading } = useFetch(
+    [],
+    serverPaths.ADMIN_CATEGORIES
+  );
+  const { execute } = useAction();
 
   useEffect(() => {
-    requester(serverPaths.ADMIN_CATEGORIES, httpMethods.GET, null, config)
-      .then((res) => {
-        const normalizedCategories = data.map(res, "pending", false);
-        setCategories(normalizedCategories);
-      })
-      .catch((err) => console.error(err.message));
-  }, [config]);
+    if (result) {
+      const normalizedCategories = data.map(result, "pending", false);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCategories(normalizedCategories);
+    }
+  }, [result]);
 
   const deleteHandler = useCallback(
     async (categoryId) => {
@@ -51,19 +56,21 @@ export default function AllCategories() {
       });
 
       try {
-        await requester(
+        await execute(
           `${serverPaths.ADMIN_CATEGORIES}/${categoryId}`,
-          httpMethods.DELETE,
-          null,
-          config
+          httpMethods.DELETE
         );
         setCategories((state) => state.filter((x) => x.id !== categoryId));
       } catch (err) {
         console.error(err.message);
       }
     },
-    [config, dispatchOptimisticCategories]
+    [dispatchOptimisticCategories, execute]
   );
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (!categories.length) {
     return <NoContent title="категории" path="/admin/category/create" />;

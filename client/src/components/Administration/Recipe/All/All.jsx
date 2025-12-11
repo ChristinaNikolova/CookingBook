@@ -5,11 +5,12 @@ import {
   useOptimistic,
   useState,
 } from "react";
-import useConfigToken from "../../../../hooks/useConfigToken";
+import useFetch from "../../../../hooks/useFetch";
+import useAction from "../../../../hooks/useAction";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
 import NoContent from "../../../NoContent/NoContent";
-import requester from "../../../../utils/helpers/requester";
+import Loader from "../../../Loader/Loader";
 import { recipesReducer } from "../../../../utils/reducers/recipes";
 import { data } from "../../../../utils/helpers/data";
 import { httpMethods, serverPaths } from "../../../../utils/constants/global";
@@ -21,16 +22,17 @@ export default function AllRecipes() {
     recipes,
     recipesReducer
   );
-  const config = useConfigToken();
+
+  const { values: result, loading } = useFetch([], serverPaths.ADMIN_RECIPES);
+  const { execute } = useAction();
 
   useEffect(() => {
-    requester(serverPaths.ADMIN_RECIPES, httpMethods.GET, null, config)
-      .then((res) => {
-        const normalizedRecipes = data.map(res, "pending", false);
-        setRecipes(normalizedRecipes);
-      })
-      .catch((err) => console.error(err.message));
-  }, [config]);
+    if (result.length) {
+      const normalizedRecipes = data.map(result, "pending", false);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setRecipes(normalizedRecipes);
+    }
+  }, [result]);
 
   const deleteHandler = useCallback(
     async (recipeId) => {
@@ -46,20 +48,21 @@ export default function AllRecipes() {
       });
 
       try {
-        await requester(
+        await execute(
           `${serverPaths.ADMIN_RECIPES}/${recipeId}`,
-          httpMethods.DELETE,
-          null,
-          config
+          httpMethods.DELETE
         );
-
         setRecipes((state) => state.filter((x) => x.id !== recipeId));
       } catch (err) {
-        console.error(err);
+        console.error(err.message);
       }
     },
-    [config, dispatchOptimisticRecipes]
+    [dispatchOptimisticRecipes, execute]
   );
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (!recipes.length) {
     return <NoContent title="рецепти" path="/recipe/create" />;

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../../../hooks/useForm";
-import useConfigToken from "../../../../hooks/useConfigToken";
+import useFetch from "../../../../hooks/useFetch";
+import useAction from "../../../../hooks/useAction";
 import FormCategory from "../Form/Form";
-import requester from "../../../../utils/helpers/requester";
+import Loader from "../../../Loader/Loader";
 import { image } from "../../../../utils/helpers/image";
 import {
   httpMethods,
@@ -20,10 +21,8 @@ const initialValues = {
 export default function EditCategory() {
   const { id } = useParams();
   const [currentImage, setCurrentImage] = useState("");
-  const [serverError, setServerError] = useState("");
 
   const navigate = useNavigate();
-  const config = useConfigToken();
   const formRef = useRef();
 
   const {
@@ -35,43 +34,45 @@ export default function EditCategory() {
     setValues,
   } = useForm(editHandler, "category", initialValues, formRef);
 
+  const { values: result, loading } = useFetch(
+    initialValues,
+    `${serverPaths.ADMIN_CATEGORIES}/${id}`
+  );
+  const { execute, serverError } = useAction();
+
   useEffect(() => {
-    requester(
-      `${serverPaths.ADMIN_CATEGORIES}/${id}`,
-      httpMethods.GET,
-      null,
-      config
-    )
-      .then((res) => {
-        setValues(res);
-        setCurrentImage(image.getImageUrl(res.image));
-      })
-      .catch((err) => console.error(err.message));
-  }, [config, id, setValues]);
+    if (result.name) {
+      setValues(result);
+      // todo add general rule???
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCurrentImage(image.getImageUrl(result.image));
+    }
+  }, [result, setValues]);
 
   async function editHandler(data) {
-    setServerError("");
-
     if (!files.image) {
       delete data.image;
     }
 
     try {
-      await requester(
+      await execute(
         `${serverPaths.ADMIN_CATEGORIES}/${id}`,
         httpMethods.PUT,
-        data,
-        config
+        data
       );
       navigate("/admin/category/all");
     } catch (err) {
-      setServerError(err.message);
+      console.error(err.message);
     }
   }
 
   const backHandler = () => {
     navigate("/admin/category/all");
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <FormCategory

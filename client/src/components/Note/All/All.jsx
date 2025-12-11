@@ -1,30 +1,30 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
-import useConfigToken from "../../../hooks/useConfigToken";
+import { useCallback, useEffect, useReducer } from "react";
+import useFetch from "../../../hooks/useFetch";
+import useAction from "../../../hooks/useAction";
 import CreateNote from "../Create/Create";
 import NoteItem from "../NoteItem/NoteItem";
 import NoContent from "../../NoContent/NoContent";
 import Info from "../Info/Info";
 import ServerError from "../../shared/ServerError/ServerError";
+import Loader from "../../Loader/Loader";
 import { noteReducer } from "../../../utils/reducers/note";
-import requester from "../../../utils/helpers/requester";
 import { httpMethods, serverPaths } from "../../../utils/constants/global";
 import styles from "./All.module.css";
 
 export default function AllNotes() {
   const [notes, dispatch] = useReducer(noteReducer, []);
-  const [serverError, setServerError] = useState("");
-  const config = useConfigToken();
+
+  const { loading, values: result } = useFetch([], serverPaths.NOTES);
+  const { execute, serverError } = useAction();
 
   useEffect(() => {
-    requester(serverPaths.NOTES, httpMethods.GET, null, config)
-      .then((res) => {
-        dispatch({
-          type: "ALL",
-          payload: res,
-        });
-      })
-      .catch((err) => console.error(err.message));
-  }, [config]);
+    if (result.length) {
+      dispatch({
+        type: "ALL",
+        payload: result,
+      });
+    }
+  }, [result]);
 
   const createHandler = useCallback((note) => {
     dispatch({
@@ -35,25 +35,26 @@ export default function AllNotes() {
 
   const deleteHandler = useCallback(
     async (noteId) => {
-      setServerError("");
-
       try {
-        await requester(
+        await execute(
           `${serverPaths.NOTES}/${noteId}`,
           httpMethods.DELETE,
-          null,
-          config
+          null
         );
         dispatch({
           type: "DELETE",
           payload: noteId,
         });
       } catch (err) {
-        setServerError(err.message);
+        console.error(err.message);
       }
     },
-    [config]
+    [execute]
   );
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section id="notes">

@@ -1,17 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useTop from "../../../hooks/useTop";
-import useConfigToken from "../../../hooks/useConfigToken";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useAction from "../../../hooks/useAction";
 import Button from "../../shared/Button/Button";
 import ButtonLink from "../../shared/ButtonLink/ButtonLink";
 import Loader from "../../Loader/Loader";
-import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
 import { data } from "../../../utils/helpers/data";
 import { httpMethods, serverPaths } from "../../../utils/constants/global";
 import styles from "./Details.module.css";
+import useFetch from "../../../hooks/useFetch";
 
 export default function Details() {
   const { recipeId: id } = useParams();
@@ -21,36 +20,36 @@ export default function Details() {
 
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  const config = useConfigToken();
   useTop();
 
+  // todo check name values
+  const { values } = useFetch({}, `${serverPaths.RECIPES}/${id}`);
   const { execute } = useAction();
 
   const categoryName = recipe?.category?.name;
   const categoryId = recipe?.category?._id;
 
   useEffect(() => {
-    requester(`${serverPaths.RECIPES}/${id}`, httpMethods.GET, null, config)
-      .then((res) => {
-        const normalizedIngredients = data.map(
-          res.ingredients,
-          "isReady",
-          false
-        );
-        const normalizedInstructions = data.map(
-          res.instructions,
-          "isReady",
-          false
-        );
-        setRecipe({
-          ...res,
-          ingredients: normalizedIngredients,
-          instructions: normalizedInstructions,
-        });
-        setIsFav(res.isFav);
-      })
-      .catch((err) => console.error(err.message));
-  }, [id, config]);
+    if (values.title) {
+      const normalizedIngredients = data.map(
+        values.ingredients,
+        "isReady",
+        false
+      );
+      const normalizedInstructions = data.map(
+        values.instructions,
+        "isReady",
+        false
+      );
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setRecipe({
+        ...values,
+        ingredients: normalizedIngredients,
+        instructions: normalizedInstructions,
+      });
+      setIsFav(values.isFav);
+    }
+  }, [values]);
 
   const deleteHandler = useCallback(async () => {
     try {
@@ -110,10 +109,10 @@ export default function Details() {
     };
 
     try {
-      await requester(serverPaths.NOTES, httpMethods.POST, data, config);
+      await execute(serverPaths.NOTES, httpMethods.POST, data);
       navigate("/notes");
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
     }
   };
 
@@ -175,9 +174,9 @@ export default function Details() {
             <li className={styles["details-top-icon-item"]}>
               <i className="fa-solid fa-list" title="Категория"></i>
               <Link
-                to={`/recipe/${recipe.category.name}/${recipe.category._id}`}
+                to={`/recipe/${recipe?.category?.name}/${recipe?.category?._id}`}
               >
-                {recipe.category.name}
+                {recipe?.category?.name}
               </Link>
             </li>
           </ul>

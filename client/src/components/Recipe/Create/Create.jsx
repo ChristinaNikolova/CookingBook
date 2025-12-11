@@ -1,10 +1,9 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
-import useConfigToken from "../../../hooks/useConfigToken";
+import useAction from "../../../hooks/useAction";
 import FormRecipe from "../Form/Form";
 import { validator } from "../../../utils/helpers/validator";
-import requester from "../../../utils/helpers/requester";
 import {
   httpMethods,
   ids,
@@ -31,17 +30,18 @@ export default function CreateRecipe() {
   const [instructionsTouched, setInstructionsTouched] = useState([]);
   const [ingredientsTouched, setIngredientsTouched] = useState([]);
 
-  const [serverError, setServerError] = useState("");
+  const { execute, serverError } = useAction();
+
+  // todo clean useConfigToken()
+  // todo checkbox problem again !!!
 
   const navigate = useNavigate();
-  const config = useConfigToken();
   const formRef = useRef();
 
   const { fieldHandler, submitHandler, errors, disabledForm, files, values } =
     useForm(createHandler, "recipe", initialValues, formRef);
 
   async function createHandler(data) {
-    setServerError("");
     setCurrentImage("");
 
     data.append(
@@ -54,15 +54,10 @@ export default function CreateRecipe() {
     );
 
     try {
-      const result = await requester(
-        serverPaths.RECIPES,
-        httpMethods.POST,
-        data,
-        config
-      );
+      const result = await execute(serverPaths.RECIPES, httpMethods.POST, data);
       navigate(`/recipe/${result.id}`);
     } catch (err) {
-      setServerError(err.message);
+      console.error(err.message);
       setCurrentImage(files.image);
     }
   }

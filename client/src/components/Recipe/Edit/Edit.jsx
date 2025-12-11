@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
-import useConfigToken from "../../../hooks/useConfigToken";
+import useFetch from "../../../hooks/useFetch";
+import useAction from "../../../hooks/useAction";
 import FormRecipe from "../Form/Form";
+import Loader from "../../Loader/Loader";
 import { validator } from "../../../utils/helpers/validator";
-import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
 import {
   httpMethods,
@@ -31,10 +32,8 @@ export default function EditRecipe() {
   const [ingredientErrors, setIngredientErrors] = useState([]);
   const [instructionsTouched, setInstructionsTouched] = useState([]);
   const [ingredientsTouched, setIngredientsTouched] = useState([]);
-  const [serverError, setServerError] = useState("");
 
   const navigate = useNavigate();
-  const config = useConfigToken();
   const formRef = useRef();
 
   const {
@@ -46,29 +45,32 @@ export default function EditRecipe() {
     setValues,
   } = useForm(editHandler, "recipe", initialValues, formRef);
 
+  const { loading, values: result } = useFetch(
+    initialValues,
+    `${serverPaths.RECIPES}/${id}`
+  );
+  const { execute, serverError } = useAction();
+
   useEffect(() => {
-    requester(`${serverPaths.RECIPES}/${id}`, httpMethods.GET, null, config)
-      .then((res) => {
-        setValues({
-          title: res.title,
-          summary: res.summary,
-          neededTime: res.neededTime,
-          portions: res.portions,
-          category: res.category._id,
-          image: res.image,
-          isBabySafe: res.isBabySafe,
-        });
-        setCurrentImage(image.getImageUrl(res.image));
-        setInstructions(res.instructions.map((x) => x.description));
-        setIngredients(res.ingredients.map((x) => x.description));
-      })
-      .catch((err) => {
-        console.error(err.message);
+    if (result.title) {
+      setValues({
+        title: result.title,
+        summary: result.summary,
+        neededTime: result.neededTime,
+        portions: result.portions,
+        category: result.category._id,
+        image: result.image,
+        isBabySafe: result.isBabySafe,
       });
-  }, [config, id, setValues]);
+
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCurrentImage(image.getImageUrl(result.image));
+      setInstructions(result.instructions.map((x) => x.description));
+      setIngredients(result.ingredients.map((x) => x.description));
+    }
+  }, [setValues, result]);
 
   async function editHandler(data) {
-    setServerError("");
     let formData = data;
 
     if (!(data instanceof FormData)) {
@@ -92,15 +94,10 @@ export default function EditRecipe() {
     }
 
     try {
-      await requester(
-        `${serverPaths.RECIPES}/${id}`,
-        httpMethods.PUT,
-        formData,
-        config
-      );
+      await execute(`${serverPaths.RECIPES}/${id}`, httpMethods.PUT, formData);
       navigate(`/recipe/${id}`);
     } catch (err) {
-      setServerError(err.message);
+      console.error(err.message);
     }
   }
 
@@ -161,6 +158,7 @@ export default function EditRecipe() {
     setValues(newValues);
   };
 
+  // todo fix useform ref
   const isFormValid = () => {
     const hasInstructionErrors = areErrors(instructions, "validateInstruction");
     const hasIngredientErrors = areErrors(ingredients, "validateIngredient");
@@ -175,6 +173,10 @@ export default function EditRecipe() {
   const backHandler = () => {
     navigate(`/recipe/${id}`);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <FormRecipe
