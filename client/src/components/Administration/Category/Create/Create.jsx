@@ -35,7 +35,7 @@ export default function CreateCategory() {
       await execute(serverPaths.ADMIN_CATEGORIES, httpMethods.POST, data);
       navigate("/admin/category/all");
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
       setCurrentImage(files.image);
     }
   }

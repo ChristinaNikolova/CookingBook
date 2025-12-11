@@ -1,34 +1,8 @@
-import { useEffect, useState } from "react";
 import styles from "./ServerError.module.css";
 
-export default function ServerError({ error, duration = 3000 }) {
-  const [isVisible, setIsVisible] = useState(true);
-  const [isFading, setIsFading] = useState(false);
-
-  useEffect(() => {
-    const visibleTimer = setTimeout(() => {
-      setIsVisible(false);
-    }, duration);
-
-    const fadeTimer = setTimeout(() => {
-      setIsFading(true);
-    }, duration - 500);
-
-    return () => {
-      clearTimeout(visibleTimer);
-      clearTimeout(fadeTimer);
-    };
-  }, [duration]);
-
-  if (!isVisible) {
-    return null;
-  }
-
+export default function ServerError({ error }) {
   return (
-    <section
-      id={styles["server-error"]}
-      className={isFading ? styles["fade-out"] : styles["fade-in"]}
-    >
+    <section id={styles["server-error"]}>
       <p className="error">{error}</p>
     </section>
   );

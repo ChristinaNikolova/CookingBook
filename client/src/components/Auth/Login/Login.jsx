@@ -29,8 +29,7 @@ export default function Login() {
       userAuth(result);
       navigate("/");
     } catch (err) {
-      // todo err or error.messages + console.error
-      console.error(err);
+      console.error(err.message);
     }
   }
 
