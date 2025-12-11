@@ -23,7 +23,7 @@ export default function CreateNote({ onCreate }) {
       setValues(initialValues);
       onCreate(result);
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
     }
   }
 

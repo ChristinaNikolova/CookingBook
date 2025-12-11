@@ -63,7 +63,7 @@ export default function EditRecipe() {
         setIngredients(res.ingredients.map((x) => x.description));
       })
       .catch((err) => {
-        console.error(err);
+        console.error(err.message);
       });
   }, [config, id, setValues]);
 

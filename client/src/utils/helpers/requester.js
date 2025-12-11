@@ -48,7 +48,7 @@ export default async function requester(
     if (err.name === "AbortError") {
       console.log(global.REQUEST_ABORTED);
     } else {
-      console.error(err);
+      console.error(err.message);
     }
     throw err;
   }

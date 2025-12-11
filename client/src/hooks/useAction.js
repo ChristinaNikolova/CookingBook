@@ -42,7 +42,7 @@ export default function useAction() {
         return result;
       } catch (err) {
         if (err.name !== "AbortError") {
-          console.error(err);
+          console.error(err.message);
           setServerError(err.message);
         }
         throw err;

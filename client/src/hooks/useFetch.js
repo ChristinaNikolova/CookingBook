@@ -28,7 +28,7 @@ export default function useFetch(
       })
       .catch((err) => {
         if (err.name !== "AbortError") {
-          console.error(err);
+          console.error(err.message);
         }
       })
       .finally(() => {
