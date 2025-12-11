@@ -6,7 +6,7 @@ export default function useForm(
   callback,
   validatorName,
   initialValues,
-  formRef = false
+  formRef
 ) {
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
@@ -14,10 +14,14 @@ export default function useForm(
   const [files, setFiles] = useState({});
 
   useEffect(() => {
-    formRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    const timer = setTimeout(() => {
+      formRef?.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 50);
+
+    return () => clearTimeout(timer);
   }, [formRef]);
 
   const fieldHandler = (fieldName) => {

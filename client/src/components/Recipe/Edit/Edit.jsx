@@ -156,7 +156,6 @@ export default function EditRecipe() {
     setValues(newValues);
   };
 
-  // todo fix useform ref
   const isFormValid = () => {
     const hasInstructionErrors = areErrors(instructions, "validateInstruction");
     const hasIngredientErrors = areErrors(ingredients, "validateIngredient");
