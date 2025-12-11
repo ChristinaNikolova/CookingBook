@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import useFetch from "../../../hooks/useFetch";
 import useAction from "../../../hooks/useAction";
+import useDynamicInput from "../../../hooks/useDynamicInput";
 import FormRecipe from "../Form/Form";
 import Loader from "../../Loader/Loader";
 import { validator } from "../../../utils/helpers/validator";
@@ -25,16 +26,30 @@ const initialValues = {
 
 export default function EditRecipe() {
   const { id } = useParams();
-  const [currentImage, setCurrentImage] = useState("");
-  const [instructions, setInstructions] = useState([""]);
-  const [ingredients, setIngredients] = useState([""]);
-  const [instructionErrors, setInstructionErrors] = useState([]);
-  const [ingredientErrors, setIngredientErrors] = useState([]);
-  const [instructionsTouched, setInstructionsTouched] = useState([]);
-  const [ingredientsTouched, setIngredientsTouched] = useState([]);
-
   const navigate = useNavigate();
   const formRef = useRef();
+
+  const [currentImage, setCurrentImage] = useState("");
+
+  const {
+    addInputHandler: addInputInstructionsHandler,
+    updateHandler: updateInstructionHandler,
+    validateHandler: validateInstructionHandler,
+    deleteHandler: deleteInstructionHandler,
+    values: instructions,
+    setValues: setInstructions,
+    valuesErrors: instructionErrors,
+  } = useDynamicInput("validateInstruction");
+
+  const {
+    addInputHandler: addInputIngredientsHandler,
+    updateHandler: updateIngredientHandler,
+    validateHandler: validateIngredientHandler,
+    deleteHandler: deleteIngredientHandler,
+    values: ingredients,
+    setValues: setIngredients,
+    valuesErrors: ingredientErrors,
+  } = useDynamicInput("validateIngredient");
 
   const {
     fieldHandler,
@@ -66,7 +81,7 @@ export default function EditRecipe() {
       setInstructions(result.instructions.map((x) => x.description));
       setIngredients(result.ingredients.map((x) => x.description));
     }
-  }, [setValues, result]);
+  }, [result, setIngredients, setInstructions, setValues]);
 
   async function editHandler(data) {
     let formData = data;
@@ -98,63 +113,6 @@ export default function EditRecipe() {
       console.error(err.message);
     }
   }
-
-  const addInputHandler = (name) => {
-    name === "ingredient"
-      ? setIngredients([...ingredients, ""])
-      : setInstructions([...instructions, ""]);
-  };
-
-  const updateInstructionHandler = (index, value) => {
-    updateStateHandler(index, value, instructions, setInstructions);
-  };
-
-  const validateInstructionHandler = (index) => {
-    updateStateHandler(
-      index,
-      true,
-      instructionsTouched,
-      setInstructionsTouched
-    );
-
-    const error = validator.validateInstruction(instructions[index]);
-    updateStateHandler(index, error, instructionErrors, setInstructionErrors);
-  };
-
-  const deleteInstructionHandler = (index) => {
-    deleteHandler(index, instructions, setInstructions);
-    deleteHandler(index, instructionErrors, setInstructionErrors);
-    deleteHandler(index, instructionsTouched, setInstructionsTouched);
-  };
-
-  const updateIngredientHandler = (index, value) => {
-    updateStateHandler(index, value, ingredients, setIngredients);
-  };
-
-  const validateIngredientHandler = (index) => {
-    updateStateHandler(index, true, ingredientsTouched, setIngredientsTouched);
-
-    const error = validator.validateIngredient(ingredients[index]);
-    updateStateHandler(index, error, ingredientErrors, setIngredientErrors);
-  };
-
-  const deleteIngredientHandler = (index) => {
-    deleteHandler(index, ingredients, setIngredients);
-    deleteHandler(index, ingredientErrors, setIngredientErrors);
-    deleteHandler(index, ingredientsTouched, setIngredientsTouched);
-  };
-
-  const updateStateHandler = (index, newValue, values, setFunc) => {
-    const newValues = [...values];
-    newValues[index] = newValue;
-    setFunc(newValues);
-  };
-
-  const deleteHandler = (index, values, setValues) => {
-    const newValues = [...values];
-    newValues.splice(index, 1);
-    setValues(newValues);
-  };
 
   const isFormValid = () => {
     const hasInstructionErrors = areErrors(instructions, "validateInstruction");
@@ -190,7 +148,8 @@ export default function EditRecipe() {
       backHandler={backHandler}
       instructionErrors={instructionErrors}
       ingredientErrors={ingredientErrors}
-      addInputHandler={addInputHandler}
+      addInputHandlerIngredients={addInputIngredientsHandler}
+      addInputHandlerInstructions={addInputInstructionsHandler}
       updateInstructionHandler={updateInstructionHandler}
       validateInstructionHandler={validateInstructionHandler}
       deleteInstructionHandler={deleteInstructionHandler}

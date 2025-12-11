@@ -22,7 +22,8 @@ export default function FormRecipe({
   submitHandler,
   fieldHandler,
   backHandler,
-  addInputHandler,
+  addInputHandlerInstructions,
+  addInputHandlerIngredients,
   updateInstructionHandler,
   validateInstructionHandler,
   deleteInstructionHandler,
@@ -128,7 +129,7 @@ export default function FormRecipe({
           <Button
             text=" + инструкция"
             disabled={false}
-            onClick={() => addInputHandler("instruction")}
+            onClick={addInputHandlerInstructions}
           />
         </div>
 
@@ -154,7 +155,7 @@ export default function FormRecipe({
           <Button
             text="+ продукт"
             disabled={false}
-            onClick={() => addInputHandler("ingredient")}
+            onClick={addInputHandlerIngredients}
           />
         </div>
 

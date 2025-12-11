@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import useAction from "../../../hooks/useAction";
+import useDynamicInput from "../../../hooks/useDynamicInput";
 import FormRecipe from "../Form/Form";
 import { validator } from "../../../utils/helpers/validator";
 import {
@@ -20,18 +21,30 @@ const initialValues = {
   image: "",
   isBabySafe: false,
 };
-// todo checkbox problem again !!!
-export default function CreateRecipe() {
-  const [currentImage, setCurrentImage] = useState("");
-  const [instructions, setInstructions] = useState([""]);
-  const [ingredients, setIngredients] = useState([""]);
-  const [instructionErrors, setInstructionErrors] = useState([]);
-  const [ingredientErrors, setIngredientErrors] = useState([]);
-  const [instructionsTouched, setInstructionsTouched] = useState([]);
-  const [ingredientsTouched, setIngredientsTouched] = useState([]);
 
+export default function CreateRecipe() {
   const navigate = useNavigate();
   const formRef = useRef();
+
+  const [currentImage, setCurrentImage] = useState("");
+
+  const {
+    addInputHandler: addInputInstructionsHandler,
+    updateHandler: updateInstructionHandler,
+    validateHandler: validateInstructionHandler,
+    deleteHandler: deleteInstructionHandler,
+    values: instructions,
+    valuesErrors: instructionErrors,
+  } = useDynamicInput("validateInstruction");
+
+  const {
+    addInputHandler: addInputIngredientsHandler,
+    updateHandler: updateIngredientHandler,
+    validateHandler: validateIngredientHandler,
+    deleteHandler: deleteIngredientHandler,
+    values: ingredients,
+    valuesErrors: ingredientErrors,
+  } = useDynamicInput("validateIngredient");
 
   const { fieldHandler, submitHandler, errors, disabledForm, files, values } =
     useForm(createHandler, "recipe", initialValues, formRef);
@@ -59,63 +72,6 @@ export default function CreateRecipe() {
     }
   }
 
-  const addInputHandler = (name) => {
-    name === "ingredient"
-      ? setIngredients([...ingredients, ""])
-      : setInstructions([...instructions, ""]);
-  };
-
-  const updateInstructionHandler = (index, value) => {
-    updateStateHandler(index, value, instructions, setInstructions);
-  };
-
-  const validateInstructionHandler = (index) => {
-    updateStateHandler(
-      index,
-      true,
-      instructionsTouched,
-      setInstructionsTouched
-    );
-
-    const error = validator.validateInstruction(instructions[index]);
-    updateStateHandler(index, error, instructionErrors, setInstructionErrors);
-  };
-
-  const deleteInstructionHandler = (index) => {
-    deleteHandler(index, instructions, setInstructions);
-    deleteHandler(index, instructionErrors, setInstructionErrors);
-    deleteHandler(index, instructionsTouched, setInstructionsTouched);
-  };
-
-  const updateIngredientHandler = (index, value) => {
-    updateStateHandler(index, value, ingredients, setIngredients);
-  };
-
-  const validateIngredientHandler = (index) => {
-    updateStateHandler(index, true, ingredientsTouched, setIngredientsTouched);
-
-    const error = validator.validateIngredient(ingredients[index]);
-    updateStateHandler(index, error, ingredientErrors, setIngredientErrors);
-  };
-
-  const deleteIngredientHandler = (index) => {
-    deleteHandler(index, ingredients, setIngredients);
-    deleteHandler(index, ingredientErrors, setIngredientErrors);
-    deleteHandler(index, ingredientsTouched, setIngredientsTouched);
-  };
-
-  const updateStateHandler = (index, newValue, values, setFunc) => {
-    const newValues = [...values];
-    newValues[index] = newValue;
-    setFunc(newValues);
-  };
-
-  const deleteHandler = (index, values, setValues) => {
-    const newValues = [...values];
-    newValues.splice(index, 1);
-    setValues(newValues);
-  };
-
   const isFormValid = () => {
     const hasInstructionErrors = areErrors(instructions, "validateInstruction");
     const hasIngredientErrors = areErrors(ingredients, "validateIngredient");
@@ -133,7 +89,6 @@ export default function CreateRecipe() {
     return input.some((x) => validator[validatorFunc](x));
   };
 
-  // todo extract same logic
   return (
     <FormRecipe
       type={types.CREATE}
@@ -148,7 +103,8 @@ export default function CreateRecipe() {
       fieldHandler={fieldHandler}
       instructionErrors={instructionErrors}
       ingredientErrors={ingredientErrors}
-      addInputHandler={addInputHandler}
+      addInputHandlerIngredients={addInputIngredientsHandler}
+      addInputHandlerInstructions={addInputInstructionsHandler}
       updateInstructionHandler={updateInstructionHandler}
       validateInstructionHandler={validateInstructionHandler}
       deleteInstructionHandler={deleteInstructionHandler}
