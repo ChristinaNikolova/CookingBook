@@ -79,13 +79,13 @@ router.get("/byCategory/:id/:page", hasUser(), async (req, res) => {
       totalRecipesByCategory / pagination.RECIPES_PER_PAGE
     );
 
-    const recipe = await getByCategory(
+    const recipes = await getByCategory(
       id,
       userId,
       pagination.RECIPES_PER_PAGE,
       skip
     );
-    res.json({ recipe, pagesCount, currentPage });
+    res.json({ recipes, pagesCount, currentPage });
   } catch (error) {
     const message = mapErrors(error);
     res.status(400).json({ message });

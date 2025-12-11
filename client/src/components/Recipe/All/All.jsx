@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
 import useTop from "../../../hooks/useTop";
-import useConfigToken from "../../../hooks/useConfigToken";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import NoContent from "../../NoContent/NoContent";
 import Pagination from "../../shared/Pagination/Pagination";
-import requester from "../../../utils/helpers/requester";
+import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
-import {
-  directions,
-  httpMethods,
-  serverPaths,
-} from "../../../utils/constants/global";
+import { directions, serverPaths } from "../../../utils/constants/global";
 
 export default function All() {
   const { categoryName, categoryId } = useParams();
@@ -23,32 +19,35 @@ export default function All() {
   const [pagesCount, setPagesCount] = useState(1);
   const [recipes, setRecipes] = useState([]);
 
-  const config = useConfigToken();
   useTop();
 
-  useEffect(() => {
-    requester(
-      `${serverPaths.RECIPES_CATEGORY}/${categoryId}/${currentPage}`,
-      httpMethods.GET,
-      null,
-      config
-    )
-      .then((res) => {
-        setRecipes(res.recipe);
-        setPagesCount(res.pagesCount);
+  // todo check loading
+  const { values, loading } = useFetch(
+    {},
+    `${serverPaths.RECIPES_CATEGORY}/${categoryId}/${currentPage}`
+  );
 
-        const newPage = Number(res.currentPage);
-        if (currentPage !== newPage) {
-          setCurrentPage(newPage);
-        }
-      })
-      .catch((err) => console.error(err.message));
-  }, [config, categoryId, currentPage]);
+  useEffect(() => {
+    if (values.recipes) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setRecipes(values.recipes);
+      setPagesCount(values.pagesCount);
+
+      const newPage = Number(values.currentPage);
+      if (currentPage !== newPage) {
+        setCurrentPage(newPage);
+      }
+    }
+  }, [currentPage, values]);
 
   const paginationHandler = (direction) => {
     const value = direction === directions.PREV ? -1 : 1;
     setCurrentPage((state) => state + value);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section id="recipes">
