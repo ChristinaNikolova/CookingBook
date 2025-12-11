@@ -7,7 +7,6 @@ import useAction from "../../../hooks/useAction";
 import Button from "../../shared/Button/Button";
 import ButtonLink from "../../shared/ButtonLink/ButtonLink";
 import Loader from "../../Loader/Loader";
-import ServerError from "../../shared/ServerError/ServerError";
 import requester from "../../../utils/helpers/requester";
 import { image } from "../../../utils/helpers/image";
 import { data } from "../../../utils/helpers/data";
@@ -25,7 +24,7 @@ export default function Details() {
   const config = useConfigToken();
   useTop();
 
-  const { execute, serverError } = useAction();
+  const { execute } = useAction();
 
   const categoryName = recipe?.category?.name;
   const categoryId = recipe?.category?._id;
@@ -140,7 +139,6 @@ export default function Details() {
 
   return (
     <section id={styles.details}>
-      {serverError && <ServerError error={serverError} />}
       <div className={styles["details-top-wrapper"]}>
         <div className="details-top-left-wrapper">
           <div className={styles["details-top-img-wrapper"]}>

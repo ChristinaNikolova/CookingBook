@@ -16,7 +16,6 @@ import { httpMethods, serverPaths } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
 // todo add pagination => url update???
-// todo useFetch
 
 // todo final test
 // todo add lines

@@ -11,7 +11,6 @@ export default function useFetch(
 ) {
   const [values, setValues] = useState(initialValue);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const config = useConfigToken();
 
   useEffect(() => {
@@ -26,12 +25,10 @@ export default function useFetch(
           return;
         }
         setValues(res);
-        setError("");
       })
       .catch((err) => {
         if (err.name !== "AbortError") {
           console.error(err);
-          setError(err.message);
         }
       })
       .finally(() => {
@@ -46,5 +43,5 @@ export default function useFetch(
     };
   }, [url, method, data, config]);
 
-  return { values, loading, error };
+  return { values, loading };
 }
