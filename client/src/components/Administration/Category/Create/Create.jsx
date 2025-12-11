@@ -16,9 +16,10 @@ const initialValues = {
 };
 
 export default function CreateCategory() {
-  const [currentImage, setCurrentImage] = useState("");
   const navigate = useNavigate();
   const formRef = useRef();
+
+  const [currentImage, setCurrentImage] = useState("");
 
   const { execute, serverError } = useAction();
   const { fieldHandler, submitHandler, errors, disabledForm, files } = useForm(

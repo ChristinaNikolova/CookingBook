@@ -20,10 +20,10 @@ const initialValues = {
 
 export default function EditCategory() {
   const { id } = useParams();
-  const [currentImage, setCurrentImage] = useState("");
-
   const navigate = useNavigate();
   const formRef = useRef();
+
+  const [currentImage, setCurrentImage] = useState("");
 
   const {
     fieldHandler,
