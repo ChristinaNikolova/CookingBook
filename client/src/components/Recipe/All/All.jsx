@@ -12,12 +12,11 @@ import { directions, serverPaths } from "../../../utils/constants/global";
 
 export default function All() {
   const { categoryName, categoryId } = useParams();
-  const [searchParams] = useSearchParams();
-  const initialPage = Number(searchParams.get("page") ?? 1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get("page") ?? 1);
 
-  const [currentPage, setCurrentPage] = useState(initialPage);
-  const [pagesCount, setPagesCount] = useState(1);
   const [recipes, setRecipes] = useState([]);
+  const [pagesCount, setPagesCount] = useState(1);
 
   useTop();
 
@@ -30,17 +29,13 @@ export default function All() {
     if (result.recipes) {
       setRecipes(result.recipes);
       setPagesCount(result.pagesCount);
-
-      const newPage = Number(result.currentPage);
-      if (currentPage !== newPage) {
-        setCurrentPage(newPage);
-      }
     }
-  }, [currentPage, result]);
+  }, [result]);
 
   const paginationHandler = (direction) => {
     const value = direction === directions.PREV ? -1 : 1;
-    setCurrentPage((state) => state + value);
+    const nextPage = currentPage + value;
+    setSearchParams({ page: nextPage });
   };
 
   if (loading) {
