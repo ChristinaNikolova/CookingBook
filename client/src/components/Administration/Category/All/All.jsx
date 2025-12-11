@@ -17,6 +17,7 @@ import { httpMethods, serverPaths } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
 // todo add pagination => url update???
+// todo checkbox problem again !!!
 
 // todo final test
 // todo add lines
