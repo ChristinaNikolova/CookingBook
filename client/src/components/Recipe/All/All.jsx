@@ -21,7 +21,6 @@ export default function All() {
 
   useTop();
 
-  // todo check loading
   const { values: result, loading } = useFetch(
     {},
     `${serverPaths.RECIPES_CATEGORY}/${categoryId}/${currentPage}`

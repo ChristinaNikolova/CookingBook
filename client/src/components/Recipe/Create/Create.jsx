@@ -20,7 +20,7 @@ const initialValues = {
   image: "",
   isBabySafe: false,
 };
-
+// todo checkbox problem again !!!
 export default function CreateRecipe() {
   const [currentImage, setCurrentImage] = useState("");
   const [instructions, setInstructions] = useState([""]);
@@ -30,16 +30,13 @@ export default function CreateRecipe() {
   const [instructionsTouched, setInstructionsTouched] = useState([]);
   const [ingredientsTouched, setIngredientsTouched] = useState([]);
 
-  const { execute, serverError } = useAction();
-
-  // todo clean useConfigToken()
-  // todo checkbox problem again !!!
-
   const navigate = useNavigate();
   const formRef = useRef();
 
   const { fieldHandler, submitHandler, errors, disabledForm, files, values } =
     useForm(createHandler, "recipe", initialValues, formRef);
+
+  const { execute, serverError } = useAction();
 
   async function createHandler(data) {
     setCurrentImage("");

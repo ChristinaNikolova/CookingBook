@@ -22,7 +22,6 @@ export default function Details() {
   const { user } = useAuthContext();
   useTop();
 
-  // todo check name values
   const { values: result } = useFetch({}, `${serverPaths.RECIPES}/${id}`);
   const { execute } = useAction();
 

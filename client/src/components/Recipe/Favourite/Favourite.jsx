@@ -6,13 +6,8 @@ import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
 import { serverPaths } from "../../../utils/constants/global";
 
-const initialValues = [];
-
 export default function Favourite() {
-  const { values: favRecipes, loading } = useFetch(
-    initialValues,
-    serverPaths.USERS_FAV
-  );
+  const { values: favRecipes, loading } = useFetch([], serverPaths.USERS_FAV);
 
   if (loading) {
     return <Loader />;

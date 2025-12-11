@@ -6,13 +6,8 @@ import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
 import { serverPaths } from "../../../utils/constants/global";
 
-const initialValues = [];
-
 export default function LastThree() {
-  const { values: lastThreeRecipes, loading } = useFetch(
-    initialValues,
-    serverPaths.USERS
-  );
+  const { values: lastThreeRecipes, loading } = useFetch([], serverPaths.USERS);
 
   if (loading) {
     return <Loader />;

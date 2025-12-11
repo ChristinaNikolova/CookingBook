@@ -5,14 +5,9 @@ import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
 import { ids, serverPaths } from "../../../utils/constants/global";
 
-const initialValues = [];
-
 export default function Categories() {
-  const { values: result, loading } = useFetch(
-    initialValues,
-    serverPaths.CATEGORIES
-  );
-
+  const { values: result, loading } = useFetch([], serverPaths.CATEGORIES);
+  // todo useEffect???
   const categories = result.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
 
   if (loading) {

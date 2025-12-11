@@ -7,18 +7,14 @@ import Loader from "../../Loader/Loader";
 import { image } from "../../../utils/helpers/image";
 import { serverPaths } from "../../../utils/constants/global";
 
-const initialValues = [];
-
 export default function Search() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("searched") || "";
 
   const { values: searchedRecipes, loading } = useFetch(
-    initialValues,
+    [],
     `${serverPaths.RECIPES_SEARCH}/${query}`
   );
-
-  // to do use effect quety dep appa
 
   if (loading) {
     return <Loader />;
