@@ -7,7 +7,7 @@ import { ids, serverPaths } from "../../../utils/constants/global";
 
 export default function Categories() {
   const { values: result, loading } = useFetch([], serverPaths.CATEGORIES);
-  // todo useEffect???
+
   const categories = result.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
 
   if (loading) {

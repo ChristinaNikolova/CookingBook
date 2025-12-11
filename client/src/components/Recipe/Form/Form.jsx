@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import useFetch from "../../../hooks/useFetch";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
@@ -31,20 +30,12 @@ export default function FormRecipe({
   validateIngredientHandler,
   deleteIngredientHandler,
 }) {
-  const [categories, setCategories] = useState([]);
-  const { values, loading } = useFetch([], serverPaths.CATEGORIES);
+  const { values: result, loading } = useFetch([], serverPaths.CATEGORIES);
 
-  useEffect(() => {
-    if (values) {
-      let result = values;
-
-      if (type === types.EDIT) {
-        result = result.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
-      }
-
-      setCategories(result);
-    }
-  }, [values, type]);
+  const categories =
+    type === types.EDIT
+      ? result.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID)
+      : result;
 
   const getTitle = () => {
     return type === types.CREATE ? "Създай рецепта" : "Редактирай рецептата";
