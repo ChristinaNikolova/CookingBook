@@ -29,7 +29,7 @@ export default function AllRecipes() {
         const normalizedRecipes = data.map(res, "pending", false);
         setRecipes(normalizedRecipes);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err.message));
   }, [config]);
 
   const deleteHandler = useCallback(

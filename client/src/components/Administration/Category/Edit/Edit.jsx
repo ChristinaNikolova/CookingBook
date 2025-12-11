@@ -46,7 +46,7 @@ export default function EditCategory() {
         setValues(res);
         setCurrentImage(image.getImageUrl(res.image));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err.message));
   }, [config, id, setValues]);
 
   async function editHandler(data) {

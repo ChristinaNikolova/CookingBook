@@ -49,7 +49,7 @@ export default function Details() {
         });
         setIsFav(res.isFav);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err.message));
   }, [id, config]);
 
   const deleteHandler = useCallback(async () => {

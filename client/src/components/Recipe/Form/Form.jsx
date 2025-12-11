@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
-import useConfigToken from "../../../hooks/useConfigToken";
+import useFetch from "../../../hooks/useFetch";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import CustomSelect from "../../shared/CustomSelect/CustomSelect";
 import ImagePreview from "../../shared/ImagePreview/ImagePreview";
 import ServerError from "../../shared/ServerError/ServerError";
-import requester from "../../../utils/helpers/requester";
-import {
-  httpMethods,
-  ids,
-  serverPaths,
-  types,
-} from "../../../utils/constants/global";
+import { ids, serverPaths, types } from "../../../utils/constants/global";
 import styles from "./Form.module.css";
 
 export default function FormRecipe({
@@ -37,20 +31,19 @@ export default function FormRecipe({
   deleteIngredientHandler,
 }) {
   const [categories, setCategories] = useState([]);
-  const config = useConfigToken();
+  const { values } = useFetch([], serverPaths.CATEGORIES);
 
   useEffect(() => {
-    requester(serverPaths.CATEGORIES, httpMethods.GET, null, config)
-      .then((res) => {
-        let result = res;
+    if (values) {
+      let result = values;
 
-        if (type === types.EDIT) {
-          result = res.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
-        }
-        setCategories(result);
-      })
-      .catch((err) => console.error(err));
-  }, [config, type]);
+      if (type === types.EDIT) {
+        result = result.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
+      }
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCategories(result);
+    }
+  }, [values, type]);
 
   const getTitle = () => {
     return type === types.CREATE ? "Създай рецепта" : "Редактирай рецептата";

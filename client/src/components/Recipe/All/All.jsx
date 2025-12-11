@@ -42,7 +42,7 @@ export default function All() {
           setCurrentPage(newPage);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err.message));
   }, [config, categoryId, currentPage]);
 
   const paginationHandler = (direction) => {

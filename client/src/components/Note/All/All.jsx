@@ -23,7 +23,7 @@ export default function AllNotes() {
           payload: res,
         });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err.message));
   }, [config]);
 
   const createHandler = useCallback((note) => {

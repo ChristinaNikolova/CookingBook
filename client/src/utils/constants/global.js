@@ -25,7 +25,7 @@ export const serverPaths = {
 };
 
 export const ids = {
-  DEFAULT_CATEGORY_ID: "69345bbbc89e9bd851506c91",
+  DEFAULT_CATEGORY_ID: "693a462e0ee395ed31601d2d",
 };
 
 export const types = {

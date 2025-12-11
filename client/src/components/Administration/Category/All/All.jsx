@@ -34,7 +34,7 @@ export default function AllCategories() {
         const normalizedCategories = data.map(res, "pending", false);
         setCategories(normalizedCategories);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err.message));
   }, [config]);
 
   const deleteHandler = useCallback(
@@ -59,7 +59,7 @@ export default function AllCategories() {
         );
         setCategories((state) => state.filter((x) => x.id !== categoryId));
       } catch (err) {
-        console.error(err);
+        console.error(err.message);
       }
     },
     [config, dispatchOptimisticCategories]
