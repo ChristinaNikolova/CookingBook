@@ -75,7 +75,9 @@ export default function FormRecipe({
 
   return (
     <section id="form-recipe" className="section-form">
-      {serverError && <ServerError error={serverError} />}
+      {serverError.message && (
+        <ServerError error={serverError.message} key={serverError.time} />
+      )}
       <h2 ref={formRef} className="form-title">
         {getTitle()}
       </h2>

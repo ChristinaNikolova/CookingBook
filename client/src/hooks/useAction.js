@@ -14,7 +14,10 @@ export default function useAction() {
   const execute = useCallback(
     async (url, method = httpMethods.GET, data = null) => {
       setValues(null);
-      setServerError("");
+      setServerError({
+        message: "",
+        time: Date.now(),
+      });
 
       if (abortRef.current) {
         abortRef.current.abort();
@@ -39,8 +42,12 @@ export default function useAction() {
         return result;
       } catch (err) {
         if (err.name !== "AbortError") {
-          console.error(err.message);
-          setServerError(err.message);
+          if (isActiveRef.current) {
+            setServerError({
+              message: err.message,
+              time: Date.now(),
+            });
+          }
         }
         throw err;
       }
