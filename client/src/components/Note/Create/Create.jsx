@@ -29,7 +29,7 @@ export default function CreateNote({ onCreate }) {
 
   return (
     <section className="section-form">
-      {serverError && <ServerError error={serverError} />}
+      {serverError.message && <ServerError error={serverError.message} />}
       <h2 ref={formRef} className="form-title">
         Добави бележка
       </h2>

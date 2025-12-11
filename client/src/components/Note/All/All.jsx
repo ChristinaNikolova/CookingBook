@@ -5,7 +5,6 @@ import CreateNote from "../Create/Create";
 import NoteItem from "../NoteItem/NoteItem";
 import NoContent from "../../NoContent/NoContent";
 import Info from "../Info/Info";
-import ServerError from "../../shared/ServerError/ServerError";
 import Loader from "../../Loader/Loader";
 import { noteReducer } from "../../../utils/reducers/note";
 import { httpMethods, serverPaths } from "../../../utils/constants/global";
@@ -15,15 +14,13 @@ export default function AllNotes() {
   const [notes, dispatch] = useReducer(noteReducer, []);
 
   const { values: result, loading } = useFetch([], serverPaths.NOTES);
-  const { execute, serverError } = useAction();
+  const { execute } = useAction();
 
   useEffect(() => {
-    if (result.length) {
-      dispatch({
-        type: "ALL",
-        payload: result,
-      });
-    }
+    dispatch({
+      type: "ALL",
+      payload: result,
+    });
   }, [result]);
 
   const createHandler = useCallback((note) => {
@@ -60,7 +57,6 @@ export default function AllNotes() {
     <section id="notes">
       <h2 className={styles["notes-title"]}>Моите бележки</h2>
       <Info />
-      {serverError && <ServerError error={serverError} />}
       <CreateNote onCreate={createHandler} />
       {!notes.length && <NoContent title="бележки" />}
       <ul className={styles["notes-list"]}>
