@@ -40,7 +40,6 @@ export default function Details() {
         "isReady",
         false
       );
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRecipe({
         ...result,
         ingredients: normalizedIngredients,

@@ -15,7 +15,6 @@ export default function useFetch(
 
   useEffect(() => {
     let isActive = true;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     const abortController = new AbortController();
 

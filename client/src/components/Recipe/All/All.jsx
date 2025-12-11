@@ -28,7 +28,6 @@ export default function All() {
 
   useEffect(() => {
     if (result.recipes) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRecipes(result.recipes);
       setPagesCount(result.pagesCount);
 

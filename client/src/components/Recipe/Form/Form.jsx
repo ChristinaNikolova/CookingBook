@@ -41,7 +41,7 @@ export default function FormRecipe({
       if (type === types.EDIT) {
         result = result.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
       }
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setCategories(result);
     }
   }, [values, type]);

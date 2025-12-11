@@ -62,8 +62,6 @@ export default function EditRecipe() {
         image: result.image,
         isBabySafe: result.isBabySafe,
       });
-
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrentImage(image.getImageUrl(result.image));
       setInstructions(result.instructions.map((x) => x.description));
       setIngredients(result.ingredients.map((x) => x.description));

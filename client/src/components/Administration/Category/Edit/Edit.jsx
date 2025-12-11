@@ -43,8 +43,6 @@ export default function EditCategory() {
   useEffect(() => {
     if (result.name) {
       setValues(result);
-      // todo add general rule???
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrentImage(image.getImageUrl(result.image));
     }
   }, [result, setValues]);

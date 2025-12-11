@@ -29,7 +29,6 @@ export default function AllRecipes() {
   useEffect(() => {
     if (result.length) {
       const normalizedRecipes = data.map(result, "pending", false);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRecipes(normalizedRecipes);
     }
   }, [result]);

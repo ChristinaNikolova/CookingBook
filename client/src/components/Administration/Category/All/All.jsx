@@ -37,7 +37,6 @@ export default function AllCategories() {
   useEffect(() => {
     if (result) {
       const normalizedCategories = data.map(result, "pending", false);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCategories(normalizedCategories);
     }
   }, [result]);
