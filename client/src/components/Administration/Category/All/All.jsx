@@ -16,9 +16,6 @@ import { data } from "../../../../utils/helpers/data";
 import { httpMethods, serverPaths } from "../../../../utils/constants/global";
 import styles from "./All.module.css";
 
-// todo final test
-// todo add lines
-
 export default function AllCategories() {
   const [categories, setCategories] = useState([]);
   const [optimisticCategories, dispatchOptimisticCategories] = useOptimistic(
@@ -26,11 +23,11 @@ export default function AllCategories() {
     categoryReducer
   );
 
+  const { execute } = useAction();
   const { values: result, loading } = useFetch(
     [],
     serverPaths.ADMIN_CATEGORIES
   );
-  const { execute } = useAction();
 
   useEffect(() => {
     if (result.length) {

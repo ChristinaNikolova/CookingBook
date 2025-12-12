@@ -34,11 +34,11 @@ export default function EditCategory() {
     setValues,
   } = useForm(editHandler, "category", initialValues, formRef);
 
+  const { execute, serverError } = useAction();
   const { values: result, loading } = useFetch(
     initialValues,
     `${serverPaths.ADMIN_CATEGORIES}/${id}`
   );
-  const { execute, serverError } = useAction();
 
   useEffect(() => {
     if (result.name) {

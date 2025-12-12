@@ -23,8 +23,8 @@ export default function AllRecipes() {
     recipesReducer
   );
 
-  const { values: result, loading } = useFetch([], serverPaths.ADMIN_RECIPES);
   const { execute } = useAction();
+  const { values: result, loading } = useFetch([], serverPaths.ADMIN_RECIPES);
 
   useEffect(() => {
     if (result.length) {

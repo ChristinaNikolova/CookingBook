@@ -43,7 +43,7 @@ const AllRecipes = lazy(() =>
   import("./components/Administration/Recipe/All/All")
 );
 
-function App() {
+export default function App() {
   const { pathname } = useLocation();
 
   const isHome = () => {
@@ -144,5 +144,3 @@ function App() {
     </AuthProvider>
   );
 }
-
-export default App;
