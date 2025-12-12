@@ -1,6 +1,6 @@
 import usePersistedState from "../hooks/usePersistedState";
-import { emails } from "../utils/constants/global";
 import { AuthContext } from "./authContext";
+import { emails } from "../utils/constants/global";
 
 export default function AuthProvider({ children }) {
   const [authToken, setAuthToken] = usePersistedState("authToken", "");

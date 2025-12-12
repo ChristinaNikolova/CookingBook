@@ -1,18 +1,18 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import useConfigToken from "./useConfigToken";
 import requester from "../utils/helpers/requester";
-import { httpMethods } from "../utils/constants/global";
 
 export default function useAction() {
+  const abortRef = useRef(null);
+  const isActiveRef = useRef(true);
+
   const [values, setValues] = useState(null);
   const [serverError, setServerError] = useState("");
 
   const config = useConfigToken();
-  const abortRef = useRef(null);
-  const isActiveRef = useRef(true);
 
   const execute = useCallback(
-    async (url, method = httpMethods.GET, data = null) => {
+    async (url, method, data = null) => {
       setValues(null);
       setServerError({
         message: "",

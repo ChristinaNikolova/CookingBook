@@ -18,8 +18,7 @@ export default function All() {
   const [recipes, setRecipes] = useState([]);
   const [pagesCount, setPagesCount] = useState(1);
 
-  useTop();
-
+  useTop(setSearchParams);
   const { values: result, loading } = useFetch(
     {},
     `${serverPaths.RECIPES_CATEGORY}/${categoryId}/${currentPage}`
@@ -34,8 +33,11 @@ export default function All() {
 
   const paginationHandler = (direction) => {
     const value = direction === directions.PREV ? -1 : 1;
-    const nextPage = currentPage + value;
-    setSearchParams({ page: nextPage });
+    setSearchParams({ page: currentPage + value });
+  };
+
+  const isContent = () => {
+    return recipes.length;
   };
 
   if (loading) {
@@ -45,7 +47,7 @@ export default function All() {
   return (
     <section id="recipes">
       <ListWrapper title={categoryName}>
-        {!recipes.length ? (
+        {!isContent() ? (
           <NoContent title="рецепти" path="/recipe/create" />
         ) : (
           recipes.map((x) => (
@@ -58,13 +60,15 @@ export default function All() {
           ))
         )}
       </ListWrapper>
-      <Pagination
-        currentPage={currentPage}
-        pagesCount={pagesCount}
-        categoryId={categoryId}
-        categoryName={categoryName}
-        onClick={paginationHandler}
-      />
+      {isContent() && (
+        <Pagination
+          currentPage={currentPage}
+          pagesCount={pagesCount}
+          categoryId={categoryId}
+          categoryName={categoryName}
+          onClick={paginationHandler}
+        />
+      )}
     </section>
   );
 }

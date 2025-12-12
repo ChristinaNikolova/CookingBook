@@ -3,14 +3,10 @@ import useConfigToken from "./useConfigToken";
 import requester from "../utils/helpers/requester";
 import { httpMethods } from "../utils/constants/global";
 
-export default function useFetch(
-  initialValue,
-  url,
-  method = httpMethods.GET,
-  data = null
-) {
+export default function useFetch(initialValue, url) {
   const [values, setValues] = useState(initialValue);
   const [loading, setLoading] = useState(true);
+
   const config = useConfigToken();
 
   useEffect(() => {
@@ -18,7 +14,7 @@ export default function useFetch(
     setLoading(true);
     const abortController = new AbortController();
 
-    requester(url, method, data, config, abortController.signal)
+    requester(url, httpMethods.GET, null, config, abortController.signal)
       .then((res) => {
         if (!isActive) {
           return;
@@ -40,7 +36,7 @@ export default function useFetch(
       isActive = false;
       abortController.abort();
     };
-  }, [url, method, data, config]);
+  }, [url, config]);
 
   return { values, loading };
 }
