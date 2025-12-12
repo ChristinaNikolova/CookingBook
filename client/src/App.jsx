@@ -17,7 +17,7 @@ import EditRecipe from "./components/Recipe/Edit/Edit";
 import AllNotes from "./components/Note/All/All";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
-import Logout from "./components/Logout/Logout";
+import Logout from "./components/Auth/Logout/Logout";
 import Loader from "./components/Loader/Loader";
 import NotFound from "./components/NotFound/NotFound";
 

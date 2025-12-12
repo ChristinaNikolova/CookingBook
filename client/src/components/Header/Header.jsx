@@ -5,9 +5,10 @@ import styles from "./Header.module.css";
 
 export default function Header({ isHome }) {
   const { isAuthenticated, isAdmin, user } = useAuthContext();
+  const navigate = useNavigate();
+
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
 
   const toogleSearch = () => {
     setShowSearch((state) => !state);
@@ -59,7 +60,6 @@ export default function Header({ isHome }) {
               Начало
             </NavLink>
           </li>
-
           {isAdmin && (
             <li className="header-ul-li">
               <NavLink to="/admin" className={isActiveLink}>
@@ -67,7 +67,6 @@ export default function Header({ isHome }) {
               </NavLink>
             </li>
           )}
-
           {isAuthenticated ? (
             <>
               <li className="header-ul-li">

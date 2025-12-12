@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-import useAuthContext from "../../hooks/useAuthContext";
-import Loader from "../Loader/Loader";
-import { serverPaths } from "../../utils/constants/global";
+import useFetch from "../../../hooks/useFetch";
+import useAuthContext from "../../../hooks/useAuthContext";
+import Loader from "../../Loader/Loader";
+import { serverPaths } from "../../../utils/constants/global";
 
 export default function Logout() {
   const { userAuth } = useAuthContext();
