@@ -15,9 +15,12 @@ async function all() {
   return (await Recipe.find({}).sort({ title: 1 })).map(recipeAdminViewModel);
 }
 
-async function searchByTitle(query) {
+async function searchByTitle(query, userId) {
   return (
-    await Recipe.find({ title: { $regex: query, $options: "i" } }).sort({
+    await Recipe.find({
+      title: { $regex: query, $options: "i" },
+      author: new ObjectId(userId),
+    }).sort({
       title: 1,
     })
   ).map(recipeSlimViewModel);

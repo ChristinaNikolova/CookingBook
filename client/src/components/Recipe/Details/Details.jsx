@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useTop from "../../../hooks/useTop";
+import useFetch from "../../../hooks/useFetch";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useAction from "../../../hooks/useAction";
 import Button from "../../shared/Button/Button";
@@ -10,20 +11,19 @@ import { image } from "../../../utils/helpers/image";
 import { data } from "../../../utils/helpers/data";
 import { httpMethods, serverPaths } from "../../../utils/constants/global";
 import styles from "./Details.module.css";
-import useFetch from "../../../hooks/useFetch";
 
 export default function Details() {
   const { recipeId: id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
+
   const [recipe, setRecipe] = useState({});
   const [isFav, setIsFav] = useState(false);
   const [neededIngredients, setNeededIngredients] = useState([]);
 
-  const navigate = useNavigate();
-  const { user } = useAuthContext();
   useTop();
-
-  const { values: result } = useFetch({}, `${serverPaths.RECIPES}/${id}`);
   const { execute } = useAction();
+  const { values: result } = useFetch({}, `${serverPaths.RECIPES}/${id}`);
 
   const categoryName = recipe?.category?.name;
   const categoryId = recipe?.category?._id;

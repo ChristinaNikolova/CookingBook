@@ -95,7 +95,8 @@ router.get("/byCategory/:id/:page", hasUser(), async (req, res) => {
 router.get("/searched/:query", hasUser(), async (req, res) => {
   try {
     const query = req.params.query;
-    const recipes = await searchByTitle(query);
+    const userId = req.user._id;
+    const recipes = await searchByTitle(query, userId);
     res.json(recipes);
   } catch (error) {
     const message = mapErrors(error);
