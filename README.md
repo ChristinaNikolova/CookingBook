@@ -10,6 +10,7 @@ Experimental full-stack app for exploring React 19 capabilities and advanced pat
 - Module CSS
 
 **Backend:**
+- Node.js
 - Express 
 - MongoDB + Mongoose
 
