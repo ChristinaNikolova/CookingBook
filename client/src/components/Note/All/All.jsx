@@ -13,8 +13,8 @@ import styles from "./All.module.css";
 export default function AllNotes() {
   const [notes, dispatch] = useReducer(noteReducer, []);
 
-  const { values: result, loading } = useFetch([], serverPaths.NOTES);
   const { execute } = useAction();
+  const { values: result, loading } = useFetch([], serverPaths.NOTES);
 
   useEffect(() => {
     dispatch({
@@ -33,11 +33,7 @@ export default function AllNotes() {
   const deleteHandler = useCallback(
     async (noteId) => {
       try {
-        await execute(
-          `${serverPaths.NOTES}/${noteId}`,
-          httpMethods.DELETE,
-          null
-        );
+        await execute(`${serverPaths.NOTES}/${noteId}`, httpMethods.DELETE);
         dispatch({
           type: "DELETE",
           payload: noteId,

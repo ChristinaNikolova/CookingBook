@@ -51,7 +51,7 @@ export default function Details() {
 
   const deleteHandler = useCallback(async () => {
     try {
-      await execute(`${serverPaths.RECIPES}/${id}`, httpMethods.DELETE, null);
+      await execute(`${serverPaths.RECIPES}/${id}`, httpMethods.DELETE);
       navigate(`/recipe/${categoryName}/${categoryId}`);
     } catch (err) {
       console.error(err.message);
@@ -62,8 +62,7 @@ export default function Details() {
     try {
       const result = await execute(
         `${serverPaths.RECIPES}/${id}`,
-        httpMethods.POST,
-        null
+        httpMethods.POST
       );
       setIsFav(result);
     } catch (err) {
