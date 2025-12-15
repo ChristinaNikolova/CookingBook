@@ -1,4 +1,5 @@
 import useFetch from "../../../hooks/useFetch";
+import { getTranslations } from "../../../utils/i18n";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import Loader from "../../Loader/Loader";
@@ -7,6 +8,7 @@ import { ids, serverPaths } from "../../../utils/constants/global";
 
 export default function Categories() {
   const { values: result, loading } = useFetch([], serverPaths.CATEGORIES);
+  const t = getTranslations();
 
   const categories = result.filter((x) => x.id !== ids.DEFAULT_CATEGORY_ID);
 
@@ -16,7 +18,7 @@ export default function Categories() {
 
   return (
     <section id="categories">
-      <ListWrapper title="Категории">
+      <ListWrapper title={t.categories}>
         {categories.map((x) => (
           <CategoryItem
             key={x.id}

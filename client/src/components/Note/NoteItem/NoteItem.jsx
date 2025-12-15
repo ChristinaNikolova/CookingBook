@@ -1,7 +1,10 @@
 import { memo } from "react";
+import { getTranslations } from "../../../utils/i18n";
 import styles from "./NoteItem.module.css";
 
 function NoteItem({ id, description, isList, onDelete }) {
+  const t = getTranslations();
+  
   return (
     <li className={styles["note-item"]}>
       <i className="fa-regular fa-note-sticky"></i>
@@ -14,7 +17,7 @@ function NoteItem({ id, description, isList, onDelete }) {
       {!isList && <span>{description}</span>}
       <i
         className="fa-solid fa-xmark"
-        title="Изтрий"
+        title={t.delete}
         onClick={() => onDelete(id)}
       ></i>
     </li>

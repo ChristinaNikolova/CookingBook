@@ -1,14 +1,17 @@
 import ButtonLink from "../shared/ButtonLink/ButtonLink";
+import { getTranslations } from "../../utils/i18n";
 import styles from "./NotFound.module.css";
 
 export default function NotFound() {
+  const t = getTranslations();
+  
   return (
     <section id={styles["not-found"]}>
-      <h2 className={styles["not-found-title"]}>404</h2>
+      <h2 className={styles["not-found-title"]}>{t.notFoundTitle}</h2>
       <p className={styles["not-found-content"]}>
-        Страницата, която търсите, не съществува!
+        {t.notFoundMessage}
       </p>
-      <ButtonLink path="/" text="Начало" />
+      <ButtonLink path="/" text={t.home} />
     </section>
   );
 }

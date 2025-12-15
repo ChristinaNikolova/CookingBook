@@ -1,3 +1,4 @@
+import { getTranslations } from "../../../../utils/i18n";
 import Button from "../../../shared/Button/Button";
 import CustomInput from "../../../shared/CustomInput/CustomInput";
 import ImagePreview from "../../../shared/ImagePreview/ImagePreview";
@@ -15,24 +16,26 @@ export default function FormCategory({
   fieldHandler,
   backHandler,
 }) {
+  const t = getTranslations();
+  
   const getTitle = () => {
     return type === types.CREATE
-      ? "Създай нова категория"
-      : "Редактирай категория";
+      ? t.createNewCategory
+      : t.editCategory;
   };
 
   const getButtons = () => {
     if (type === types.CREATE) {
       return (
-        <Button text="Създай категория" type="submit" disabled={disabled} />
+        <Button text={t.createCategory} type="submit" disabled={disabled} />
       );
     }
 
     return (
       <div className="form-btns-wrapper">
-        <Button text="Запази промените" type="submit" disabled={disabled} />
+        <Button text={t.saveChanges} type="submit" disabled={disabled} />
         <Button
-          text="Затвори"
+          text={t.close}
           type="button"
           disabled={false}
           onClick={backHandler}
@@ -51,28 +54,28 @@ export default function FormCategory({
       </h2>
       <form className="form" action={submitHandler}>
         <CustomInput
-          label="Име"
+          label={t.name}
           error={errors.name}
           {...fieldHandler("name")}
         />
         <CustomInput
           tag="textarea"
-          label="Описание"
+          label={t.description}
           error={errors.description}
           {...fieldHandler("description")}
         />
         {type === types.CREATE && currentImage && (
           <CustomInput
-            label="Текущо изображение"
+            label={t.currentImage}
             value={currentImage.name}
             disabled
           />
         )}
         {type === types.EDIT && currentImage && (
-          <ImagePreview name="Текущо изображение" currentImage={currentImage} />
+          <ImagePreview name={t.currentImage} currentImage={currentImage} />
         )}
         <CustomInput
-          label="Изображение"
+          label={t.image}
           type="file"
           error={errors.image}
           {...fieldHandler("image")}

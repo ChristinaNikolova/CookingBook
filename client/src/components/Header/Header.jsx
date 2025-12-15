@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import useAuthContext from "../../hooks/useAuthContext";
+import { getTranslations } from "../../utils/i18n";
 import styles from "./Header.module.css";
 
 export default function Header({ isHome }) {
   const { isAuthenticated, isAdmin, user } = useAuthContext();
   const navigate = useNavigate();
+  const t = getTranslations();
 
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -57,13 +59,13 @@ export default function Header({ isHome }) {
         <ul className={getLinkColor()}>
           <li className="header-ul-li">
             <NavLink to="/" className={isActiveLink}>
-              Начало
+              {t.home}
             </NavLink>
           </li>
           {isAdmin && (
             <li className="header-ul-li">
               <NavLink to="/admin" className={isActiveLink}>
-                Администрация
+                {t.admin}
               </NavLink>
             </li>
           )}
@@ -71,22 +73,22 @@ export default function Header({ isHome }) {
             <>
               <li className="header-ul-li">
                 <NavLink to="/recipe/categories" className={isActiveLink}>
-                  Рецепти
+                  {t.recipes}
                 </NavLink>
               </li>
               <li className="header-ul-li">
                 <NavLink to="/recipe/favourites" className={isActiveLink}>
-                  Любими
+                  {t.favourites}
                 </NavLink>
               </li>
               <li className="header-ul-li">
                 <NavLink to="/notes" className={isActiveLink}>
-                  Бележки
+                  {t.notes}
                 </NavLink>
               </li>
               <li className="header-ul-li">
                 <NavLink to="/auth/logout" className={isActiveLink}>
-                  Изход,
+                  {t.logout},
                   <span className={styles["header-email"]}>{user.email}</span>
                 </NavLink>
               </li>
@@ -95,12 +97,12 @@ export default function Header({ isHome }) {
             <>
               <li className="header-ul-li">
                 <NavLink to="/auth/login" className={isActiveLink}>
-                  Вход
+                  {t.login}
                 </NavLink>
               </li>
               <li className="header-ul-li">
                 <NavLink to="/auth/register" className={isActiveLink}>
-                  Регистрация
+                  {t.register}
                 </NavLink>
               </li>
             </>
@@ -120,7 +122,7 @@ export default function Header({ isHome }) {
             />
             {showSearch && (
               <button className={getButtonColor()} type="submit">
-                Търси
+                {t.search}
               </button>
             )}
           </form>
@@ -128,13 +130,13 @@ export default function Header({ isHome }) {
             <i
               onClick={toogleSearch}
               className={`fa-solid fa-xmark ${getButtonColor()}`}
-              title="Затвори"
+              title={t.close}
             ></i>
           ) : (
             <i
               onClick={toogleSearch}
               className={`fa-solid fa-magnifying-glass ${getButtonColor()}`}
-              title="Търси рецепта"
+              title={t.searchRecipe}
             ></i>
           )}
         </nav>

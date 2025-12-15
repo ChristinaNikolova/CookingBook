@@ -1,4 +1,5 @@
 import useFetch from "../../../hooks/useFetch";
+import { getTranslations } from "../../../utils/i18n";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import NoContent from "../../NoContent/NoContent";
@@ -8,6 +9,7 @@ import { serverPaths } from "../../../utils/constants/global";
 
 export default function LastThree() {
   const { values: lastThreeRecipes, loading } = useFetch([], serverPaths.USERS);
+  const t = getTranslations();
 
   if (loading) {
     return <Loader />;
@@ -15,9 +17,9 @@ export default function LastThree() {
 
   return (
     <section id="last-three">
-      <ListWrapper title="Последно добавени рецепти">
+      <ListWrapper title={t.lastAddedRecipes}>
         {!lastThreeRecipes.length ? (
-          <NoContent title="Последно добавени" path="/recipe/create" />
+          <NoContent title={t.lastAdded} path="/recipe/create" />
         ) : (
           lastThreeRecipes.map((x) => (
             <RecipeItem

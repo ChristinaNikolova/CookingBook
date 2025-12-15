@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import useForm from "../../../hooks/useForm";
 import useAction from "../../../hooks/useAction";
+import { getTranslations } from "../../../utils/i18n";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import ServerError from "../../shared/ServerError/ServerError";
@@ -12,6 +13,7 @@ const initialValues = {
 
 export default function CreateNote({ onCreate }) {
   const formRef = useRef();
+  const t = getTranslations();
 
   const { execute, serverError } = useAction();
   const { fieldHandler, submitHandler, errors, disabledForm, setValues } =
@@ -33,17 +35,17 @@ export default function CreateNote({ onCreate }) {
         <ServerError error={serverError.message} key={serverError.time} />
       )}
       <h2 ref={formRef} className="form-title">
-        Добави бележка
+        {t.addNote}
       </h2>
       <form className="form" action={submitHandler}>
         <CustomInput
           tag="textarea"
-          label="Описание"
+          label={t.description}
           rows={5}
           error={errors.description}
           {...fieldHandler("description")}
         />
-        <Button text="Добави бележка" type="submit" disabled={disabledForm()} />
+        <Button text={t.addNote} type="submit" disabled={disabledForm()} />
       </form>
     </section>
   );

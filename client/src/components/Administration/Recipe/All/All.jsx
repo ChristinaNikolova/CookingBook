@@ -7,6 +7,7 @@ import {
 } from "react";
 import useFetch from "../../../../hooks/useFetch";
 import useAction from "../../../../hooks/useAction";
+import { getTranslations } from "../../../../utils/i18n";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
 import NoContent from "../../../NoContent/NoContent";
@@ -22,6 +23,7 @@ export default function AllRecipes() {
     recipes,
     recipesReducer
   );
+  const t = getTranslations();
 
   const { execute } = useAction();
   const { values: result, loading } = useFetch([], serverPaths.ADMIN_RECIPES);
@@ -64,12 +66,12 @@ export default function AllRecipes() {
   }
 
   if (!recipes.length) {
-    return <NoContent title="рецепти" path="/recipe/create" />;
+    return <NoContent title={t.recipesLower} path="/recipe/create" />;
   }
 
   return (
     <section id={styles["admin-all-categories"]}>
-      <ListWrapper title="Рецепти">
+      <ListWrapper title={t.recipes}>
         {optimisticRecipes.map((x) => (
           <ListItem
             key={x.id}
