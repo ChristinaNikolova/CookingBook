@@ -4,6 +4,7 @@ import useTop from "../../../hooks/useTop";
 import useFetch from "../../../hooks/useFetch";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useAction from "../../../hooks/useAction";
+import { getTranslations } from "../../../utils/i18n";
 import Button from "../../shared/Button/Button";
 import ButtonLink from "../../shared/ButtonLink/ButtonLink";
 import Loader from "../../Loader/Loader";
@@ -16,6 +17,7 @@ export default function Details() {
   const { recipeId: id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  const t = getTranslations();
 
   const [recipe, setRecipe] = useState({});
   const [isFav, setIsFav] = useState(false);
@@ -115,8 +117,8 @@ export default function Details() {
 
   const getIconTitle = (ingredientId) => {
     return neededIngredients.includes(ingredientId)
-      ? "Махни от списъка за пазаруване"
-      : "Добави в списъка за пазаруване";
+      ? t.removeFromShoppingList
+      : t.addToShoppingList;
   };
 
   const getIcon = (ingredientId) => {
@@ -142,34 +144,34 @@ export default function Details() {
             {isFav ? (
               <i
                 className="fa-solid fa-heart"
-                title="Премахни от любими"
+                title={t.removeFromFavourites}
                 onClick={likeHandler}
               ></i>
             ) : (
               <i
                 className="fa-regular fa-heart"
-                title="Добави в любими"
+                title={t.addToFavourites}
                 onClick={likeHandler}
               ></i>
             )}
           </div>
           <ul className={styles["details-top-icon-list"]}>
             <li className={styles["details-top-icon-item"]}>
-              <i className="fa-solid fa-users" title="Брой порции"></i>
+              <i className="fa-solid fa-users" title={t.portions}></i>
               {recipe.portions}
             </li>
             <li className={styles["details-top-icon-item"]}>
-              <i className="fa-solid fa-clock" title="Необходимо време"></i>
+              <i className="fa-solid fa-clock" title={t.neededTime}></i>
               {recipe.neededTime}
             </li>
             {recipe.isBabySafe && (
               <li className={styles["details-top-icon-item"]}>
-                <i className="fa-solid fa-baby" title="Подходящо за бебе"></i>
-                Подходящо за бебета
+                <i className="fa-solid fa-baby" title={t.suitableForBaby}></i>
+                {t.suitableForBabies}
               </li>
             )}
             <li className={styles["details-top-icon-item"]}>
-              <i className="fa-solid fa-list" title="Категория"></i>
+              <i className="fa-solid fa-list" title={t.category}></i>
               <Link
                 to={`/recipe/${recipe?.category?.name}/${recipe?.category?._id}`}
               >
@@ -184,7 +186,7 @@ export default function Details() {
           <p className={styles["details-top-summary"]}>{recipe.summary}</p>
           <div className={styles["details-top-ingredients-wrapper"]}>
             <h4 className={styles["details-top-ingredients-title"]}>
-              Необходими продукти
+              {t.neededProducts}
             </h4>
             <ul className={styles["details-top-ingredients-list"]}>
               {recipe.ingredients.map((x) => (
@@ -207,7 +209,7 @@ export default function Details() {
             </ul>
           </div>
           <Button
-            text="Създай бележка за пазаруване"
+            text={t.createShoppingNote}
             disabled={false}
             onClick={createNoteHandler}
           />
@@ -215,7 +217,7 @@ export default function Details() {
       </div>
 
       <div className={styles["details-bottom-wrapper"]}>
-        <h3 className={styles["details-bottom-title"]}>Стъпки за приготвяне</h3>
+        <h3 className={styles["details-bottom-title"]}>{t.preparationSteps}</h3>
         {recipe.instructions.map((x, i) => (
           <p
             key={x._id}
@@ -224,7 +226,7 @@ export default function Details() {
             }`}
             onClick={() => toogleHandler(x._id)}
           >
-            <span>{`Стъпка ${i + 1}`}</span>
+            <span>{`${t.step} ${i + 1}`}</span>
             {x.description}
           </p>
         ))}
@@ -232,8 +234,8 @@ export default function Details() {
 
       {isOwner() && (
         <div className={styles["details-buttons-wrapper"]}>
-          <ButtonLink path={`/recipe/edit/${id}`} text="Редактирай" />
-          <Button text="Изтрий" disabled={false} onClick={deleteHandler} />
+          <ButtonLink path={`/recipe/edit/${id}`} text={t.edit} />
+          <Button text={t.delete} disabled={false} onClick={deleteHandler} />
         </div>
       )}
     </section>

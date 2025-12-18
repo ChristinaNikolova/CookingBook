@@ -1,9 +1,11 @@
 import { Outlet, useLocation } from "react-router-dom";
 import ButtonLink from "../../shared/ButtonLink/ButtonLink";
+import { getTranslations } from "../../../utils/i18n";
 import styles from "./Jumbo.module.css";
 
 export default function Jumbo() {
   const { pathname } = useLocation();
+  const t = getTranslations();
 
   const disabledButton = (path) => {
     return path === pathname;
@@ -11,26 +13,26 @@ export default function Jumbo() {
 
   return (
     <section id={styles["admin-jumbo"]} className="section">
-      <h1 className={styles["admin-jumbo-title"]}>Администрация</h1>
+      <h1 className={styles["admin-jumbo-title"]}>{t.admin}</h1>
       <ul className={styles["admin-jumbo-ul"]}>
         <li className={styles["admin-jumbo-li"]}>
           <ButtonLink
             path="/admin/category/all"
-            text="Категории"
+            text={t.categories}
             disabled={disabledButton("/admin/category/all")}
           />
         </li>
         <li className={styles["admin-jumbo-li"]}>
           <ButtonLink
             path="/admin/category/create"
-            text="Създай Категория"
+            text={t.createCategory}
             disabled={disabledButton("/admin/category/create")}
           />
         </li>
         <li className={styles["admin-jumbo-li"]}>
           <ButtonLink
             path="/admin/recipe/all"
-            text="Рецепти"
+            text={t.recipes}
             disabled={disabledButton("/admin/recipe/all")}
           />
         </li>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import useTop from "../../../hooks/useTop";
+import { getTranslations } from "../../../utils/i18n";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import NoContent from "../../NoContent/NoContent";
@@ -14,6 +15,7 @@ export default function All() {
   const { categoryName, categoryId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get("page") ?? 1);
+  const t = getTranslations();
 
   const [recipes, setRecipes] = useState([]);
   const [pagesCount, setPagesCount] = useState(1);
@@ -48,7 +50,7 @@ export default function All() {
     <section id="recipes">
       <ListWrapper title={categoryName}>
         {!isContent() ? (
-          <NoContent title="рецепти" path="/recipe/create" />
+          <NoContent title={t.recipesLower} path="/recipe/create" />
         ) : (
           recipes.map((x) => (
             <RecipeItem

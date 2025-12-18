@@ -7,6 +7,7 @@ import {
 } from "react";
 import useFetch from "../../../../hooks/useFetch";
 import useAction from "../../../../hooks/useAction";
+import { getTranslations } from "../../../../utils/i18n";
 import ListWrapper from "../../ListWrapper/ListWrapper";
 import ListItem from "../../ListItem/ListItem";
 import NoContent from "../../../NoContent/NoContent";
@@ -22,6 +23,7 @@ export default function AllCategories() {
     categories,
     categoryReducer
   );
+  const t = getTranslations();
 
   const { execute } = useAction();
   const { values: result, loading } = useFetch(
@@ -67,12 +69,12 @@ export default function AllCategories() {
   }
 
   if (!categories.length) {
-    return <NoContent title="категории" path="/admin/category/create" />;
+    return <NoContent title={t.categoriesLower} path="/admin/category/create" />;
   }
 
   return (
     <section id={styles["admin-all-categories"]}>
-      <ListWrapper title="Категории">
+      <ListWrapper title={t.categories}>
         {optimisticCategories.map((x) => (
           <ListItem
             key={x.id}

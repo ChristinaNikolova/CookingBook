@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import useAction from "../../../hooks/useAction";
 import useAuthContext from "../../../hooks/useAuthContext";
+import { getTranslations } from "../../../utils/i18n";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import Button from "../../shared/Button/Button";
 import ServerError from "../../shared/ServerError/ServerError";
@@ -15,6 +16,7 @@ const initialValues = {
 export default function Login() {
   const navigate = useNavigate();
   const { userAuth } = useAuthContext();
+  const t = getTranslations();
 
   const { execute, serverError } = useAction();
   const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
@@ -38,21 +40,21 @@ export default function Login() {
       {serverError.message && (
         <ServerError error={serverError.message} key={serverError.time} />
       )}
-      <h2 className="form-title">Вход</h2>
+      <h2 className="form-title">{t.login}</h2>
       <form className="form" action={submitHandler}>
         <CustomInput
-          label="Имейл"
+          label={t.email}
           type="email"
           error={errors.email}
           {...fieldHandler("email")}
         />
         <CustomInput
-          label="Парола"
+          label={t.password}
           type="password"
           error={errors.password}
           {...fieldHandler("password")}
         />
-        <Button text="Вход" type="submit" disabled={disabledForm()} />
+        <Button text={t.login} type="submit" disabled={disabledForm()} />
       </form>
     </section>
   );

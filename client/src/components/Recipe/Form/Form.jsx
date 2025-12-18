@@ -1,4 +1,5 @@
 import useFetch from "../../../hooks/useFetch";
+import { getTranslations } from "../../../utils/i18n";
 import Button from "../../shared/Button/Button";
 import CustomInput from "../../shared/CustomInput/CustomInput";
 import CustomSelect from "../../shared/CustomSelect/CustomSelect";
@@ -32,6 +33,7 @@ export default function FormRecipe({
   deleteIngredientHandler,
 }) {
   const { values: result, loading } = useFetch([], serverPaths.CATEGORIES);
+  const t = getTranslations();
 
   const categories =
     type === types.EDIT
@@ -39,20 +41,20 @@ export default function FormRecipe({
       : result;
 
   const getTitle = () => {
-    return type === types.CREATE ? "Създай рецепта" : "Редактирай рецептата";
+    return type === types.CREATE ? t.createRecipe : t.editRecipe;
   };
 
   const getButtons = () => {
     if (type === types.CREATE) {
-      return <Button text="Създай рецепта" type="submit" disabled={disabled} />;
+      return <Button text={t.createRecipe} type="submit" disabled={disabled} />;
     }
 
     return (
       <div className="form-btns-wrapper">
-        <Button text="Запази промените" type="submit" disabled={disabled} />
+        <Button text={t.saveChanges} type="submit" disabled={disabled} />
 
         <Button
-          text="Затвори"
+          text={t.close}
           type="button"
           disabled={false}
           onClick={backHandler}
@@ -75,43 +77,43 @@ export default function FormRecipe({
       </h2>
       <form className="form" action={submitHandler}>
         <CustomInput
-          label="Заглавие"
+          label={t.title}
           error={errors.title}
           {...fieldHandler("title")}
         />
 
         <CustomInput
           tag="textarea"
-          label="Резюме"
+          label={t.summary}
           error={errors.summary}
           {...fieldHandler("summary")}
         />
 
         <CustomInput
-          label="Необходимо време"
+          label={t.neededTime}
           error={errors.neededTime}
           {...fieldHandler("neededTime")}
         />
 
         <CustomInput
-          label="Брой порции"
+          label={t.portions}
           type="number"
           error={errors.portions}
           {...fieldHandler("portions")}
         />
 
         <CustomSelect
-          label="Категория"
+          label={t.category}
           values={categories}
           {...fieldHandler("category")}
         />
 
         <div className={styles["form-recipe-wrapper"]}>
-          <h4 className={styles["form-recipe-title"]}>Инструкции</h4>
+          <h4 className={styles["form-recipe-title"]}>{t.instructions}</h4>
           {instructions.map((instruction, index) => (
             <div key={index} className={styles["form-recipe-input-wrapper"]}>
               <CustomInput
-                label={`Стъпка ${index + 1}`}
+                label={`${t.step} ${index + 1}`}
                 value={instruction}
                 onChange={(e) =>
                   updateInstructionHandler(index, e.target.value)
@@ -122,24 +124,24 @@ export default function FormRecipe({
               <i
                 className="fas fa-times"
                 onClick={() => deleteInstructionHandler(index)}
-                title="Изтрий"
+                title={t.delete}
               />
             </div>
           ))}
           <Button
-            text=" + инструкция"
+            text={t.addInstruction}
             disabled={false}
             onClick={addInputHandlerInstructions}
           />
         </div>
 
         <div className={styles["form-recipe-wrapper"]}>
-          <h4 className={styles["form-recipe-title"]}>Продукти</h4>
+          <h4 className={styles["form-recipe-title"]}>{t.products}</h4>
           {ingredients.map((ingredient, index) => (
             <div key={index} className={styles["form-recipe-input-wrapper"]}>
               <CustomInput
                 key={index}
-                label={`Продукт ${index + 1}`}
+                label={`${t.product} ${index + 1}`}
                 value={ingredient}
                 onChange={(e) => updateIngredientHandler(index, e.target.value)}
                 onBlur={() => validateIngredientHandler(index)}
@@ -148,12 +150,12 @@ export default function FormRecipe({
               <i
                 className="fas fa-times"
                 onClick={() => deleteIngredientHandler(index)}
-                title="Изтрий"
+                title={t.delete}
               />
             </div>
           ))}
           <Button
-            text="+ продукт"
+            text={t.addProduct}
             disabled={false}
             onClick={addInputHandlerIngredients}
           />
@@ -161,25 +163,25 @@ export default function FormRecipe({
 
         {type === types.CREATE && currentImage && (
           <CustomInput
-            label="Текущо изображение"
+            label={t.currentImage}
             value={currentImage.name}
             disabled
           />
         )}
 
         {type === types.EDIT && currentImage && (
-          <ImagePreview name="Текущо изображение" currentImage={currentImage} />
+          <ImagePreview name={t.currentImage} currentImage={currentImage} />
         )}
 
         <CustomInput
-          label="Изображение"
+          label={t.image}
           type="file"
           error={errors.image}
           {...fieldHandler("image")}
         />
 
         <CustomInput
-          label="Подходящо за бебе"
+          label={t.suitableForBaby}
           type="checkbox"
           error={errors.isBabySafe}
           {...fieldHandler("isBabySafe")}

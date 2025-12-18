@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
+import { getTranslations } from "../../../utils/i18n";
 import ListWrapper from "../ListWrapper/ListWrapper";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import NoContent from "../../NoContent/NoContent";
@@ -10,6 +11,7 @@ import { serverPaths } from "../../../utils/constants/global";
 export default function Search() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("searched") || "";
+  const t = getTranslations();
 
   const { values: searchedRecipes, loading } = useFetch(
     [],
@@ -22,10 +24,10 @@ export default function Search() {
 
   return (
     <section id="fav-recipes">
-      <ListWrapper title={`Резултати от търсенето: ${query}`}>
+      <ListWrapper title={`${t.searchResults}: ${query}`}>
         {!searchedRecipes.length ? (
           <NoContent
-            title={`рецепти, съдържащи ${query}`}
+            title={`${t.recipesContaining} ${query}`}
             path="/recipe/create"
           />
         ) : (
